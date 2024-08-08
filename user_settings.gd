@@ -1,5 +1,7 @@
 extends Node
 
+const MENU_DEFS = preload("res://menu_defs.gd")
+
 
 enum PlayAreaMode {
 	ROOMSCALE,
@@ -29,9 +31,17 @@ enum ColorPalette {
 var settings_file_name : String = "user://user_settings.json"
 
 
+var ui_data
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_load()
+	ui_data = get_attr_data()
+	
+func get_attr_data():
+	var menu_defs = MENU_DEFS.new()
+	return menu_defs.ui_attr_data
 
 
 ## Reset to default values

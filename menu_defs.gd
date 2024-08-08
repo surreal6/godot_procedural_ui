@@ -1,7 +1,5 @@
 extends Node
 
-
-
 var ui_attr_data = {
 	"play_area_mode" : {
 		"object" : "UserSettings",
