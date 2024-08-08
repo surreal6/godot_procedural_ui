@@ -16,6 +16,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
+UserSettings="*res://user_settings.gd"
 UIManager="*res://addons/procedural_ui/ui_manager.gd"
 
 [editor_plugins]
