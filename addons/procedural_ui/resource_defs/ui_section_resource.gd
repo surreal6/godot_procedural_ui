@@ -27,30 +27,38 @@ func get_options(object, options_name):
 
 
 func get_ui_section_element() -> Control:
-	var section = Control.new()
-	var vbox = VBoxContainer.new()
-	section.add_child(vbox)
+	#var section = Control.new()
+	#section.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#section.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	#var vbox = VBoxContainer.new()
+	#vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	#vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#section.add_child(vbox)
+	var section = VBoxContainer.new()
+	section.alignment = BoxContainer.ALIGNMENT_CENTER
+	section.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	#section.add_child(vbox)
 	get_elements_data()
 	for attr in elements_data:
 		if elements_data[attr].type == "bool":
 			var resource = generate_boolean_resource(attr)
 			var element = resource.get_ui_element()
-			vbox.add_child(element)
+			section.add_child(element)
 			elements_array.append(resource)
 		if elements_data[attr].type == "float":
 			var resource = generate_float_resource(attr)
 			var element = resource.get_ui_element()
-			vbox.add_child(element)
+			section.add_child(element)
 			elements_array.append(resource)
 		if elements_data[attr].type == "int":
 			var resource = generate_int_resource(attr)
 			var element = resource.get_ui_element()
-			vbox.add_child(element)
+			section.add_child(element)
 			elements_array.append(resource)
 		if elements_data[attr].type == "options":
 			var resource = generate_options_resource(attr)
 			var element = resource.get_ui_element()
-			vbox.add_child(element)
+			section.add_child(element)
 			elements_array.append(resource)
 	section.visibility_changed.connect(_update_ui_section_element)
 	return section

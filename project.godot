@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 UserSettings="*res://user_settings.gd"
 UIManager="*res://addons/procedural_ui/ui_manager.gd"
 
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/procedural_ui/plugin.cfg")

@@ -2,11 +2,48 @@
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_ral1r"]
 
-[node name="main_menu" type="Control"]
-layout_mode = 3
+[node name="main_menu" type="MarginContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 420.0
+offset_right = -420.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100
 script = ExtResource("1_ral1r")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0, 0, 0, 0.501961)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="HBoxContainer/CenterContainer"]
+layout_mode = 2
+text = "label"
+
+[node name="CenterContainer2" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer/CenterContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer/CenterContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "12"

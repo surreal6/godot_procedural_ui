@@ -5,15 +5,23 @@ class_name UIBoolAttributeResource
 
 func get_ui_element():
 	var hbox = HBoxContainer.new()
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var cc1 = CenterContainer.new()
+	cc1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.add_child(cc1)
+	var cc2 = CenterContainer.new()
+	cc2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.add_child(cc2)
 	var label = Label.new()
 	label.text = label_text
-	hbox.add_child(label)
+	cc1.add_child(label)
 	var checkbox = CheckBox.new()
 	checkbox.visibility_changed.connect(_update)
 	checkbox.toggled.connect(func(toggled_on): self._on_set_attribute_value(toggled_on))
 	checkbox.mouse_entered.connect(_register_as_last_focused)
 	checkbox.mouse_exited.connect(_unregister_as_last_focused)
-	hbox.add_child(checkbox)
+	cc2.add_child(checkbox)
 	ui_element = checkbox
 	return hbox
 
