@@ -7,9 +7,17 @@ class_name UIOptionsAttributeResource
 
 func get_ui_element():
 	var hbox = HBoxContainer.new()
+	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var cc1 = CenterContainer.new()
+	cc1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.add_child(cc1)
+	var cc2 = CenterContainer.new()
+	cc2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.add_child(cc2)
 	var label = Label.new()
 	label.text = label_text
-	hbox.add_child(label)
+	cc1.add_child(label)
 	var option_button = OptionButton.new()
 	for option in options:
 		option_button.add_item(option)
@@ -18,7 +26,7 @@ func get_ui_element():
 	option_button.mouse_entered.connect(_register_as_last_focused)
 	option_button.mouse_exited.connect(_unregister_as_last_focused)
 	option_button.item_focused.connect(func(index): self._register_as_item_focused(index))
-	hbox.add_child(option_button)
+	cc2.add_child(option_button)
 	ui_element = option_button
 	return hbox
 

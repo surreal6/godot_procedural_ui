@@ -1,6 +1,7 @@
 extends UIAttributeResource
 class_name UIBoolAttributeResource
 
+@export var checkbutton : bool = false
 @export var value : bool = false
 
 func get_ui_element():
@@ -16,7 +17,11 @@ func get_ui_element():
 	var label = Label.new()
 	label.text = label_text
 	cc1.add_child(label)
-	var checkbox = CheckBox.new()
+	var checkbox
+	if checkbutton:
+		checkbox = CheckButton.new()
+	else:
+		checkbox = CheckBox.new()
 	checkbox.visibility_changed.connect(_update)
 	checkbox.toggled.connect(func(toggled_on): self._on_set_attribute_value(toggled_on))
 	checkbox.mouse_entered.connect(_register_as_last_focused)

@@ -11,6 +11,7 @@ var ui_attr_data = {
 		"object" : "UserSettings",
 		"type" : "bool",
 		"label" : "passthrough",
+		"checkbutton" : true
 	},
 	"gaze_selection" : {
 		"object" : "UserSettings",

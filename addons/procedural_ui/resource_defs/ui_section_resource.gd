@@ -27,17 +27,9 @@ func get_options(object, options_name):
 
 
 func get_ui_section_element() -> Control:
-	#var section = Control.new()
-	#section.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#section.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	#var vbox = VBoxContainer.new()
-	#vbox.alignment = BoxContainer.ALIGNMENT_CENTER
-	#vbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#section.add_child(vbox)
 	var section = VBoxContainer.new()
 	section.alignment = BoxContainer.ALIGNMENT_CENTER
 	section.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	#section.add_child(vbox)
 	get_elements_data()
 	for attr in elements_data:
 		if elements_data[attr].type == "bool":
@@ -69,6 +61,8 @@ func generate_boolean_resource(attr):
 	resource.label_text = elements_data[attr].label
 	resource.object_name = elements_data[attr].object
 	resource.attribute_name = attr
+	if "checkbutton" in elements_data[attr].keys():
+		resource.checkbutton = elements_data[attr].checkbutton
 	resource.value = get_attribute_value(elements_data[attr].object, attr)
 	return resource
 
