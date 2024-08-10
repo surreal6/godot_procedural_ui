@@ -6,6 +6,7 @@ func _ready() -> void:
 	var section : Control = resource.get_ui_section_element()
 	add_child(section)
 
+
 func generate_section_resource():
 	var resource = UISectionResource.new()
 	resource.label_text = "seccion test"
@@ -13,10 +14,9 @@ func generate_section_resource():
 	resource.elements_data_name = "ui_data"
 	return resource
 
+
 func _input(event):
 	if event.is_action_pressed("ui_cancel"):
 		hide()
-		UserSettings.fx_volume = 100
-		UserSettings.gaze_selection = true
 	if event.is_action_pressed("ui_select"):
 		show()

@@ -6,28 +6,33 @@ var ui_attr_data = {
 		"type" : "options",
 		"label" : "play area mode",
 		"options" : "PlayAreaMode",
+		"tooltip" : "This is the play_area_mode tooltip",
 	},
 	"passthrough" : {
 		"object" : "UserSettings",
 		"type" : "bool",
 		"label" : "passthrough",
-		"checkbutton" : true
+		"checkbutton" : true,
+		"tooltip" : "This is the passthrough tooltip",
 	},
 	"gaze_selection" : {
 		"object" : "UserSettings",
 		"type" : "bool",
 		"label" : "gaze selection",
+		"tooltip" : "This is the gaze_selection tooltip",
 	},
 	"visuals" : {
 		"object" : "UserSettings",
 		"type" : "bool",
 		"label" : "visuals",
+		"tooltip" : "This is the visuals tooltip",
 	},
 	"color_palette" : {
 		"object" : "UserSettings",
 		"type" : "options",
 		"label" : "color palette",
 		"options" : "ColorPalette",
+		"tooltip" : "This is the color_palette tooltip",
 	},
 	"emitters_volume" : {
 		"object" : "UserSettings",
@@ -35,6 +40,7 @@ var ui_attr_data = {
 		"label" : "emitters volume",
 		"min" : 0,
 		"max" : 100,
+		"tooltip" : "This is the emitters_volume tooltip",
 	},
 	"fx_volume" : {
 		"object" : "UserSettings",
@@ -42,6 +48,7 @@ var ui_attr_data = {
 		"label" : "fx volume",
 		"min" : 0,
 		"max" : 100,
+		"tooltip" : "This is the fx_volume tooltip",
 	},
 	"music_volume" : {
 		"object" : "UserSettings",
@@ -49,6 +56,7 @@ var ui_attr_data = {
 		"label" : "music volume",
 		"min" : 0,
 		"max" : 100,
+		"tooltip" : "This is the music_volume tooltip",
 	},
 	"voice_over_volume" : {
 		"object" : "UserSettings",
@@ -56,6 +64,7 @@ var ui_attr_data = {
 		"label" : "voice over volume",
 		"min" : 0,
 		"max" : 100,
+		"tooltip" : "This is the voice_over_volume tooltip",
 	},
 }
 

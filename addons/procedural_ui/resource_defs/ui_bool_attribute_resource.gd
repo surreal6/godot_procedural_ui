@@ -16,12 +16,16 @@ func get_ui_element():
 	hbox.add_child(cc2)
 	var label = Label.new()
 	label.text = label_text
+	if tooltip:
+		label.tooltip_text = tooltip
 	cc1.add_child(label)
 	var checkbox
 	if checkbutton:
 		checkbox = CheckButton.new()
 	else:
 		checkbox = CheckBox.new()
+	if tooltip:
+		checkbox.tooltip_text = tooltip
 	checkbox.visibility_changed.connect(_update)
 	checkbox.toggled.connect(func(toggled_on): self._on_set_attribute_value(toggled_on))
 	checkbox.mouse_entered.connect(_register_as_last_focused)

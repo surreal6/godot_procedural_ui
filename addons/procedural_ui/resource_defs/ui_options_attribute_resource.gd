@@ -17,8 +17,12 @@ func get_ui_element():
 	hbox.add_child(cc2)
 	var label = Label.new()
 	label.text = label_text
+	if tooltip:
+		label.tooltip_text = tooltip
 	cc1.add_child(label)
 	var option_button = OptionButton.new()
+	if tooltip:
+		option_button.tooltip_text = tooltip
 	for option in options:
 		option_button.add_item(option)
 	option_button.visibility_changed.connect(_update)

@@ -2,6 +2,7 @@ extends Resource
 class_name UIAttributeResource
 
 @export var label_text : String = ""
+@export var tooltip : String = ""
 @export var object_name : String = ""
 @export var attribute_name : String = ""
 

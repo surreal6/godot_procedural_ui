@@ -59,6 +59,7 @@ func get_ui_section_element() -> Control:
 func generate_boolean_resource(attr):
 	var resource = UIBoolAttributeResource.new()
 	resource.label_text = elements_data[attr].label
+	resource.tooltip = elements_data[attr].tooltip
 	resource.object_name = elements_data[attr].object
 	resource.attribute_name = attr
 	if "checkbutton" in elements_data[attr].keys():
@@ -70,6 +71,7 @@ func generate_boolean_resource(attr):
 func generate_float_resource(attr):
 	var resource = UIFloatAttributeResource.new()
 	resource.label_text = elements_data[attr].label
+	resource.tooltip = elements_data[attr].tooltip
 	resource.object_name = elements_data[attr].object
 	resource.attribute_name = attr
 	resource.value = get_attribute_value(elements_data[attr].object, attr)
@@ -81,6 +83,7 @@ func generate_float_resource(attr):
 func generate_int_resource(attr):
 	var resource = UIIntAttributeResource.new()
 	resource.label_text = elements_data[attr].label
+	resource.tooltip = elements_data[attr].tooltip
 	resource.object_name = elements_data[attr].object
 	resource.attribute_name = attr
 	resource.value = get_attribute_value(elements_data[attr].object, attr)
@@ -92,6 +95,7 @@ func generate_int_resource(attr):
 func generate_options_resource(attr):
 	var resource = UIOptionsAttributeResource.new()
 	resource.label_text = elements_data[attr].label
+	resource.tooltip = elements_data[attr].tooltip
 	resource.object_name = elements_data[attr].object
 	resource.attribute_name = attr
 	resource.value = get_attribute_value(elements_data[attr].object, attr)

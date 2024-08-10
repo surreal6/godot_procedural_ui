@@ -28,8 +28,12 @@ func get_ui_element():
 	hbox.add_child(hbox_unit)
 	var label = Label.new()
 	label.text = label_text
+	if tooltip:
+		label.tooltip_text = tooltip
 	cc1.add_child(label)
 	var slider = HSlider.new()
+	if tooltip:
+		slider.tooltip_text = tooltip
 	slider.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	slider.min_value = min
 	slider.max_value = max
