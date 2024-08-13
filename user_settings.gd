@@ -31,17 +31,21 @@ enum ColorPalette {
 var settings_file_name : String = "user://user_settings.json"
 
 
+# to store menu definitions
 var ui_data
-
+var ui_main_theme : Theme
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_load()
-	ui_data = get_attr_data()
-	
-func get_attr_data():
+	get_ui_data()
+
+
+func get_ui_data():
 	var menu_defs = MENU_DEFS.new()
-	return menu_defs.ui_attr_data
+	ui_data = menu_defs.ui_data
+	if menu_defs.ui_main_theme:
+		ui_main_theme = menu_defs.ui_main_theme
 
 
 ## Reset to default values

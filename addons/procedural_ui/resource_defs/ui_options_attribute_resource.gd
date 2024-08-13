@@ -35,9 +35,10 @@ func get_ui_element():
 	return hbox
 
 func update() -> void:
-	var singleton = UIManager.get_tree().root.get_node(object_name)
-	var current_value = singleton[attribute_name]
-	ui_element.selected = current_value
+	if is_instance_valid(ui_element):
+		var singleton = UIManager.get_tree().root.get_node(object_name)
+		var current_value = singleton[attribute_name]
+		ui_element.selected = current_value
 
 func _register_as_item_focused(index) -> void:
 	UIManager.last_ui_element_focused = ui_element.name + "_" + str(index)

@@ -6,7 +6,7 @@ class_name UIAttributeResource
 @export var object_name : String = ""
 @export var attribute_name : String = ""
 
-var ui_element = Control
+var ui_element : Control
 
 
 func _on_set_attribute_value(new_value) -> void:

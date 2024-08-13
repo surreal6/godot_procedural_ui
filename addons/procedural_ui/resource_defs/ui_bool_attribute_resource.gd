@@ -24,6 +24,7 @@ func get_ui_element():
 		checkbox = CheckButton.new()
 	else:
 		checkbox = CheckBox.new()
+	checkbox.text = label_text
 	if tooltip:
 		checkbox.tooltip_text = tooltip
 	checkbox.visibility_changed.connect(update)
@@ -35,5 +36,6 @@ func get_ui_element():
 	return hbox
 
 func update():
-	var singleton = UIManager.get_tree().root.get_node(object_name)
-	ui_element.set_pressed_no_signal(singleton[attribute_name])
+	if is_instance_valid(ui_element):
+		var singleton = UIManager.get_tree().root.get_node(object_name)
+		ui_element.set_pressed_no_signal(singleton[attribute_name])

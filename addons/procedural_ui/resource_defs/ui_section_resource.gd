@@ -2,18 +2,14 @@ extends Resource
 class_name UISectionResource
 
 @export var label_text : String = ""
-@export var object_name : String = ""
-@export var elements_data_name : String = ""
-@export var elements_array : Array[UIAttributeResource] = []
+@export var section_name : String = ""
+@export var elements_data : Dictionary
+@export var theme : Theme
 
-var elements_data : Dictionary
+var elements_array : Array[UIAttributeResource] = []
+
 var ui_element = Control
 var ui_section_element = Control
-
-
-func get_elements_data() -> void:
-	var singleton = UIManager.get_tree().root.get_node(object_name)
-	elements_data = singleton[elements_data_name]
 
 
 func get_attribute_value(object, attr):
@@ -27,10 +23,10 @@ func get_options(object, options_name):
 
 
 func get_ui_section_element() -> Control:
+	elements_array = []
 	var section = VBoxContainer.new()
 	section.alignment = BoxContainer.ALIGNMENT_CENTER
 	section.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	get_elements_data()
 	for attr in elements_data:
 		if elements_data[attr].type == "bool":
 			var resource = generate_boolean_resource(attr)
@@ -58,7 +54,13 @@ func get_ui_section_element() -> Control:
 			section.add_child(element)
 			elements_array.append(resource)
 	section.visibility_changed.connect(update_section)
+	ui_section_element = section
 	return section
+
+
+func grab_focus():
+	elements_array[0].ui_element.call_deferred("grab_focus")
+	return elements_array[0].ui_element
 
 
 func generate_operator_resource(attr):
@@ -118,40 +120,43 @@ func generate_options_resource(attr):
 	var options = get_options(elements_data[attr].object, elements_data[attr].options)
 	for option in options:
 		resource.options.append(option)
-		print(option)
+		#print(option)
 	return resource
 
 
 func update_section():
-	print("update section")
+	#print("update section")
 	for element in elements_array:
-		print("element %s" % element.attribute_name)
+		#print("element %s" % element.attribute_name)
 		element.update()
 
 
 ## SECTION BUTTON
 
 func get_ui_element():
-	var hbox = HBoxContainer.new()
 	var button = Button.new()
 	button.text = label_text
-	button.visibility_changed.connect(update_section_button)
+	button.pressed.connect(func():
+		UIManager.populate_current_section(self.section_name)
+		)
+	button.gui_input.connect(func(event):
+		_on_event(event))
 	button.mouse_entered.connect(_register_as_last_focused)
 	button.mouse_exited.connect(_unregister_as_last_focused)
-	hbox.add_child(button)
 	ui_element = button
-	return hbox
+	return button
 
 
-func update_section_button() -> void:
-	pass
+func _on_event(event: InputEvent):
+	if event.is_action_pressed("ui_right"):
+		ui_element.pressed.emit()
 
 
 func _register_as_last_focused() -> void:
 	UIManager.last_ui_element_focused = ui_element
-	print("register %s" % ui_element.name)
+	#print("register section button %s" % ui_element.name)
 
 
 func _unregister_as_last_focused() -> void:
 	UIManager.last_ui_element_focused = null
-	print("unregister %s" % ui_element.name)
+	#print("unregister section button %s" % ui_element.name)

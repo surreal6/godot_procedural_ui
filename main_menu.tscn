@@ -1,24 +1,40 @@
-[gd_scene load_steps=3 format=3 uid="uid://clxuxayx785v7"]
+[gd_scene load_steps=2 format=3 uid="uid://clxuxayx785v7"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_ral1r"]
-[ext_resource type="Theme" uid="uid://mbsg4xqnedxi" path="res://kenney_themes/kenneyUI-red.tres" id="1_sn2na"]
 
-[node name="main_menu" type="MarginContainer"]
+[node name="Control" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 420.0
-offset_right = -420.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ral1r")
+
+[node name="panel_1_container" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_left = -420.0
+offset_right = 420.0
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
-theme = ExtResource("1_sn2na")
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
-script = ExtResource("1_ral1r")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="panel_2_container" type="MarginContainer" parent="."]
 layout_mode = 2
+offset_left = 420.0
+offset_right = 1500.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 100

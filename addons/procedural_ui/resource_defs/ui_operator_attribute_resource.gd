@@ -27,11 +27,11 @@ func _on_pressed():
 
 
 func update():
-	print("button update")
-	if poll != "":
-		var singleton = UIManager.get_tree().root.get_node(object_name)
-		var poll_result = singleton.call(poll)
-		if poll_result:
-			ui_element.disabled = false
-		else:
-			ui_element.disabled = true
+	if is_instance_valid(ui_element):
+		if poll != "":
+			var singleton = UIManager.get_tree().root.get_node(object_name)
+			var poll_result = singleton.call(poll)
+			if poll_result:
+				ui_element.disabled = false
+			else:
+				ui_element.disabled = true

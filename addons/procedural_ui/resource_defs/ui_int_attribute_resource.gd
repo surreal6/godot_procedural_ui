@@ -62,6 +62,7 @@ func get_ui_element():
 	return hbox
 
 func update():
-	var singleton = UIManager.get_tree().root.get_node(object_name)
-	ui_element.set_value_no_signal(singleton[attribute_name])
-	label_value.text = str(singleton[attribute_name]) + unit_label
+	if is_instance_valid(ui_element):
+		var singleton = UIManager.get_tree().root.get_node(object_name)
+		ui_element.set_value_no_signal(singleton[attribute_name])
+		label_value.text = str(singleton[attribute_name]) + unit_label
