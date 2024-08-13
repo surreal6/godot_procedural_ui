@@ -47,6 +47,8 @@ func get_ui_element():
 		)
 	slider.mouse_entered.connect(_register_as_last_focused)
 	slider.mouse_exited.connect(_unregister_as_last_focused)
+	slider.focus_entered.connect(_register_as_last_focused)
+	slider.focus_exited.connect(_unregister_as_last_focused)
 	hbox_unit.add_child(slider)
 	var cc2 = CenterContainer.new()
 	cc2.size_flags_horizontal = Control.SIZE_EXPAND_FILL

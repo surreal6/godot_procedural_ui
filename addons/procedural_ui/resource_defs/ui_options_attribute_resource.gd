@@ -3,7 +3,7 @@ class_name UIOptionsAttributeResource
 
 @export var options : Array[String] = []
 @export var value : int = -1
-
+@export var options_tts_files : Array[String] = []
 
 func get_ui_element():
 	var hbox = HBoxContainer.new()
@@ -29,6 +29,8 @@ func get_ui_element():
 	option_button.item_selected.connect(func(index): self._on_set_attribute_value(index))
 	option_button.mouse_entered.connect(_register_as_last_focused)
 	option_button.mouse_exited.connect(_unregister_as_last_focused)
+	option_button.focus_entered.connect(_register_as_last_focused)
+	option_button.focus_exited.connect(_unregister_as_last_focused)
 	option_button.item_focused.connect(func(index): self._register_as_item_focused(index))
 	cc2.add_child(option_button)
 	ui_element = option_button
@@ -42,4 +44,9 @@ func update() -> void:
 
 func _register_as_item_focused(index) -> void:
 	UIManager.last_ui_element_focused = ui_element.name + "_" + str(index)
-	print("register %s" % UIManager.last_ui_element_focused)
+	#print("register %s" % UIManager.last_ui_element_focused)
+	if options_tts_files and is_instance_valid(UIManager.tts_player):
+		if UIManager.tts_player.playing:
+			UIManager.tts_player.stop()
+		UIManager.tts_player.stream = load(options_tts_files[index])
+		UIManager.tts_player.play()

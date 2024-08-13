@@ -31,6 +31,8 @@ func get_ui_element():
 	checkbox.toggled.connect(func(toggled_on): self._on_set_attribute_value(toggled_on))
 	checkbox.mouse_entered.connect(_register_as_last_focused)
 	checkbox.mouse_exited.connect(_unregister_as_last_focused)
+	checkbox.focus_entered.connect(_register_as_last_focused)
+	checkbox.focus_exited.connect(_unregister_as_last_focused)
 	cc2.add_child(checkbox)
 	ui_element = checkbox
 	return hbox

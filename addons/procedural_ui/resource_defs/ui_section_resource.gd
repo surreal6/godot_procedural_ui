@@ -4,6 +4,7 @@ class_name UISectionResource
 @export var label_text : String = ""
 @export var section_name : String = ""
 @export var elements_data : Dictionary
+@export var tts_file : String = ""
 @export var theme : Theme
 
 var elements_array : Array[UIAttributeResource] = []
@@ -71,19 +72,26 @@ func generate_operator_resource(attr):
 	resource.attribute_name = attr
 	if "poll" in elements_data[attr].keys():
 		resource.poll = elements_data[attr].poll
+	if "tts_file" in elements_data[attr].keys():
+		resource.tts_file = elements_data[attr].tts_file
 	return resource
 
 
 func generate_boolean_resource(attr):
-	var resource = UIBoolAttributeResource.new()
-	resource.label_text = elements_data[attr].label
-	resource.tooltip = elements_data[attr].tooltip
-	resource.object_name = elements_data[attr].object
-	resource.attribute_name = attr
-	if "checkbutton" in elements_data[attr].keys():
-		resource.checkbutton = elements_data[attr].checkbutton
-	resource.value = get_attribute_value(elements_data[attr].object, attr)
-	return resource
+	elements_data[attr].attr = attr
+	return UIManager.generate_boolean_resource(elements_data[attr])
+	
+	#var resource = UIBoolAttributeResource.new()
+	#resource.label_text = elements_data[attr].label
+	#resource.tooltip = elements_data[attr].tooltip
+	#resource.object_name = elements_data[attr].object
+	#resource.attribute_name = attr
+	#if "checkbutton" in elements_data[attr].keys():
+		#resource.checkbutton = elements_data[attr].checkbutton
+	#resource.value = get_attribute_value(elements_data[attr].object, attr)
+	#if "tts_file" in elements_data[attr].keys():
+		#resource.tts_file = elements_data[attr].tts_file
+	#return resource
 
 
 func generate_float_resource(attr):
@@ -95,6 +103,8 @@ func generate_float_resource(attr):
 	resource.value = get_attribute_value(elements_data[attr].object, attr)
 	resource.min = elements_data[attr].min
 	resource.max = elements_data[attr].max
+	if "tts_file" in elements_data[attr].keys():
+		resource.tts_file = elements_data[attr].tts_file
 	return resource
 
 
@@ -107,6 +117,8 @@ func generate_int_resource(attr):
 	resource.value = get_attribute_value(elements_data[attr].object, attr)
 	resource.min = elements_data[attr].min
 	resource.max = elements_data[attr].max
+	if "tts_file" in elements_data[attr].keys():
+		resource.tts_file = elements_data[attr].tts_file
 	return resource
 
 
@@ -120,7 +132,11 @@ func generate_options_resource(attr):
 	var options = get_options(elements_data[attr].object, elements_data[attr].options)
 	for option in options:
 		resource.options.append(option)
-		#print(option)
+	if "tts_file" in elements_data[attr].keys():
+		resource.tts_file = elements_data[attr].tts_file
+	if "options_tts_files" in elements_data[attr].keys():
+		for item in elements_data[attr].options_tts_files:
+			resource.options_tts_files.append(item)
 	return resource
 
 
@@ -143,6 +159,8 @@ func get_ui_element():
 		_on_event(event))
 	button.mouse_entered.connect(_register_as_last_focused)
 	button.mouse_exited.connect(_unregister_as_last_focused)
+	button.focus_entered.connect(_register_as_last_focused)
+	button.focus_exited.connect(_unregister_as_last_focused)
 	ui_element = button
 	return button
 
@@ -154,9 +172,17 @@ func _on_event(event: InputEvent):
 
 func _register_as_last_focused() -> void:
 	UIManager.last_ui_element_focused = ui_element
-	#print("register section button %s" % ui_element.name)
+	print("register section button %s" % ui_element.name)
+	if tts_file and is_instance_valid(UIManager.tts_player):
+		if UIManager.tts_player.playing:
+			UIManager.tts_player.stop()
+		UIManager.tts_player.stream = load(tts_file)
+		UIManager.tts_player.play()
 
 
 func _unregister_as_last_focused() -> void:
 	UIManager.last_ui_element_focused = null
-	#print("unregister section button %s" % ui_element.name)
+	print("unregister section button %s" % ui_element.name)
+	if tts_file and is_instance_valid(UIManager.tts_player):
+		if UIManager.tts_player.playing:
+			UIManager.tts_player.stop()

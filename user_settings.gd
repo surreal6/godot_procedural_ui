@@ -33,6 +33,7 @@ var settings_file_name : String = "user://user_settings.json"
 
 # to store menu definitions
 var ui_data
+var ui_back_button_section
 var ui_main_theme : Theme
 
 # Called when the node enters the scene tree for the first time.
@@ -46,6 +47,8 @@ func get_ui_data():
 	ui_data = menu_defs.ui_data
 	if menu_defs.ui_main_theme:
 		ui_main_theme = menu_defs.ui_main_theme
+	if menu_defs.ui_back_button_section:
+		ui_back_button_section = menu_defs.ui_back_button_section
 
 
 ## Reset to default values

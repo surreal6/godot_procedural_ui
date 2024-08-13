@@ -25,13 +25,10 @@ func update_menus() -> void:
 func set_panel1_active() -> void:
 	p1_contanier.position.x = 540
 	p1_contanier.size.x = 840
-	#p1_contanier.theme_override_constants.margin_right = 
 
 func set_panel1_inactive() -> void:
-	#p1_contanier.position.x = -420
 	p1_contanier.position.x = 0
 	p1_contanier.size.x = 420
-	#p1_contanier.theme_override_constants.margin_right = 0
 
 
 func set_panel2_active() -> void:
@@ -47,8 +44,10 @@ func set_panel2_inactive() -> void:
 func _ready() -> void:
 	UIManager.current_section_selected.connect(_on_section_selected)
 	UIManager.generate_sections_resources(UserSettings.ui_data)
+	#UIManager.generate_back_button_section_resource(UserSettings.ui_back_button_section)
 	UIManager.set_sections_container(p1_contanier)
 	UIManager.set_current_section_container(p2_contanier)
+	UIManager.set_tts_player($AudioStreamPlayer)
 	if UserSettings.ui_main_theme:
 		UIManager.set_main_theme(UserSettings.ui_main_theme)
 	UIManager.populate_sections_selector()
@@ -61,22 +60,9 @@ func _on_section_selected(section_name):
 	else:
 		root_menu_active = true
 
-#
-#func _input(event):
-	#if event.is_action_pressed("ui_cancel") or event.is_action_pressed("ui_left"):
-		#if root_menu_active:
-			#hide()
-		#else:
-			#root_menu_active = true
-			#UIManager.populate_sections_selector()
-	#if event.is_action_pressed("ui_select"):
-		#if !visible:
-			#show()
-			#UIManager.sections_selector_grab_focus()
-			
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel") or Input.is_action_just_pressed("ui_left"):
+	if Input.is_action_just_pressed("ui_cancel"):
 		if root_menu_active:
 			hide()
 		else:
