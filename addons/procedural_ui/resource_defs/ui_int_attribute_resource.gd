@@ -41,7 +41,7 @@ func get_ui_element():
 	slider.step = step
 	slider.tick_count = tick_count
 	slider.ticks_on_borders = ticks_on_borders
-	slider.visibility_changed.connect(_update)
+	slider.visibility_changed.connect(update)
 	slider.value_changed.connect(func(new_value): 
 		self._on_set_attribute_value(new_value)
 		label_value.text = str(new_value) + unit_label)
@@ -61,7 +61,7 @@ func get_ui_element():
 	ui_element = slider
 	return hbox
 
-func _update():
+func update():
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	ui_element.set_value_no_signal(singleton[attribute_name])
 	label_value.text = str(singleton[attribute_name]) + unit_label

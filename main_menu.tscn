@@ -1,4 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://clxuxayx785v7"]
+[gd_scene load_steps=3 format=3 uid="uid://clxuxayx785v7"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_ral1r"]
 
@@ -18,6 +18,5 @@ theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 script = ExtResource("1_ral1r")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="Panel" type="Panel" parent="."]
 layout_mode = 2
-color = Color(0, 0, 0, 0.501961)

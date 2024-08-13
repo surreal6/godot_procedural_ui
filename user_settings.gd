@@ -139,3 +139,15 @@ func _load() -> void:
 			music_volume = options["music_volume"]
 		if options.has("voice_over_volume"):
 			voice_over_volume = options["voice_over_volume"]
+
+
+func operator_1():
+	print("operator 1 executed")
+
+
+func operator_2():
+	print("operator 2 executed")
+
+
+func operator_2_poll():
+	return gaze_selection

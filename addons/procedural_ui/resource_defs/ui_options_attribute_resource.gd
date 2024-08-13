@@ -25,7 +25,7 @@ func get_ui_element():
 		option_button.tooltip_text = tooltip
 	for option in options:
 		option_button.add_item(option)
-	option_button.visibility_changed.connect(_update)
+	option_button.visibility_changed.connect(update)
 	option_button.item_selected.connect(func(index): self._on_set_attribute_value(index))
 	option_button.mouse_entered.connect(_register_as_last_focused)
 	option_button.mouse_exited.connect(_unregister_as_last_focused)
@@ -34,7 +34,7 @@ func get_ui_element():
 	ui_element = option_button
 	return hbox
 
-func _update() -> void:
+func update() -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	var current_value = singleton[attribute_name]
 	ui_element.selected = current_value

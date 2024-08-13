@@ -52,8 +52,24 @@ func get_ui_section_element() -> Control:
 			var element = resource.get_ui_element()
 			section.add_child(element)
 			elements_array.append(resource)
-	section.visibility_changed.connect(_update_ui_section_element)
+		if elements_data[attr].type == "operator":
+			var resource = generate_operator_resource(attr)
+			var element = resource.get_ui_element()
+			section.add_child(element)
+			elements_array.append(resource)
+	section.visibility_changed.connect(update_section)
 	return section
+
+
+func generate_operator_resource(attr):
+	var resource = UIOperatorAttributeResource.new()
+	resource.label_text = elements_data[attr].label
+	resource.tooltip = elements_data[attr].tooltip
+	resource.object_name = elements_data[attr].object
+	resource.attribute_name = attr
+	if "poll" in elements_data[attr].keys():
+		resource.poll = elements_data[attr].poll
+	return resource
 
 
 func generate_boolean_resource(attr):
@@ -106,8 +122,11 @@ func generate_options_resource(attr):
 	return resource
 
 
-func _update_ui_section_element():
-	pass
+func update_section():
+	print("update section")
+	for element in elements_array:
+		print("element %s" % element.attribute_name)
+		element.update()
 
 
 ## SECTION BUTTON
@@ -116,7 +135,7 @@ func get_ui_element():
 	var hbox = HBoxContainer.new()
 	var button = Button.new()
 	button.text = label_text
-	button.visibility_changed.connect(_update_ui_element)
+	button.visibility_changed.connect(update_section_button)
 	button.mouse_entered.connect(_register_as_last_focused)
 	button.mouse_exited.connect(_unregister_as_last_focused)
 	hbox.add_child(button)
@@ -124,7 +143,7 @@ func get_ui_element():
 	return hbox
 
 
-func _update_ui_element() -> void:
+func update_section_button() -> void:
 	pass
 
 

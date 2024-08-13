@@ -5,6 +5,7 @@ func _ready() -> void:
 	var resource = generate_section_resource()
 	var section : Control = resource.get_ui_section_element()
 	add_child(section)
+	UIManager.sections_array.append(resource)
 
 
 func generate_section_resource():

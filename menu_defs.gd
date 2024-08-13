@@ -66,69 +66,30 @@ var ui_attr_data = {
 		"max" : 100,
 		"tooltip" : "This is the voice_over_volume tooltip",
 	},
+	"operator_1" : {
+		"object" : "UserSettings",
+		"type" : "operator",
+		"label" : "operator one",
+		"tooltip" : "This is the operator_1 tooltip",
+	},
+	"operator_2" : {
+		"object" : "UserSettings",
+		"poll" : "operator_2_poll",
+		"type" : "operator",
+		"label" : "operator two",
+		"tooltip" : "Operator 2 only available if gaze_selection is active",
+	},
 }
 
 
 var ui_section_vr = {
-	"play_area_mode" : {
-		"object" : "UserSettings",
-		"type" : "options",
-		"label" : "play area mode",
-		"options" : "PlayAreaMode",
-	},
-	"passthrough" : {
-		"object" : "UserSettings",
-		"type" : "bool",
-		"label" : "passthrough",
-	},
+	
 }
 
 var ui_section_accesibility = {
-	"gaze_selection" : {
-		"object" : "UserSettings",
-		"type" : "bool",
-		"label" : "gaze selection",
-	},
-	"visuals" : {
-		"object" : "UserSettings",
-		"type" : "bool",
-		"label" : "visuals",
-	},
-	"color_palette" : {
-		"object" : "UserSettings",
-		"type" : "options",
-		"label" : "color palette",
-		"options" : "ColorPalette",
-	},
+	
 }
 
 var ui_section_audio =  {
-	"emitters_volume" : {
-		"object" : "UserSettings",
-		"type" : "int",
-		"label" : "emitters volume",
-		"min" : 0,
-		"max" : 100,
-	},
-	"fx_volume" : {
-		"object" : "UserSettings",
-		"type" : "int",
-		"label" : "fx volume",
-		"min" : 0,
-		"max" : 100,
-	},
-	"music_volume" : {
-		"object" : "UserSettings",
-		"type" : "int",
-		"label" : "music volume",
-		"min" : 0,
-		"max" : 100,
-	},
-	"voice_over_volume" : {
-		"object" : "UserSettings",
-		"type" : "int",
-		"label" : "voice over volume",
-		"min" : 0,
-		"max" : 100,
-	},
+	
 }
