@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://clxuxayx785v7"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_ral1r"]
+[ext_resource type="Theme" uid="uid://mbsg4xqnedxi" path="res://kenney_themes/kenneyUI-red.tres" id="1_sn2na"]
 
 [node name="main_menu" type="MarginContainer"]
 anchors_preset = 15
@@ -12,6 +13,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 6
+theme = ExtResource("1_sn2na")
 theme_override_constants/margin_left = 100
 theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
