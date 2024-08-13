@@ -6,6 +6,10 @@ const KENNEY_UI_RED = preload("res://kenney_themes/kenneyUI-red.tres")
 const KENNEY_UI_YELLOW = preload("res://kenney_themes/kenneyUI-yellow.tres")
 const KENNEY_UI = preload("res://kenney_themes/kenneyUI.tres")
 
+#
+# TTS: https://luvvoice.com/es/
+#
+
 
 var ui_section_vr = {
 	"play_area_mode" : {
@@ -111,6 +115,13 @@ var ui_section_audio =  {
 		"max" : 100,
 		"tooltip" : "This is the voice_over_volume tooltip",
 		"tts_file" : "res://menu_tts_files/loc_en_voice_over_volume_slider.mp3",
+	},
+	"back_button" : {
+		"object" : "UIManager",
+		"type" : "operator",
+		"label" : "Back",
+		"tooltip" : "This is the back button tooltip",
+		"tts_file" : "res://menu_tts_files/loc_en_back.mp3",
 	},
 }
 

@@ -120,10 +120,14 @@ func update_sections():
 		section.update_section()
 
 
-
 func get_attribute_value(object, attr):
 	var singleton = UIManager.get_tree().root.get_node(object)
 	return singleton[attr]
+
+
+func get_options(object, options_name):
+	var singleton = UIManager.get_tree().root.get_node(object)
+	return singleton[options_name]
 
 
 func generate_boolean_resource(data):
@@ -137,4 +141,63 @@ func generate_boolean_resource(data):
 	resource.value = get_attribute_value(data.object, data.attr)
 	if "tts_file" in data.keys():
 		resource.tts_file = data.tts_file
+	return resource
+
+
+func generate_operator_resource(data):
+	var resource = UIOperatorAttributeResource.new()
+	resource.label_text = data.label
+	resource.tooltip = data.tooltip
+	resource.object_name = data.object
+	resource.attribute_name = data.attr
+	if "poll" in data.keys():
+		resource.poll = data.poll
+	if "tts_file" in data.keys():
+		resource.tts_file = data.tts_file
+	return resource
+
+
+func generate_float_resource(data):
+	var resource = UIFloatAttributeResource.new()
+	resource.label_text = data.label
+	resource.tooltip = data.tooltip
+	resource.object_name = data.object
+	resource.attribute_name = data.attr
+	resource.value = get_attribute_value(data.object, data.attr)
+	resource.min = data.min
+	resource.max = data.max
+	if "tts_file" in data.keys():
+		resource.tts_file = data.tts_file
+	return resource
+
+
+func generate_int_resource(data):
+	var resource = UIIntAttributeResource.new()
+	resource.label_text = data.label
+	resource.tooltip = data.tooltip
+	resource.object_name = data.object
+	resource.attribute_name = data.attr
+	resource.value = get_attribute_value(data.object, data.attr)
+	resource.min = data.min
+	resource.max = data.max
+	if "tts_file" in data.keys():
+		resource.tts_file = data.tts_file
+	return resource
+
+
+func generate_options_resource(data):
+	var resource = UIOptionsAttributeResource.new()
+	resource.label_text = data.label
+	resource.tooltip = data.tooltip
+	resource.object_name = data.object
+	resource.attribute_name = data.attr
+	resource.value = get_attribute_value(data.object, data.attr)
+	var options = get_options(data.object, data.options)
+	for option in options:
+		resource.options.append(option)
+	if "tts_file" in data.keys():
+		resource.tts_file = data.tts_file
+	if "options_tts_files" in data.keys():
+		for item in data.options_tts_files:
+			resource.options_tts_files.append(item)
 	return resource
