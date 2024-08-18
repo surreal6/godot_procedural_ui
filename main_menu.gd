@@ -42,15 +42,13 @@ func set_panel2_inactive() -> void:
 
 
 func _ready() -> void:
-	UIManager.current_section_selected.connect(_on_section_selected)
-	UIManager.generate_sections_resources(UserSettings.ui_data)
-	#UIManager.generate_back_button_section_resource(UserSettings.ui_back_button_section)
+	UIManager.set_ui_data(UserSettings.ui_data)
 	UIManager.set_sections_container(p1_contanier)
 	UIManager.set_current_section_container(p2_contanier)
 	UIManager.set_tts_player($AudioStreamPlayer)
-	if UserSettings.ui_main_theme:
-		UIManager.set_main_theme(UserSettings.ui_main_theme)
+	UIManager.current_section_selected.connect(_on_section_selected)
 	UIManager.populate_sections_selector()
+	
 	update_menus()
 
 

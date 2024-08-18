@@ -30,6 +30,15 @@ window/size/initial_position_type=2
 
 enabled=PackedStringArray("res://addons/procedural_ui/plugin.cfg")
 
+[internationalization]
+
+locale/translation_remaps={
+"res://menu_tts_files/loc_en_disabled.mp3": PackedStringArray("res://menu_tts_files_es/loc_es_disabled.mp3:es"),
+"res://menu_tts_files/loc_en_enabled.mp3": PackedStringArray("res://menu_tts_files_es/loc_es_enabled.mp3:es")
+}
+locale/test="en"
+locale/locale_filter_mode=0
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
