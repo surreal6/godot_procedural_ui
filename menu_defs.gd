@@ -148,6 +148,6 @@ var ui_data = {
 	"basic_tts_files" : {
 		"enabled" : "res://menu_tts_files/loc_en_enabled.mp3",
 		"disabled" : "res://menu_tts_files/loc_en_disabled.mp3",
-		
+		"selected" : "res://menu_tts_files/loc_en_selected.mp3"
 	}
 }
