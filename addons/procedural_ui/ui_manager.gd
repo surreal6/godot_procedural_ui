@@ -4,13 +4,15 @@ signal current_section_selected(section_name)
 
 var last_ui_element_focused = null
 var sections_array : Array[UISectionResource] = []
+
+## This variable stores the focused section 
 var last_section_focused = null
 
-
-@export var sections_container : Control :set = set_sections_container
-@export var current_section_container : Control :set = set_current_section_container
-@export var tts_player : AudioStreamPlayer :set = set_tts_player
-@export var main_theme : Theme :set = set_main_theme
+var sections_container : Control :set = set_sections_container
+var current_section_container : Control :set = set_current_section_container
+var tts_player : AudioStreamPlayer :set = set_tts_player
+var main_theme : Theme :set = set_main_theme
+var ui_data : Dictionary :set = set_ui_data
 
 
 func set_sections_container(new_value):
@@ -23,10 +25,60 @@ func set_current_section_container(new_value):
 
 func set_tts_player(new_value):
 	tts_player = new_value
+	# TODO
+	# add warnings if tts_player is not defined
 
 
 func set_main_theme(new_value):
 	main_theme = new_value
+
+
+func set_ui_data(data):
+	ui_data = data
+	if "main_theme" in data.keys():
+		set_main_theme(ui_data["main_theme"])
+	if "back_operator" in data.keys():
+		generate_back_button_section_resource(ui_data["back_operator"])
+	generate_sections_resources(ui_data["sections"])
+
+
+func generate_sections_resources(data):
+	for section in data:
+		generate_section_resource(data[section], section)
+
+
+func generate_section_resource(section, section_name):
+	var resource = UISectionResource.new()
+	resource.section_name = section_name
+	resource.label_text = section.label
+	resource.elements_data = section.data
+	resource.theme = section.theme
+	if "tts_file" in section.keys():
+		resource.tts_file = section.tts_file
+	sections_array.append(resource)
+	return resource
+
+
+func populate_current_section(current_section):
+	last_section_focused = current_section
+	for child in current_section_container.get_children():
+		child.queue_free()
+	for section in sections_array:
+		if section.section_name == current_section:
+			var section_element = section.get_ui_section_element()
+			if section.theme:
+				current_section_container.theme = section.theme
+			current_section_container.add_child(Panel.new())
+			current_section_container.add_child(section_element)
+			section.grab_focus()
+			populate_sections_selector_back()
+			current_section_selected.emit(current_section)
+
+
+func update_sections():
+	for section in sections_array:
+		section.update_section()
+
 
 
 func populate_sections_selector():
@@ -61,20 +113,26 @@ func populate_sections_selector_back():
 	sections_container.add_child(button)
 
 
-func populate_current_section(current_section):
-	last_section_focused = current_section
-	for child in current_section_container.get_children():
-		child.queue_free()
-	for section in sections_array:
-		if section.section_name == current_section:
-			var section_element = section.get_ui_section_element()
-			if section.theme:
-				current_section_container.theme = section.theme
-			current_section_container.add_child(Panel.new())
-			current_section_container.add_child(section_element)
-			section.grab_focus()
-			populate_sections_selector_back()
-			current_section_selected.emit(current_section)
+
+func generate_back_button_section_resource(data):
+	var resource = generate_operator_resource
+	#var button_data_name = data.keys()[0]
+	#var button_data = data[button_data_name]
+	#var resource = UISectionResource.new()
+	#resource.section_name = button_data_name
+	#resource.label_text = button_data.label
+	#resource.elements_data = button_data.data
+	#resource.theme = button_data.theme
+	return resource
+
+
+func back_operator():
+	populate_sections_selector()
+	current_section_selected.emit("")
+
+
+
+
 
 
 func sections_selector_grab_focus():
@@ -86,38 +144,6 @@ func sections_selector_grab_focus():
 	else:
 		sections_container.get_children()[1].get_children()[0].call_deferred("grab_focus")
 
-
-func generate_sections_resources(data):
-	for section in data:
-		generate_section_resource(data[section], section)
-
-
-#func generate_back_button_section_resource(data):
-	#var button_data_name = data.keys()[0]
-	#var button_data = data[button_data_name]
-	#var resource = UISectionResource.new()
-	#resource.section_name = button_data_name
-	#resource.label_text = button_data.label
-	#resource.elements_data = button_data.data
-	#resource.theme = button_data.theme
-	#return resource
-
-
-func generate_section_resource(section, section_name):
-	var resource = UISectionResource.new()
-	resource.section_name = section_name
-	resource.label_text = section.label
-	resource.elements_data = section.data
-	resource.theme = section.theme
-	if "tts_file" in section.keys():
-		resource.tts_file = section.tts_file
-	sections_array.append(resource)
-	return resource
-
-
-func update_sections():
-	for section in sections_array:
-		section.update_section()
 
 
 func get_attribute_value(object, attr):

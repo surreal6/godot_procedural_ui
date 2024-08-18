@@ -13,6 +13,14 @@ var ui_element : Control
 func _on_set_attribute_value(new_value) -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	singleton[attribute_name] = new_value
+	if tts_file and is_instance_valid(UIManager.tts_player):
+		if UIManager.tts_player.playing:
+			UIManager.tts_player.stop()
+		var sound = UIManager.ui_data.basic_tts_files.disabled
+		if new_value == true:
+			sound = UIManager.ui_data.basic_tts_files.enabled
+		UIManager.tts_player.stream = load(sound)
+		UIManager.tts_player.play()
 	singleton.save()
 	UIManager.update_sections()
 
