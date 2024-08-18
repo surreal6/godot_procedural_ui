@@ -4,6 +4,7 @@ signal current_section_selected(section_name)
 
 var last_ui_element_focused = null
 var sections_array : Array[UISectionResource] = []
+var back_operator_resource : UIOperatorAttributeResource
 
 ## This variable stores the focused section 
 var last_section_focused = null
@@ -80,7 +81,6 @@ func update_sections():
 		section.update_section()
 
 
-
 func populate_sections_selector():
 	for child in sections_container.get_children():
 		sections_container.remove_child(child)
@@ -103,36 +103,20 @@ func populate_sections_selector_back():
 	for child in sections_container.get_children():
 		sections_container.remove_child(child)
 		child.queue_free()
-	var button = Button.new()
-	button.text = "< BACK"
-	button.size_flags_vertical = Control.SIZE_EXPAND_FILL
-	button.pressed.connect(func():
-		populate_sections_selector()
-		current_section_selected.emit("")
-		)
-	sections_container.add_child(button)
-
+	var element = back_operator_resource.get_ui_element()
+	#element.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	sections_container.add_child(element)
 
 
 func generate_back_button_section_resource(data):
-	var resource = generate_operator_resource
-	#var button_data_name = data.keys()[0]
-	#var button_data = data[button_data_name]
-	#var resource = UISectionResource.new()
-	#resource.section_name = button_data_name
-	#resource.label_text = button_data.label
-	#resource.elements_data = button_data.data
-	#resource.theme = button_data.theme
-	return resource
+	data.attr = "back_operator"
+	var resource = generate_operator_resource(data)
+	back_operator_resource = resource
 
 
 func back_operator():
 	populate_sections_selector()
 	current_section_selected.emit("")
-
-
-
-
 
 
 func sections_selector_grab_focus():

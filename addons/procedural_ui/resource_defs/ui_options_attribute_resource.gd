@@ -20,7 +20,7 @@ func get_ui_element():
 	if tooltip:
 		label.tooltip_text = tooltip
 	cc1.add_child(label)
-	var option_button = OptionButton.new()
+	var option_button = CustomOptionButton.new()
 	if tooltip:
 		option_button.tooltip_text = tooltip
 	for option in options:
@@ -32,7 +32,7 @@ func get_ui_element():
 	option_button.focus_entered.connect(_register_as_last_focused)
 	option_button.focus_exited.connect(_unregister_as_last_focused)
 	option_button.item_focused.connect(func(index): self._register_as_item_focused(index))
-	#option_button.gui_input.connect(func(event): print(event))
+	option_button.item_hovered.connect(func(index): self._register_as_item_focused(index))
 	cc2.add_child(option_button)
 	ui_element = option_button
 	return hbox
@@ -53,6 +53,8 @@ func _on_set_attribute_value(new_value) -> void:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(options_tts_files[new_value])
 		if UIManager.ui_data.basic_tts_files:
+			for item in UIManager.tts_player.finished.get_connections():
+				UIManager.tts_player.finished.disconnect(item.callable)
 			UIManager.tts_player.finished.connect(play_tts_selected)
 		UIManager.tts_player.play()
 	singleton.save()
@@ -67,20 +69,24 @@ func _register_as_last_focused() -> void:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(tts_file)
 		if UIManager.ui_data.basic_tts_files:
+			for item in UIManager.tts_player.finished.get_connections():
+				UIManager.tts_player.finished.disconnect(item.callable)
 			UIManager.tts_player.finished.connect(play_tts_selected_item)
 		UIManager.tts_player.play()
 
 
 func play_tts_selected_item():
+	for item in UIManager.tts_player.finished.get_connections():
+		UIManager.tts_player.finished.disconnect(item.callable)
 	if value > -1:
 		UIManager.tts_player.stream = load(options_tts_files[value])
-		UIManager.tts_player.finished.disconnect(play_tts_selected_item)
 		UIManager.tts_player.play()
 
 
 func play_tts_selected():
+	for item in UIManager.tts_player.finished.get_connections():
+		UIManager.tts_player.finished.disconnect(item.callable)
 	UIManager.tts_player.stream = load(UIManager.ui_data.basic_tts_files.selected)
-	UIManager.tts_player.finished.disconnect(play_tts_selected)
 	UIManager.tts_player.play()
 
 

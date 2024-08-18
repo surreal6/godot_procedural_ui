@@ -9,6 +9,8 @@ func get_ui_element():
 	cc1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var button = Button.new()
 	button.text = label_text
+	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	button.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	if tooltip:
 		button.tooltip_text = tooltip
 	button.visibility_changed.connect(update)
@@ -23,7 +25,6 @@ func get_ui_element():
 
 
 func _on_pressed():
-	print("button pressed")
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	singleton.call(attribute_name)
 
