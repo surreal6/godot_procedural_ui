@@ -32,7 +32,7 @@ func get_ui_element():
 	option_button.focus_entered.connect(_register_as_last_focused)
 	option_button.focus_exited.connect(_unregister_as_last_focused)
 	option_button.item_focused.connect(func(index): self._register_as_item_focused(index))
-	option_button.gui_input.connect(func(event): print(event))
+	#option_button.gui_input.connect(func(event): print(event))
 	cc2.add_child(option_button)
 	ui_element = option_button
 	return hbox
@@ -86,7 +86,7 @@ func play_tts_selected():
 
 func _register_as_item_focused(index) -> void:
 	UIManager.last_ui_element_focused = ui_element.name + "_" + str(index)
-	print("register %s" % UIManager.last_ui_element_focused)
+	#print("register %s" % UIManager.last_ui_element_focused)
 	if options_tts_files and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
