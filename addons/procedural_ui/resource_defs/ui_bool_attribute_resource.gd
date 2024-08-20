@@ -45,10 +45,10 @@ func update():
 		ui_element.set_pressed_no_signal(singleton[attribute_name])
 
 
-## redef 
 func _on_set_attribute_value(new_value) -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	singleton[attribute_name] = new_value
+	value = new_value
 	if UIManager.ui_data.basic_tts_files and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
@@ -59,3 +59,28 @@ func _on_set_attribute_value(new_value) -> void:
 		UIManager.tts_player.play()
 	singleton.save()
 	UIManager.update_sections()
+
+
+func _register_as_last_focused() -> void:
+	UIManager.last_ui_element_focused = ui_element
+	#print("register %s" % ui_element.name)
+	if tts_file and is_instance_valid(UIManager.tts_player):
+		if UIManager.tts_player.playing:
+			UIManager.tts_player.stop()
+		UIManager.tts_player.stream = load(tts_file)
+		if UIManager.ui_data.basic_tts_files:
+			for item in UIManager.tts_player.finished.get_connections():
+				UIManager.tts_player.finished.disconnect(item.callable)
+			UIManager.tts_player.finished.connect(play_tts_bool_value)
+		UIManager.tts_player.play()
+
+
+func play_tts_bool_value():
+	for item in UIManager.tts_player.finished.get_connections():
+		UIManager.tts_player.finished.disconnect(item.callable)
+	if value:
+		UIManager.tts_player.stream = load(UIManager.ui_data.basic_tts_files.enabled)
+		UIManager.tts_player.play()
+	else:
+		UIManager.tts_player.stream = load(UIManager.ui_data.basic_tts_files.disabled)
+		UIManager.tts_player.play()
