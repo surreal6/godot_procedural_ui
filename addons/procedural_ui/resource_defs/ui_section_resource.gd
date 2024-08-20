@@ -21,31 +21,10 @@ func get_ui_section_element() -> Control:
 	for attr in elements_data:
 		var data = elements_data[attr]
 		data.attr = attr
-		if data.type == "bool":
-			var resource = UIManager.generate_boolean_resource(data)
-			var element = resource.get_ui_element()
-			section.add_child(element)
-			elements_array.append(resource)
-		if data.type == "float":
-			var resource = UIManager.generate_float_resource(data)
-			var element = resource.get_ui_element()
-			section.add_child(element)
-			elements_array.append(resource)
-		if data.type == "int":
-			var resource = UIManager.generate_int_resource(data)
-			var element = resource.get_ui_element()
-			section.add_child(element)
-			elements_array.append(resource)
-		if data.type == "options":
-			var resource = UIManager.generate_options_resource(data)
-			var element = resource.get_ui_element()
-			section.add_child(element)
-			elements_array.append(resource)
-		if data.type == "operator":
-			var resource = UIManager.generate_operator_resource(data)
-			var element = resource.get_ui_element()
-			section.add_child(element)
-			elements_array.append(resource)
+		var resource = UIManager.generate_resource(data)
+		var element = resource.get_ui_element()
+		section.add_child(element)
+		elements_array.append(resource)
 	section.visibility_changed.connect(update_section)
 	update_section()
 	ui_section_element = section
@@ -60,10 +39,11 @@ func grab_focus():
 func update_section():
 	for element in elements_array:
 		element.update()
-		if element.is_visible():
-			element.ui_container.show()
-		else:
-			element.ui_container.hide()
+		if  is_instance_valid(element.ui_container):
+			if element.is_visible():
+				element.ui_container.show()
+			else:
+				element.ui_container.hide()
 
 
 ## SECTION BUTTON

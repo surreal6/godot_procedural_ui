@@ -13,17 +13,16 @@ enum ColorPalette {
 	C,
 }
 
-@export_group("Options")
-
-@export var play_area_mode : PlayAreaMode = PlayAreaMode.ROOMSCALE
-@export var passthrough : bool = false
-@export var gaze_selection : bool = true
-@export var visuals : bool = true
-@export var color_palette : ColorPalette = ColorPalette.A
-@export var emitters_volume : float = 50
-@export var fx_volume : float = 50
-@export var music_volume : float = 50
-@export var voice_over_volume : float = 50
+var play_area_mode : PlayAreaMode = PlayAreaMode.ROOMSCALE
+var passthrough : bool = false
+var gaze_selection : bool = true
+var visuals : bool = true
+var color_palette : ColorPalette = ColorPalette.A
+var emitters_volume : float = 50
+var fx_volume : float = 50
+var music_volume : float = 50
+var voice_over_volume : float = 50
+var mute_voice_over : bool = false
 
 
 ## Settings file name to persist user settings
@@ -56,7 +55,7 @@ func reset_to_defaults() -> void:
 	fx_volume = 50
 	music_volume = 50
 	voice_over_volume = 50
-
+	mute_voice_over = false
 
 
 ## Save the settings to file

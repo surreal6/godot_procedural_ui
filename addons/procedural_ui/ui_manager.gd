@@ -140,12 +140,38 @@ func get_options(object, options_name):
 	return singleton[options_name]
 
 
+func generate_resource(data):
+	var resource
+	match data.type:
+		"bool":
+			resource = UIManager.generate_boolean_resource(data)
+		"float":
+			resource = UIManager.generate_float_resource(data)
+		"int":
+			resource = UIManager.generate_int_resource(data)
+		"options":
+			resource = UIManager.generate_options_resource(data)
+		"operator":
+			resource = UIManager.generate_operator_resource(data)
+		"HBoxContainer":
+			resource = UIManager.generate_hbox_resource(data)
+	return resource
+
+
+func generate_hbox_resource(data):
+	var resource = UIHBoxResource.new()
+	resource.elements_data = data.items
+	return resource
+
+
 func generate_boolean_resource(data):
 	var resource = UIBoolAttributeResource.new()
 	resource.label_text = data.label
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
+	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
+	resource.inline_label = data.inline_label if "inline_label" in data.keys() else false
 	resource.checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
@@ -159,6 +185,7 @@ func generate_operator_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
+	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
 	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
 	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
@@ -171,12 +198,14 @@ func generate_float_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
+	
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.min = data.min
 	resource.max = data.max
 	resource.step = data.step if "step" in data.keys() else 0.01
 	resource.tick_count = data.tick_count if "tick_count" in data.keys() else 0
 	resource.ticks_on_borders = data.ticks_on_borders if "ticks_on_borders" in data.keys() else false
+	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
 	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
 	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
@@ -194,6 +223,7 @@ func generate_int_resource(data):
 	resource.step = data.step if "step" in data.keys() else 1
 	resource.tick_count = data.tick_count if "tick_count" in data.keys() else 0
 	resource.ticks_on_borders = data.ticks_on_borders if "ticks_on_borders" in data.keys() else false
+	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
 	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
 	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
@@ -206,6 +236,7 @@ func generate_options_resource(data):
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
 	resource.value = get_attribute_value(data.object, data.attr)
+	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
 	var options = get_options(data.object, data.options)
 	for option in options:
 		resource.options.append(option)

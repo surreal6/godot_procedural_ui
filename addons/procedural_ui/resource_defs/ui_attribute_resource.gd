@@ -7,6 +7,7 @@ class_name UIAttributeResource
 @export var attribute_name : String = ""
 @export var tts_file : String = ""
 @export var visibility_poll : String = ""
+@export var stretch_ratio : float = 1
 
 var ui_element : Control
 var ui_container : Control

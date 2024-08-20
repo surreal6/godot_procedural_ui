@@ -61,6 +61,7 @@ func get_ui_element():
 	label_value.text = str(value) + unit_label
 	cc2.add_child(label_value)
 	ui_element = slider
+	hbox.size_flags_stretch_ratio = stretch_ratio
 	ui_container = hbox
 	return hbox
 

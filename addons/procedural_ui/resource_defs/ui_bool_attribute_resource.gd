@@ -2,6 +2,7 @@ extends UIAttributeResource
 class_name UIBoolAttributeResource
 
 @export var checkbutton : bool = false
+@export var inline_label : bool = false
 @export var value : bool = false
 
 func get_ui_element():
@@ -14,17 +15,19 @@ func get_ui_element():
 	var cc2 = CenterContainer.new()
 	cc2.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hbox.add_child(cc2)
-	var label = Label.new()
-	label.text = label_text
-	if tooltip:
-		label.tooltip_text = tooltip
-	cc1.add_child(label)
+	if !inline_label:
+		var label = Label.new()
+		label.text = label_text
+		if tooltip:
+			label.tooltip_text = tooltip
+		cc1.add_child(label)
 	var checkbox
 	if checkbutton:
 		checkbox = CheckButton.new()
 	else:
 		checkbox = CheckBox.new()
-	checkbox.text = label_text
+	if inline_label:
+		checkbox.text = label_text
 	if tooltip:
 		checkbox.tooltip_text = tooltip
 	checkbox.visibility_changed.connect(update)
@@ -35,6 +38,7 @@ func get_ui_element():
 	checkbox.focus_exited.connect(_unregister_as_last_focused)
 	cc2.add_child(checkbox)
 	ui_element = checkbox
+	hbox.size_flags_stretch_ratio = stretch_ratio
 	ui_container = hbox
 	return hbox
 

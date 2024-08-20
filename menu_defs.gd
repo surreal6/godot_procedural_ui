@@ -124,15 +124,29 @@ var ui_data = {
 						"tooltip" : "This is the music_volume tooltip",
 						"tts_file" : "res://menu_tts_files/loc_en_music_volume_slider.mp3",
 					},
-					"voice_over_volume" : {
-						"object" : "UserSettings",
-						"type" : "float",
-						"label" : "voice over volume",
-						"min" : 0,
-						"max" : 100,
-						"step" : 0.1,
-						"tooltip" : "This is the voice_over_volume tooltip",
-						"tts_file" : "res://menu_tts_files/loc_en_voice_over_volume_slider.mp3",
+					"voice_over_line" : {
+						"type" : "HBoxContainer",
+						"items" : {
+							"voice_over_volume" : {
+								"object" : "UserSettings",
+								"type" : "float",
+								"label" : "voice over volume",
+								"min" : 0,
+								"max" : 100,
+								"step" : 0.1,
+								"tooltip" : "This is the voice_over_volume tooltip",
+								"tts_file" : "res://menu_tts_files/loc_en_voice_over_volume_slider.mp3",
+								"stretch_ratio" : 5,
+							},
+							"mute_voice_over" : {
+								"object" : "UserSettings",
+								"type" : "bool",
+								"label" : "mute",
+								"inline_label" : true,
+								"tooltip" : "This is the mute voice over tooltip",
+								"tts_file" : "res://menu_tts_files/loc_en_mute_voice_over_value_checkbox.mp3",
+							},
+						}	
 					},
 					"back_operator" : {
 						"object" : "UIManager",
