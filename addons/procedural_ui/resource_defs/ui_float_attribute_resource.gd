@@ -4,8 +4,8 @@ class_name UIFloatAttributeResource
 @export var value : float = 0.0
 
 # slider attributes
-@export var tick_count : int = 10
-@export var ticks_on_borders : bool = true
+@export var tick_count : int = 0
+@export var ticks_on_borders : bool = false
 @export var min : float = 0
 @export var max : float = 1
 @export var step : float = 0.01

@@ -146,13 +146,10 @@ func generate_boolean_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
-	if "checkbutton" in data.keys():
-		resource.checkbutton = data.checkbutton
+	resource.checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
 	resource.value = get_attribute_value(data.object, data.attr)
-	if "tts_file" in data.keys():
-		resource.tts_file = data.tts_file
-	if "visibility_poll" in data.keys():
-		resource.visibility_poll = data.visibility_poll
+	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
+	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
 
 
@@ -162,12 +159,9 @@ func generate_operator_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
-	if "poll" in data.keys():
-		resource.poll = data.poll
-	if "tts_file" in data.keys():
-		resource.tts_file = data.tts_file
-	if "visibility_poll" in data.keys():
-		resource.visibility_poll = data.visibility_poll
+	resource.poll = data.poll if "poll" in data.keys() else ""
+	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
+	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
 
 
@@ -180,10 +174,11 @@ func generate_float_resource(data):
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.min = data.min
 	resource.max = data.max
-	if "tts_file" in data.keys():
-		resource.tts_file = data.tts_file
-	if "visibility_poll" in data.keys():
-		resource.visibility_poll = data.visibility_poll
+	resource.step = data.step if "step" in data.keys() else 0.01
+	resource.tick_count = data.tick_count if "tick_count" in data.keys() else 0
+	resource.ticks_on_borders = data.ticks_on_borders if "ticks_on_borders" in data.keys() else false
+	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
+	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
 
 
@@ -196,10 +191,11 @@ func generate_int_resource(data):
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.min = data.min
 	resource.max = data.max
-	if "tts_file" in data.keys():
-		resource.tts_file = data.tts_file
-	if "visibility_poll" in data.keys():
-		resource.visibility_poll = data.visibility_poll
+	resource.step = data.step if "step" in data.keys() else 1
+	resource.tick_count = data.tick_count if "tick_count" in data.keys() else 0
+	resource.ticks_on_borders = data.ticks_on_borders if "ticks_on_borders" in data.keys() else false
+	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
+	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
 
 
@@ -213,11 +209,9 @@ func generate_options_resource(data):
 	var options = get_options(data.object, data.options)
 	for option in options:
 		resource.options.append(option)
-	if "tts_file" in data.keys():
-		resource.tts_file = data.tts_file
+	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
 	if "options_tts_files" in data.keys():
 		for item in data.options_tts_files:
 			resource.options_tts_files.append(item)
-	if "visibility_poll" in data.keys():
-		resource.visibility_poll = data.visibility_poll
+	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource

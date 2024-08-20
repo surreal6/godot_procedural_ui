@@ -4,8 +4,8 @@ class_name UIIntAttributeResource
 @export var value : int = 0.0
 
 # slider attributes
-@export var tick_count : int = 10
-@export var ticks_on_borders : bool = true
+@export var tick_count : int = 0
+@export var ticks_on_borders : bool = false
 @export var min : int = 0
 @export var max : int = 100
 @export var step : float = 1
