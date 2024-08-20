@@ -35,7 +35,9 @@ func get_ui_element():
 	checkbox.focus_exited.connect(_unregister_as_last_focused)
 	cc2.add_child(checkbox)
 	ui_element = checkbox
+	ui_container = hbox
 	return hbox
+
 
 func update():
 	if is_instance_valid(ui_element):

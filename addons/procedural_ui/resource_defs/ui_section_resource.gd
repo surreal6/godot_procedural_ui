@@ -47,6 +47,7 @@ func get_ui_section_element() -> Control:
 			section.add_child(element)
 			elements_array.append(resource)
 	section.visibility_changed.connect(update_section)
+	update_section()
 	ui_section_element = section
 	return section
 
@@ -59,6 +60,10 @@ func grab_focus():
 func update_section():
 	for element in elements_array:
 		element.update()
+		if element.is_visible():
+			element.ui_container.show()
+		else:
+			element.ui_container.hide()
 
 
 ## SECTION BUTTON

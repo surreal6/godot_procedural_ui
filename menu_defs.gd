@@ -15,6 +15,15 @@ var ui_data = {
 			"tts_file" : "res://menu_tts_files/loc_en_virtual_reality_settings_section.mp3",
 			"theme" : KENNEY_UI_RED,
 			"data" : {
+				"passthrough" : {
+					"object" : "UserSettings",
+					"type" : "bool",
+					"label" : "passthrough",
+					"checkbutton" : true,
+					"tooltip" : "This is the passthrough tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_passthrough_checkbox.mp3",
+					"visibility_poll": "passthrough_visibility_poll",
+				},
 				"play_area_mode" : {
 					"object" : "UserSettings",
 					"type" : "options",
@@ -26,14 +35,6 @@ var ui_data = {
 						"res://menu_tts_files/loc_en_roomscale.mp3",
 						"res://menu_tts_files/loc_en_standing.mp3"
 					]
-				},
-				"passthrough" : {
-					"object" : "UserSettings",
-					"type" : "bool",
-					"label" : "passthrough",
-					"checkbutton" : true,
-					"tooltip" : "This is the passthrough tooltip",
-					"tts_file" : "res://menu_tts_files/loc_en_passthrough_checkbox.mp3",
 				},
 				"operator_1" : {
 					"object" : "UserSettings",

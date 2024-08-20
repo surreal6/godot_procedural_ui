@@ -35,6 +35,7 @@ func get_ui_element():
 	option_button.item_hovered.connect(func(index): self._register_as_item_focused(index))
 	cc2.add_child(option_button)
 	ui_element = option_button
+	ui_container = hbox
 	return hbox
 
 

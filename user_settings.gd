@@ -140,6 +140,13 @@ func _load() -> void:
 		if options.has("voice_over_volume"):
 			voice_over_volume = options["voice_over_volume"]
 
+func passthrough_visibility_poll():
+	if play_area_mode == 0:
+		print("passthrough_visibility_poll %s" % true)
+		return true
+	print("passthrough_visibility_poll %s" % false)
+	return false
+
 
 func operator_1():
 	print("operator 1 executed")

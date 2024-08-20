@@ -21,6 +21,7 @@ func get_ui_element():
 	button.focus_exited.connect(_unregister_as_last_focused)
 	cc1.add_child(button)
 	ui_element = button
+	ui_container = cc1
 	return cc1
 
 

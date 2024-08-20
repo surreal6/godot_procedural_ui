@@ -151,6 +151,8 @@ func generate_boolean_resource(data):
 	resource.value = get_attribute_value(data.object, data.attr)
 	if "tts_file" in data.keys():
 		resource.tts_file = data.tts_file
+	if "visibility_poll" in data.keys():
+		resource.visibility_poll = data.visibility_poll
 	return resource
 
 
@@ -164,6 +166,8 @@ func generate_operator_resource(data):
 		resource.poll = data.poll
 	if "tts_file" in data.keys():
 		resource.tts_file = data.tts_file
+	if "visibility_poll" in data.keys():
+		resource.visibility_poll = data.visibility_poll
 	return resource
 
 
@@ -178,6 +182,8 @@ func generate_float_resource(data):
 	resource.max = data.max
 	if "tts_file" in data.keys():
 		resource.tts_file = data.tts_file
+	if "visibility_poll" in data.keys():
+		resource.visibility_poll = data.visibility_poll
 	return resource
 
 
@@ -192,6 +198,8 @@ func generate_int_resource(data):
 	resource.max = data.max
 	if "tts_file" in data.keys():
 		resource.tts_file = data.tts_file
+	if "visibility_poll" in data.keys():
+		resource.visibility_poll = data.visibility_poll
 	return resource
 
 
@@ -210,4 +218,6 @@ func generate_options_resource(data):
 	if "options_tts_files" in data.keys():
 		for item in data.options_tts_files:
 			resource.options_tts_files.append(item)
+	if "visibility_poll" in data.keys():
+		resource.visibility_poll = data.visibility_poll
 	return resource
