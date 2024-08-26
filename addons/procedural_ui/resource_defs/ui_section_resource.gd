@@ -7,7 +7,7 @@ class_name UISectionResource
 @export var tts_file : String = ""
 @export var theme : Theme
 
-var elements_array : Array[UIAttributeResource] = []
+var elements_array : Array[Resource] = []
 
 var ui_element = Control
 var ui_section_element = Control
@@ -27,6 +27,7 @@ func get_ui_section_element() -> Control:
 		elements_array.append(resource)
 	section.visibility_changed.connect(update_section)
 	update_section()
+	section.theme = theme
 	ui_section_element = section
 	return section
 

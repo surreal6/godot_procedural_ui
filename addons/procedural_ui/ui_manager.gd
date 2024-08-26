@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 signal current_section_selected(section_name)

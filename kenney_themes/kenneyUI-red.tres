@@ -1,7 +1,7 @@
 [gd_resource type="Theme" load_steps=34 format=3 uid="uid://mbsg4xqnedxi"]
 
 [ext_resource type="Texture2D" uid="uid://d00ws7wljnit4" path="res://kenney_themes/UIpack_vector.svg" id="1"]
-[ext_resource type="FontFile" uid="uid://bl41nibxa27m3" path="res://kenney_themes/kenvector_future.ttf" id="2"]
+[ext_resource type="FontFile" uid="uid://wnnubhblt7xd" path="res://kenney_themes/kenvector_future.ttf" id="2"]
 
 [sub_resource type="FontFile" id="31"]
 fallbacks = Array[Font]([ExtResource("2")])
