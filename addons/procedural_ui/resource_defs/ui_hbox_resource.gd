@@ -2,9 +2,12 @@ extends Resource
 class_name UIHBoxResource
 
 @export var elements_data : Dictionary
+@export var visibility_poll : String = ""
+@export var object_name : String = ""
 
-var elements_array : Array[UIAttributeResource] = []
+var elements_array : Array[Resource] = []
 var ui_element = Control
+var ui_container : Control
 
 
 func get_ui_element() -> Control:
@@ -19,9 +22,10 @@ func get_ui_element() -> Control:
 		var element = resource.get_ui_element()
 		hbox.add_child(element)
 		elements_array.append(resource)
-	hbox.visibility_changed.connect(update_hbox)
-	update_hbox()
+	hbox.visibility_changed.connect(update)
+	update()
 	ui_element = hbox
+	ui_container = hbox
 	return hbox
 
 
@@ -30,10 +34,17 @@ func grab_focus():
 	return elements_array[0].ui_element
 
 
-func update_hbox():
+func update():
 	for element in elements_array:
 		element.update()
 		if element.is_visible():
 			element.ui_container.show()
 		else:
 			element.ui_container.hide()
+
+func is_visible():
+	if visibility_poll != "":
+		var singleton = UIManager.get_tree().root.get_node(object_name)
+		var poll_result = singleton.call(visibility_poll)
+		return poll_result
+	return true
