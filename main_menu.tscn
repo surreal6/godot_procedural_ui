@@ -14,10 +14,10 @@ gradient = SubResource("Gradient_40xq0")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_o0e6p"]
 shader = ExtResource("3_uyke3")
 shader_parameter/value = 0.718
-shader_parameter/segments = 20
+shader_parameter/segments = 7
 shader_parameter/radius = 0.45
 shader_parameter/hollow_radius = 0.195
-shader_parameter/margin = 0.482
+shader_parameter/margin = 0.287
 shader_parameter/rotation = -1.0
 shader_parameter/progress_rotation = -1.0
 shader_parameter/use_value_gradient = false
