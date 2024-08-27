@@ -71,8 +71,6 @@ func _on_event(event: InputEvent):
 
 
 func _register_as_last_focused() -> void:
-	if !ui_element:
-		print("Eo")
 	UIManager.new_target = ui_element
 	#print("register section button %s" % ui_element.name)
 	if tts_file and is_instance_valid(UIManager.tts_player):

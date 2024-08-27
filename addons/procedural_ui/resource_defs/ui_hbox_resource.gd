@@ -37,10 +37,11 @@ func grab_focus():
 func update():
 	for element in elements_array:
 		element.update()
-		if element.is_visible():
-			element.ui_container.show()
-		else:
-			element.ui_container.hide()
+		if is_instance_valid(element.ui_container):
+			if element.is_visible():
+				element.ui_container.show()
+			else:
+				element.ui_container.hide()
 
 func is_visible():
 	if visibility_poll != "":

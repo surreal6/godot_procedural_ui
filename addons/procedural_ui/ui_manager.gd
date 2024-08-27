@@ -42,6 +42,8 @@ func _ready():
 func _process(delta):
 	# If no current or previous collisions then skip
 	if not new_target and not last_target:
+		if is_instance_valid(cursor):
+			cursor.material.set_shader_parameter("value", 0.0)
 		return
 	# Handle pointer changes
 
@@ -58,6 +60,7 @@ func _process(delta):
 		#cursor.material.set_shader_parameter("color", color_none)
 	
 	# new focused element
+	#print(new_target)
 	if new_target and not last_target:
 		print("new target ------------")
 		_set_time_held(time_held + delta)
@@ -109,6 +112,7 @@ func _execute_click():
 	print("execute click")
 	_set_time_held(0.0)
 	print(new_target.get_class())
+	UIManager.new_target = null
 	if !gaze_pressed:
 		gaze_pressed = true
 	var input_event = InputEventMouseButton.new()
@@ -181,7 +185,10 @@ func populate_current_section(current_section):
 			var section_element = section.get_ui_section_element()
 			if section.theme:
 				current_section_container.theme = section.theme
-			current_section_container.add_child(Panel.new())
+			var panel = Panel.new()
+			panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			panel.mouse_force_pass_scroll_events = false
+			current_section_container.add_child(panel)
 			current_section_container.add_child(section_element)
 			section.grab_focus()
 			populate_sections_selector_back()
@@ -199,7 +206,9 @@ func populate_sections_selector():
 		child.queue_free()
 	if is_instance_valid(main_theme):
 		sections_container.theme = main_theme
-	sections_container.add_child(Panel.new())
+	var panel = Panel.new()
+	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	sections_container.add_child(panel)
 	var vbox = VBoxContainer.new()
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	for section in sections_array:
