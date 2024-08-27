@@ -65,7 +65,7 @@ func _on_set_attribute_value(new_value) -> void:
 
 
 func _register_as_last_focused() -> void:
-	UIManager.last_ui_element_focused = ui_element
+	UIManager.new_target = ui_element
 	#print("register %s" % ui_element.name)
 	if tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
@@ -94,8 +94,9 @@ func play_tts_selected():
 
 
 func _register_as_item_focused(index) -> void:
-	UIManager.last_ui_element_focused = ui_element.name + "_" + str(index)
-	#print("register %s" % UIManager.last_ui_element_focused)
+	UIManager.new_target = ui_element
+	UIManager.new_item = index
+	#print("register %s" % UIManager.new_target)
 	if options_tts_files and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()

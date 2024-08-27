@@ -3,10 +3,23 @@ extends Node
 
 signal current_section_selected(section_name)
 
-var last_ui_element_focused = null
+@export var color_none: Color = Color("white")
+@export var color_hover: Color = Color("yellow")
+@export var color_click: Color = Color("red")
+
 var sections_array : Array[UISectionResource] = []
 var back_operator_resource : UIOperatorAttributeResource
 
+var time_held = 0.0
+var gaze_pressed = false
+# Countdown
+var hold_time : float = 2.0
+
+## This variables stores the focused section
+var new_target : Control = null
+var last_target : Control = null
+var new_item : int = -1
+		
 ## This variable stores the focused section 
 var last_section_focused = null
 
@@ -16,10 +29,98 @@ var tts_player : AudioStreamPlayer :set = set_tts_player
 var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
+var cursor : ColorRect
+
+
+func _ready():
+	if !Engine.is_editor_hint():
+		_set_time_held(0.0)
+
+
+func _process(delta):
+	# If no current or previous collisions then skip
+	if not new_target and not last_target:
+		return
+	# Handle pointer changes
+	
+	cursor.material.set_shader_parameter("progress_rotation", sin(delta))
+	cursor.material.set_shader_parameter("value", cos(delta))
+	
+	
+	#if new_target:
+		#cursor.material.set_shader_parameter("color", color_hover)
+			#
+	#else:
+		#cursor.material.set_shader_parameter("color", color_none)
+	
+	# new focused element
+	if new_target and not last_target:
+		print("new target ------------")
+		_set_time_held(time_held + delta)
+		if time_held > hold_time:
+			_execute_click()
+	# no focused element
+	elif not new_target and last_target:
+		print("no focused ------------")
+		_set_time_held(0.0)
+	# change focused element
+	elif new_target != last_target:
+		print("change focused ------------")
+		_set_time_held(time_held + delta)
+		if time_held > hold_time:
+			_execute_click()
+	# same target
+	elif new_target == last_target:
+		#print("same target ------------")
+		_set_time_held(time_held + delta)
+		if time_held > hold_time:
+			_execute_click()
+
+	# Update last values
+	last_target = new_target
+
+
+func _input(event):
+	if is_instance_valid(cursor): # or is_instance_valid(gaze_pointer):
+		if event is InputEventMouseMotion:
+			# Move our cursor
+			var mouse_motion : InputEventMouseMotion = event
+			if is_instance_valid(cursor):
+				cursor.position = mouse_motion.position - Vector2(64, 64)
+			if gaze_pressed:
+				var event_lmb = InputEventMouseButton.new()
+				event_lmb.position = mouse_motion.position
+				event_lmb.pressed = true
+				Input.parse_input_event(event_lmb)
+				event_lmb.pressed = false
+				Input.parse_input_event(event_lmb)
+				gaze_pressed = false
+
+func _set_time_held(p_time_held):
+	time_held = p_time_held
+	if is_instance_valid(cursor):
+		cursor.material.set_shader_parameter("value", time_held/hold_time)
+
+
+
+func _execute_click():
+	print("execute click")
+	_set_time_held(0.0)
+	print(new_target.get_class())
+	if !gaze_pressed:
+		gaze_pressed = true
+	var input_event = InputEventMouseButton.new()
+	input_event.pressed = true
+	input_event.global_position = get_viewport().get_mouse_position()
+	get_viewport().push_input(input_event)
+
 
 func set_sections_container(new_value):
 	sections_container = new_value
 
+
+func set_gaze_pointer(new_value):
+	pass
 
 func set_current_section_container(new_value):
 	current_section_container = new_value

@@ -71,7 +71,7 @@ func _on_event(event: InputEvent):
 
 
 func _register_as_last_focused() -> void:
-	UIManager.last_ui_element_focused = ui_element
+	UIManager.new_target = ui_element
 	#print("register section button %s" % ui_element.name)
 	if tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
@@ -81,7 +81,7 @@ func _register_as_last_focused() -> void:
 
 
 func _unregister_as_last_focused() -> void:
-	UIManager.last_ui_element_focused = null
+	UIManager.new_target = null
 	#print("unregister section button %s" % ui_element.name)
 	if tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:

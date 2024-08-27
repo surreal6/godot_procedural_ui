@@ -1,6 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://clxuxayx785v7"]
+[gd_scene load_steps=8 format=3 uid="uid://clxuxayx785v7"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_ral1r"]
+[ext_resource type="PackedScene" uid="uid://c4lrayaa4oqs7" path="res://addons/procedural_ui/cursor.tscn" id="2_tgitm"]
+[ext_resource type="Shader" path="res://cursor_materials/circular_progress_bar.gdshader" id="3_uyke3"]
+[ext_resource type="Script" path="res://addons/procedural_ui/ui_manager.gd" id="4_6aeac"]
+
+[sub_resource type="Gradient" id="Gradient_40xq0"]
+offsets = PackedFloat32Array(0, 0.248677, 0.52381, 0.779541, 0.991182)
+colors = PackedColorArray(1, 0.951964, 0.521823, 1, 1, 0.651918, 0.159003, 1, 1, 0.500183, 0.153965, 1, 1, 0.661621, 0.170736, 1, 1, 0.951964, 0.521823, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3o222"]
+gradient = SubResource("Gradient_40xq0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_o0e6p"]
+shader = ExtResource("3_uyke3")
+shader_parameter/value = 1.0
+shader_parameter/segments = 10
+shader_parameter/radius = 0.425
+shader_parameter/hollow_radius = 0.335
+shader_parameter/margin = 0.0
+shader_parameter/rotation = 4.75e-08
+shader_parameter/progress_rotation = -1.0
+shader_parameter/use_value_gradient = false
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/gradient = SubResource("GradientTexture1D_3o222")
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -25,6 +48,9 @@ theme_override_constants/margin_top = 100
 theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
+[node name="HSlider" type="HSlider" parent="panel_1_container"]
+layout_mode = 2
+
 [node name="panel_2_container" type="MarginContainer" parent="."]
 layout_mode = 2
 offset_left = 420.0
@@ -40,3 +66,14 @@ theme_override_constants/margin_right = 100
 theme_override_constants/margin_bottom = 100
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Cursor" parent="." instance=ExtResource("2_tgitm")]
+material = SubResource("ShaderMaterial_o0e6p")
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("4_6aeac")
+
+[connection signal="gui_input" from="panel_1_container/HSlider" to="." method="_on_h_slider_gui_input"]

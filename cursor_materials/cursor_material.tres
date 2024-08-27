@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://b8wsxsc0vxkjm"]
+
+[ext_resource type="Shader" path="res://cursor_materials/cursor.gdshader" id="1_kywxa"]
+
+[resource]
+shader = ExtResource("1_kywxa")
+shader_parameter/color = Color(1, 1, 1, 1)

@@ -1,0 +1,7 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://d0dlk47jtqb4i"]
+
+[ext_resource type="Shader" uid="uid://bgidcnjfr4kli" path="res://cursor_materials/hold_button_gaze_pointer_visualshader.tres" id="1_rfl6h"]
+
+[resource]
+render_priority = -100
+shader = ExtResource("1_rfl6h")

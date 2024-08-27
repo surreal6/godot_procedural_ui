@@ -3,9 +3,11 @@ extends Control
 
 @onready var p1_contanier = $panel_1_container
 @onready var p2_contanier = $panel_2_container
+@onready var cursor : Control = $Cursor
 
 
 @export var root_menu_active : bool = true: set = set_root_menu_active
+
 
 
 func set_root_menu_active(new_value) -> void:
@@ -42,6 +44,7 @@ func set_panel2_inactive() -> void:
 
 
 func _ready() -> void:
+	UIManager.cursor = cursor
 	UIManager.set_ui_data(UserSettings.ui_data)
 	UIManager.set_sections_container(p1_contanier)
 	UIManager.set_current_section_container(p2_contanier)
