@@ -16,7 +16,9 @@ var gaze_pressed = false
 var hold_time : float = 2.0
 
 ## This variables stores the focused section
-var new_target : Control = null
+var new_target : Control = null:
+	set(new_value):
+		new_target = new_value
 var last_target : Control = null
 var new_item : int = -1
 		
@@ -30,7 +32,7 @@ var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
 var cursor : ColorRect
-
+var counter : float = 0.0
 
 func _ready():
 	if !Engine.is_editor_hint():
@@ -42,9 +44,11 @@ func _process(delta):
 	if not new_target and not last_target:
 		return
 	# Handle pointer changes
-	
-	cursor.material.set_shader_parameter("progress_rotation", sin(delta))
-	cursor.material.set_shader_parameter("value", cos(delta))
+
+	counter += delta
+	#cursor.material.set_shader_parameter("progress_rotation", sin(counter))
+	#cursor.material.set_shader_parameter("value", 1.0)
+	#cursor.material.set_shader_parameter("value", cos(counter))
 	
 	
 	#if new_target:
@@ -66,9 +70,7 @@ func _process(delta):
 	# change focused element
 	elif new_target != last_target:
 		print("change focused ------------")
-		_set_time_held(time_held + delta)
-		if time_held > hold_time:
-			_execute_click()
+		_set_time_held(0.0)
 	# same target
 	elif new_target == last_target:
 		#print("same target ------------")
@@ -111,7 +113,15 @@ func _execute_click():
 		gaze_pressed = true
 	var input_event = InputEventMouseButton.new()
 	input_event.pressed = true
-	input_event.global_position = get_viewport().get_mouse_position()
+	input_event.position = get_viewport().get_mouse_position()
+	
+	input_event.button_index = MOUSE_BUTTON_LEFT
+	get_viewport().push_input(input_event)
+
+	input_event.pressed = false
+	input_event.position = get_viewport().get_mouse_position()
+	
+	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
 
 

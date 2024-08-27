@@ -78,6 +78,9 @@ void fragment() {
 	vec4 gradient_color = get_gradient_color(gradient, t);
 	COLOR = vec4(gradient_color.rgb, shape);
 	
+	float center = circle_shape(uv, radius * radius_t * 0.2);
+	COLOR += vec4(color, center);
+	
 	//// Called for every pixel the material is visible on.
 	//float dist = length(UV - vec2(0.5, 0.5));
 	//COLOR.a = 1.0 - clamp(abs(0.4 - dist)/0.1, 0.0, 1.0);
