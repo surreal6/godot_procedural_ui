@@ -5,14 +5,8 @@ signal click_detected
 @onready var cursor: ColorRect = $Cursor
 
 func _ready() -> void:
+	# to draw the cursor over popup windows
 	set_layer(1025)
-
-#
-#func _input(event):
-	#if event is InputEventMouseMotion:
-		## Move our cursor
-		#var mouse_motion : InputEventMouseMotion = event
-		#cursor.position = mouse_motion.position - Vector2(64, 64)
 
 
 func _process(delta: float) -> void:
@@ -20,11 +14,8 @@ func _process(delta: float) -> void:
 	cursor.position = mouse_pos - Vector2(64, 64)
 
 
-
-
- #CLICK DETECTOR FOR DEBUG PURPOSES
+# emit a click event for ui_manager to stop cursor progress bar.
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			#print("I've been clicked %s" % event.position)
 			click_detected.emit()
