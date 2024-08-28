@@ -51,7 +51,7 @@ func _on_set_attribute_value(new_value) -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	singleton[attribute_name] = new_value
 	value = new_value
-	if options_tts_files and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_tts and options_tts_files and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(options_tts_files[new_value])
@@ -67,7 +67,7 @@ func _on_set_attribute_value(new_value) -> void:
 func _register_as_last_focused() -> void:
 	UIManager.new_focused_target = ui_element
 	#print("register %s" % ui_element.name)
-	if tts_file and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_tts and tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(tts_file)
@@ -115,7 +115,7 @@ func play_tts_selected():
 
 
 func play_tts_option(index):
-	if options_tts_files and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_tts and options_tts_files and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(options_tts_files[index])

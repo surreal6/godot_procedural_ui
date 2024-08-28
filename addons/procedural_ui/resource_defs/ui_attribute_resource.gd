@@ -51,7 +51,7 @@ func is_visible() -> bool:
 	return true
 
 func play_tts_attribute() -> void:
-	if tts_file and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_tts and tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(tts_file)
@@ -59,6 +59,6 @@ func play_tts_attribute() -> void:
 
 
 func stop_tts() -> void:
-	if tts_file and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_tts and tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()

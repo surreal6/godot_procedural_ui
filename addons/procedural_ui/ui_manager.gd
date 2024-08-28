@@ -28,6 +28,18 @@ var tts_player : AudioStreamPlayer :set = set_tts_player
 var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
+var enable_tts : bool = false:
+	set(value):
+		enable_tts = value
+		if not enable_tts and is_instance_valid(tts_player):
+			tts_player.stop()
+
+var enable_hover_click : bool = true:
+	set(value):
+		enable_hover_click = value
+		if not value and is_instance_valid(cursor):
+			cursor.material.set_shader_parameter("value", 0.0)
+
 var cursor : ColorRect
 var cursor_canvas_layer : CanvasLayer:
 	set(value):
@@ -46,6 +58,9 @@ func _ready():
 
 
 func _process(delta):
+	if !enable_hover_click:
+		return
+
 	# If no current or previous collisions then skip
 	if not is_instance_valid(new_hovered_target) and not is_instance_valid(last_hovered_target):
 		if is_instance_valid(cursor):

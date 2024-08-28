@@ -53,7 +53,7 @@ func _on_set_attribute_value(new_value) -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	singleton[attribute_name] = new_value
 	value = new_value
-	if UIManager.ui_data.basic_tts_files and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_tts and UIManager.ui_data.basic_tts_files and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		var sound = UIManager.ui_data.basic_tts_files.disabled
@@ -66,7 +66,7 @@ func _on_set_attribute_value(new_value) -> void:
 
 
 func play_tts_attribute() -> void:
-	if tts_file and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_tts and tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(tts_file)
