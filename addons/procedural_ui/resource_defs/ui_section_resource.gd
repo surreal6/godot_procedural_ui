@@ -1,5 +1,5 @@
-extends Resource
 class_name UISectionResource
+extends Resource
 
 @export var label_text : String = ""
 @export var section_name : String = ""
@@ -33,8 +33,10 @@ func get_ui_section_element() -> Control:
 
 
 func grab_focus():
-	elements_array[0].ui_element.call_deferred("grab_focus")
-	return elements_array[0].ui_element
+	for element in elements_array:
+		if element.is_visible():
+			element.ui_element.call_deferred("grab_focus")
+			return element.ui_element
 
 
 func update_section():
@@ -43,8 +45,10 @@ func update_section():
 		if  is_instance_valid(element.ui_container):
 			if element.is_visible():
 				element.ui_container.show()
+				element.ui_container.set_focus_mode(0)
 			else:
 				element.ui_container.hide()
+				element.ui_container.set_focus_mode(2)
 
 
 ## SECTION BUTTON
@@ -57,8 +61,8 @@ func get_ui_element():
 		)
 	button.gui_input.connect(func(event):
 		_on_event(event))
-	button.mouse_entered.connect(_register_as_last_focused)
-	button.mouse_exited.connect(_unregister_as_last_focused)
+	button.mouse_entered.connect(_register_as_last_hovered)
+	button.mouse_exited.connect(_unregister_as_last_hovered)
 	button.focus_entered.connect(_register_as_last_focused)
 	button.focus_exited.connect(_unregister_as_last_focused)
 	ui_element = button
@@ -71,8 +75,30 @@ func _on_event(event: InputEvent):
 
 
 func _register_as_last_focused() -> void:
-	UIManager.new_target = ui_element
+	UIManager.new_focused_target = ui_element
 	#print("register section button %s" % ui_element.name)
+	play_tts_attribute()
+
+
+func _unregister_as_last_focused() -> void:
+	UIManager.new_focused_target = null
+	#print("unregister section button %s" % ui_element.name)
+	stop_tts()
+
+
+func _register_as_last_hovered() -> void:
+	UIManager.new_hovered_target = ui_element
+	#print("register section button %s" % ui_element.name)
+	play_tts_attribute()
+
+
+func _unregister_as_last_hovered() -> void:
+	UIManager.new_hovered_target = null
+	#print("unregister section button %s" % ui_element.name)
+	stop_tts()
+
+
+func play_tts_attribute() -> void:
 	if tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
@@ -80,9 +106,7 @@ func _register_as_last_focused() -> void:
 		UIManager.tts_player.play()
 
 
-func _unregister_as_last_focused() -> void:
-	UIManager.new_target = null
-	#print("unregister section button %s" % ui_element.name)
+func stop_tts() -> void:
 	if tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()

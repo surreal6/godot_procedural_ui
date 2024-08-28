@@ -1,5 +1,5 @@
-extends Resource
 class_name UIHBoxResource
+extends Resource
 
 @export var elements_data : Dictionary
 @export var visibility_poll : String = ""
@@ -18,7 +18,7 @@ func get_ui_element() -> Control:
 	for attr in elements_data:
 		var data = elements_data[attr]
 		data.attr = attr
-		var resource = UIManager.generate_resource(data)	
+		var resource = UIManager.generate_resource(data)
 		var element = resource.get_ui_element()
 		hbox.add_child(element)
 		elements_array.append(resource)
@@ -40,8 +40,11 @@ func update():
 		if is_instance_valid(element.ui_container):
 			if element.is_visible():
 				element.ui_container.show()
+				element.ui_container.set_focus_mode(0)
+
 			else:
 				element.ui_container.hide()
+				element.ui_container.set_focus_mode(2)
 
 func is_visible():
 	if visibility_poll != "":

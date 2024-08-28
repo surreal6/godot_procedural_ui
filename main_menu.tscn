@@ -68,3 +68,8 @@ material = SubResource("ShaderMaterial_o0e6p")
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_right = 8.0
+offset_bottom = 8.0

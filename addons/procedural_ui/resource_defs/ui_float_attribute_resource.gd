@@ -1,5 +1,5 @@
-extends UIAttributeResource
 class_name UIFloatAttributeResource
+extends UIAttributeResource
 
 @export var value : float = 0.0
 
@@ -45,8 +45,8 @@ func get_ui_element():
 		self._on_set_attribute_value(new_value)
 		label_value.text = str(new_value) + unit_label
 		)
-	slider.mouse_entered.connect(_register_as_last_focused)
-	slider.mouse_exited.connect(_unregister_as_last_focused)
+	slider.mouse_entered.connect(_register_as_last_hovered)
+	slider.mouse_exited.connect(_unregister_as_last_hovered)
 	slider.focus_entered.connect(_register_as_last_focused)
 	slider.focus_exited.connect(_unregister_as_last_focused)
 	hbox_unit.add_child(slider)

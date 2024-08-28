@@ -74,8 +74,8 @@ func _process(_delta: float) -> void:
 			show()
 			UIManager.sections_selector_grab_focus()
 
-
-func _input(event):
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("I've been clicked %s" % event.position)
+# CLICK DETECTOR FOR DEBUG PURPOSES
+#func _input(event):
+	#if event is InputEventMouseButton:
+		#if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			#print("I've been clicked %s" % event.position)

@@ -1,5 +1,5 @@
-extends UIAttributeResource
 class_name UIBoolAttributeResource
+extends UIAttributeResource
 
 @export var checkbutton : bool = false
 @export var inline_label : bool = false
@@ -32,8 +32,8 @@ func get_ui_element():
 		checkbox.tooltip_text = tooltip
 	checkbox.visibility_changed.connect(update)
 	checkbox.toggled.connect(func(toggled_on): self._on_set_attribute_value(toggled_on))
-	checkbox.mouse_entered.connect(_register_as_last_focused)
-	checkbox.mouse_exited.connect(_unregister_as_last_focused)
+	checkbox.mouse_entered.connect(_register_as_last_hovered)
+	checkbox.mouse_exited.connect(_unregister_as_last_hovered)
 	checkbox.focus_entered.connect(_register_as_last_focused)
 	checkbox.focus_exited.connect(_unregister_as_last_focused)
 	cc2.add_child(checkbox)
@@ -65,9 +65,7 @@ func _on_set_attribute_value(new_value) -> void:
 	UIManager.update_sections()
 
 
-func _register_as_last_focused() -> void:
-	UIManager.new_target = ui_element
-	#print("register %s" % ui_element.name)
+func play_tts_attribute() -> void:
 	if tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
@@ -79,7 +77,7 @@ func _register_as_last_focused() -> void:
 		UIManager.tts_player.play()
 
 
-func play_tts_bool_value():
+func play_tts_bool_value() -> void:
 	for item in UIManager.tts_player.finished.get_connections():
 		UIManager.tts_player.finished.disconnect(item.callable)
 	if value:

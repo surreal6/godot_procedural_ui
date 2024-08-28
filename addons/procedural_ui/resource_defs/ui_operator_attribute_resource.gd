@@ -1,5 +1,5 @@
-extends UIAttributeResource
 class_name UIOperatorAttributeResource
+extends UIAttributeResource
 
 @export var poll : String = ""
 @export var disabled : bool = false
@@ -15,8 +15,8 @@ func get_ui_element():
 		button.tooltip_text = tooltip
 	button.visibility_changed.connect(update)
 	button.pressed.connect(func(): self._on_pressed())
-	button.mouse_entered.connect(_register_as_last_focused)
-	button.mouse_exited.connect(_unregister_as_last_focused)
+	button.mouse_entered.connect(_register_as_last_hovered)
+	button.mouse_exited.connect(_unregister_as_last_hovered)
 	button.focus_entered.connect(_register_as_last_focused)
 	button.focus_exited.connect(_unregister_as_last_focused)
 	cc1.add_child(button)
@@ -38,5 +38,7 @@ func update():
 			var poll_result = singleton.call(poll)
 			if poll_result:
 				ui_element.disabled = false
+				ui_element.set_focus_mode(0)
 			else:
 				ui_element.disabled = true
+				ui_element.set_focus_mode(2)

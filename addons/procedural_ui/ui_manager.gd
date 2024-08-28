@@ -1,28 +1,24 @@
-@tool
 extends Node
 
 signal current_section_selected(section_name)
-
-@export var color_none: Color = Color("white")
-@export var color_hover: Color = Color("yellow")
-@export var color_click: Color = Color("red")
 
 var sections_array : Array[UISectionResource] = []
 var back_operator_resource : UIOperatorAttributeResource
 
 var time_held = 0.0
-var gaze_pressed = false
-# Countdown
 var hold_time : float = 2.0
 
-## This variables stores the focused section
-var new_target : Control = null:
-	set(new_value):
-		new_target = new_value
-var last_target : Control = null
-var new_item : int = -1
-		
-## This variable stores the focused section 
+## This variables stores the focused element
+var new_focused_target : Control = null
+var last_focused_target : Control = null
+var new_focused_item : int = -1
+
+## This variables stores the hovered element
+var new_hovered_target : Control = null
+var last_hovered_target : Control = null
+var new_hovered_item : int = -1
+
+## This variable stores the focused section
 var last_section_focused = null
 
 var sections_container : Control :set = set_sections_container
@@ -32,7 +28,6 @@ var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
 var cursor : ColorRect
-var counter : float = 0.0
 
 func _ready():
 	if !Engine.is_editor_hint():
@@ -41,65 +36,34 @@ func _ready():
 
 func _process(delta):
 	# If no current or previous collisions then skip
-	if not new_target and not last_target:
+	if not is_instance_valid(new_hovered_target) and not is_instance_valid(last_hovered_target):
 		if is_instance_valid(cursor):
 			cursor.material.set_shader_parameter("value", 0.0)
 		return
-	# Handle pointer changes
 
-	counter += delta
-	#cursor.material.set_shader_parameter("progress_rotation", sin(counter))
-	#cursor.material.set_shader_parameter("value", 1.0)
-	#cursor.material.set_shader_parameter("value", cos(counter))
-	
-	
-	#if new_target:
-		#cursor.material.set_shader_parameter("color", color_hover)
-			#
-	#else:
-		#cursor.material.set_shader_parameter("color", color_none)
-	
-	# new focused element
-	#print(new_target)
-	if new_target and not last_target:
+	if new_hovered_target and not last_hovered_target:
 		print("new target ------------")
 		_set_time_held(time_held + delta)
 		if time_held > hold_time:
 			_execute_click()
 	# no focused element
-	elif not new_target and last_target:
+	elif not new_hovered_target and last_hovered_target:
 		print("no focused ------------")
 		_set_time_held(0.0)
 	# change focused element
-	elif new_target != last_target:
+	elif new_hovered_target != last_hovered_target:
 		print("change focused ------------")
 		_set_time_held(0.0)
 	# same target
-	elif new_target == last_target:
+	elif new_hovered_target == last_hovered_target:
 		#print("same target ------------")
 		_set_time_held(time_held + delta)
 		if time_held > hold_time:
 			_execute_click()
 
 	# Update last values
-	last_target = new_target
+	last_hovered_target = new_hovered_target
 
-
-func _input(event):
-	if is_instance_valid(cursor): # or is_instance_valid(gaze_pointer):
-		if event is InputEventMouseMotion:
-			# Move our cursor
-			var mouse_motion : InputEventMouseMotion = event
-			if is_instance_valid(cursor):
-				cursor.position = mouse_motion.position - Vector2(64, 64)
-			if gaze_pressed:
-				var event_lmb = InputEventMouseButton.new()
-				event_lmb.position = mouse_motion.position
-				event_lmb.pressed = true
-				Input.parse_input_event(event_lmb)
-				event_lmb.pressed = false
-				Input.parse_input_event(event_lmb)
-				gaze_pressed = false
 
 func _set_time_held(p_time_held):
 	time_held = p_time_held
@@ -111,20 +75,16 @@ func _set_time_held(p_time_held):
 func _execute_click():
 	print("execute click")
 	_set_time_held(0.0)
-	print(new_target.get_class())
-	UIManager.new_target = null
-	if !gaze_pressed:
-		gaze_pressed = true
 	var input_event = InputEventMouseButton.new()
 	input_event.pressed = true
 	input_event.position = get_viewport().get_mouse_position()
-	
+
 	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
 
 	input_event.pressed = false
 	input_event.position = get_viewport().get_mouse_position()
-	
+
 	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
 
@@ -132,9 +92,6 @@ func _execute_click():
 func set_sections_container(new_value):
 	sections_container = new_value
 
-
-func set_gaze_pointer(new_value):
-	pass
 
 func set_current_section_container(new_value):
 	current_section_container = new_value
@@ -225,7 +182,6 @@ func populate_sections_selector_back():
 		sections_container.remove_child(child)
 		child.queue_free()
 	var element = back_operator_resource.get_ui_element()
-	#element.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	sections_container.add_child(element)
 
 
@@ -319,7 +275,7 @@ func generate_float_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
-	
+
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.min = data.min
 	resource.max = data.max

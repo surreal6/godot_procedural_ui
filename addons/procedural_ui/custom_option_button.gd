@@ -1,6 +1,6 @@
 # Based on hover detection for ItemList by ForkedStill
-extends OptionButton
 class_name CustomOptionButton
+extends OptionButton
 
 signal item_hovered(index : int)
 
@@ -27,10 +27,9 @@ func hover_setup() -> void:
 # Called when mouse is moving within the list
 func hover_detect(event : InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		var mouse_pos := get_local_mouse_position()
-		# Perhaps a redundant check?
-		if popup_rect.has_point(get_global_mouse_position()):
-			var index : int = int(mouse_pos.y) / item_height - 1
+		var mouse_pos := get_global_mouse_position()
+		if popup_rect.has_point(mouse_pos):
+			var index : int = int(mouse_pos.y - popup_rect.position.y) / item_height
 			if hovered_item != index:
 				if index in range(get_popup().item_count):
 					item_hovered.emit(index)
