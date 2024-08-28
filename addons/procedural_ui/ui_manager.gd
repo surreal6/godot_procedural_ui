@@ -17,6 +17,7 @@ var new_focused_item : int = -1
 var new_hovered_target : Control = null
 var last_hovered_target : Control = null
 var new_hovered_item : int = -1
+var last_hovered_item : int = -1
 
 ## This variable stores the focused section
 var last_section_focused = null
@@ -28,6 +29,16 @@ var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
 var cursor : ColorRect
+var cursor_canvas_layer : CanvasLayer:
+	set(value):
+		cursor_canvas_layer = value
+		cursor = cursor_canvas_layer.cursor
+		cursor_canvas_layer.click_detected.connect(_on_click_detected)
+
+
+func _on_click_detected():
+	_set_time_held(0.0)
+
 
 func _ready():
 	if !Engine.is_editor_hint():
@@ -40,19 +51,25 @@ func _process(delta):
 		if is_instance_valid(cursor):
 			cursor.material.set_shader_parameter("value", 0.0)
 		return
+	
+	if new_hovered_item != last_hovered_item and last_hovered_item != -1:
+		_set_time_held(0.0)
+	
+	if new_hovered_item == -1  and last_hovered_item != -1:
+		_set_time_held(0.0)
 
 	if new_hovered_target and not last_hovered_target:
-		print("new target ------------")
+		#print("new target ------------")
 		_set_time_held(time_held + delta)
 		if time_held > hold_time:
 			_execute_click()
 	# no focused element
 	elif not new_hovered_target and last_hovered_target:
-		print("no focused ------------")
+		#print("no focused ------------")
 		_set_time_held(0.0)
 	# change focused element
 	elif new_hovered_target != last_hovered_target:
-		print("change focused ------------")
+		#print("change focused ------------")
 		_set_time_held(0.0)
 	# same target
 	elif new_hovered_target == last_hovered_target:
@@ -63,6 +80,7 @@ func _process(delta):
 
 	# Update last values
 	last_hovered_target = new_hovered_target
+	last_hovered_item = new_hovered_item
 
 
 func _set_time_held(p_time_held):
@@ -73,7 +91,7 @@ func _set_time_held(p_time_held):
 
 
 func _execute_click():
-	print("execute click")
+	#print("execute click")
 	_set_time_held(0.0)
 	var input_event = InputEventMouseButton.new()
 	input_event.pressed = true

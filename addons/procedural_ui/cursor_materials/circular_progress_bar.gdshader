@@ -75,8 +75,10 @@ void fragment() {
 	
 	shape = shape * arc * bounds * hollow;
 	
-	vec4 gradient_color = get_gradient_color(gradient, t);
-	COLOR = vec4(gradient_color.rgb, shape);
+	//vec4 gradient_color = get_gradient_color(gradient, t);
+	//COLOR = vec4(gradient_color.rgb, shape);
+	
+	COLOR = vec4(color, shape);
 	
 	float center = circle_shape(uv, radius * radius_t * 0.2);
 	COLOR += vec4(color, center);

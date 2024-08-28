@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cy7cgyowepsk4"]
+
+[ext_resource type="Shader" path="res://addons/procedural_ui/cursor_materials/circular_progress_bar.gdshader" id="1_dyj3e"]
+
+[resource]
+shader = ExtResource("1_dyj3e")
+shader_parameter/value = 1.0
+shader_parameter/segments = 1
+shader_parameter/radius = 0.475
+shader_parameter/hollow_radius = 0.24
+shader_parameter/margin = 0.0
+shader_parameter/rotation = null
+shader_parameter/progress_rotation = null
+shader_parameter/use_value_gradient = false
+shader_parameter/color = Color(0.595592, 0.000259906, 0.595587, 1)

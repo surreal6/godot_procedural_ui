@@ -88,10 +88,15 @@ func _register_as_item_focused(index) -> void:
 
 
 func _register_as_item_hovered(index) -> void:
-	UIManager.new_hovered_target = ui_element
+	if index == -1:
+		UIManager.new_hovered_target = null
+	else:
+		UIManager.new_hovered_target = ui_element	
+	
 	UIManager.new_hovered_item = index
 	#print("register %s" % UIManager.new_focused_target)
 	play_tts_option(index)
+
 
 
 func play_tts_selected_item():

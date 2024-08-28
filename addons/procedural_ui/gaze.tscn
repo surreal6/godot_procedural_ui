@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6tkeiskq46r8"]
 
-[ext_resource type="Shader" path="res://cursor_materials/circular_progress_bar.gdshader" id="1_amgy8"]
+[ext_resource type="Shader" path="res://addons/procedural_ui/cursor_materials/circular_progress_bar.gdshader" id="1_amgy8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cb5x4"]
 shader = ExtResource("1_amgy8")

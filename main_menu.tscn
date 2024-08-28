@@ -1,28 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://clxuxayx785v7"]
+[gd_scene load_steps=3 format=3 uid="uid://clxuxayx785v7"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_ral1r"]
-[ext_resource type="PackedScene" uid="uid://c4lrayaa4oqs7" path="res://addons/procedural_ui/cursor.tscn" id="2_tgitm"]
-[ext_resource type="Shader" path="res://cursor_materials/circular_progress_bar.gdshader" id="3_uyke3"]
-
-[sub_resource type="Gradient" id="Gradient_40xq0"]
-offsets = PackedFloat32Array(0, 0.52381, 0.991182)
-colors = PackedColorArray(0.95254, 0.404134, 1, 1, 0.38, 0, 0.348333, 1, 0.95254, 0.404134, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_3o222"]
-gradient = SubResource("Gradient_40xq0")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_o0e6p"]
-shader = ExtResource("3_uyke3")
-shader_parameter/value = 0.718
-shader_parameter/segments = 7
-shader_parameter/radius = 0.45
-shader_parameter/hollow_radius = 0.195
-shader_parameter/margin = 0.287
-shader_parameter/rotation = -1.0
-shader_parameter/progress_rotation = -1.0
-shader_parameter/use_value_gradient = false
-shader_parameter/color = Color(0, 0, 0, 1)
-shader_parameter/gradient = SubResource("GradientTexture1D_3o222")
+[ext_resource type="PackedScene" uid="uid://dhk2j4h88ex0i" path="res://addons/procedural_ui/cursor_canvas_layer.tscn" id="2_w1i8f"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -63,13 +42,4 @@ theme_override_constants/margin_bottom = 100
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
-[node name="Cursor" parent="." instance=ExtResource("2_tgitm")]
-material = SubResource("ShaderMaterial_o0e6p")
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 128.0
-
-[node name="Button" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+[node name="CursorCanvasLayer" parent="." instance=ExtResource("2_w1i8f")]

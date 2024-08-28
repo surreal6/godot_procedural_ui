@@ -3,11 +3,10 @@ extends Control
 
 @onready var p1_contanier = $panel_1_container
 @onready var p2_contanier = $panel_2_container
-@onready var cursor : Control = $Cursor
+@onready var cursor_canvas_layer: CanvasLayer = $CursorCanvasLayer
 
 
 @export var root_menu_active : bool = true: set = set_root_menu_active
-
 
 
 func set_root_menu_active(new_value) -> void:
@@ -44,7 +43,7 @@ func set_panel2_inactive() -> void:
 
 
 func _ready() -> void:
-	UIManager.cursor = cursor
+	UIManager.cursor_canvas_layer = cursor_canvas_layer
 	UIManager.set_ui_data(UserSettings.ui_data)
 	UIManager.set_sections_container(p1_contanier)
 	UIManager.set_current_section_container(p2_contanier)
@@ -73,9 +72,3 @@ func _process(_delta: float) -> void:
 		if !visible:
 			show()
 			UIManager.sections_selector_grab_focus()
-
-# CLICK DETECTOR FOR DEBUG PURPOSES
-#func _input(event):
-	#if event is InputEventMouseButton:
-		#if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			#print("I've been clicked %s" % event.position)
