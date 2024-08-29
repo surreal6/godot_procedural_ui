@@ -1,20 +1,15 @@
 class_name UISectionResource
 extends UIContainerResource
 
-@export var label_text : String = ""
 @export var section_name : String = ""
+
+@export var label_text : String = ""
 
 @export var tts_file : String = ""
 @export var theme : Theme
 
-# @export var elements_data : Dictionary
-# var elements_array : Array[UIResource] = []
 
-# var ui_element : Control
-var ui_section_element : Control
-
-
-func get_ui_section_element() -> Control:
+func get_ui_container() -> Control:
 	elements_array = []
 	var section = VBoxContainer.new()
 	section.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -29,7 +24,7 @@ func get_ui_section_element() -> Control:
 	section.visibility_changed.connect(update_section)
 	update_section()
 	section.theme = theme
-	ui_section_element = section
+	ui_container = section
 	return section
 
 

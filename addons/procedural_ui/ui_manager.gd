@@ -172,7 +172,7 @@ func populate_current_section(current_section):
 		child.queue_free()
 	for section in sections_array:
 		if section.section_name == current_section:
-			var section_element = section.get_ui_section_element()
+			var section_element = section.get_ui_container()
 			if section.theme:
 				current_section_container.theme = section.theme
 			var panel = Panel.new()

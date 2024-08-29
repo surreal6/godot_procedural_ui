@@ -5,6 +5,7 @@ extends Resource
 @export var visibility_poll : String = ""
 
 var ui_element : Control
+var ui_container : Control
 
 
 func is_visible() -> bool:

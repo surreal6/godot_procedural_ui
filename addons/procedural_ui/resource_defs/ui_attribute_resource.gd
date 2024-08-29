@@ -8,12 +8,6 @@ extends UIResource
 
 @export var stretch_ratio : float = 1
 
-# @export var object_name : String = ""
-# @export var visibility_poll : String = ""
-
-
-# var ui_element : Control
-var ui_container : Control
 
 func _on_set_attribute_value(new_value) -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)

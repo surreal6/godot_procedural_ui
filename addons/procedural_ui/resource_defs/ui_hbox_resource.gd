@@ -2,18 +2,6 @@ class_name UIHBoxResource
 extends UIContainerResource
 
 
-# @export var visibility_poll : String = ""
-# @export var object_name : String = ""
-
-
-# @export var elements_data : Dictionary
-# var elements_array : Array[UIResource] = []
-
-
-# var ui_element : Control
-var ui_container : Control
-
-
 func get_ui_element() -> Control:
 	elements_array = []
 	var hbox = HBoxContainer.new()
