@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://clxuxayx785v7"]
 
 [ext_resource type="Script" path="res://main_menu.gd" id="1_ral1r"]
-[ext_resource type="PackedScene" uid="uid://dhk2j4h88ex0i" path="res://addons/procedural_ui/cursor_canvas_layer.tscn" id="2_w1i8f"]
+[ext_resource type="PackedScene" uid="uid://dhk2j4h88ex0i" path="res://addons/procedural_ui/cursor/cursor_canvas_layer.tscn" id="2_w1i8f"]
 
 [node name="Control" type="Control"]
 layout_mode = 3

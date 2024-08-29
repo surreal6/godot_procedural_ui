@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dhk2j4h88ex0i"]
 
-[ext_resource type="Script" path="res://addons/procedural_ui/cursor_canvas_layer.gd" id="1_n7bsh"]
-[ext_resource type="Material" uid="uid://cy7cgyowepsk4" path="res://addons/procedural_ui/cursor_materials/cursor_canvas_layer_material.tres" id="2_ngi23"]
+[ext_resource type="Script" path="res://addons/procedural_ui/cursor/cursor_canvas_layer.gd" id="1_n7bsh"]
+[ext_resource type="Material" uid="uid://cy7cgyowepsk4" path="res://addons/procedural_ui/cursor/cursor_materials/cursor_canvas_layer_material.tres" id="2_ngi23"]
 
 [node name="CursorCanvasLayer" type="CanvasLayer"]
 script = ExtResource("1_n7bsh")

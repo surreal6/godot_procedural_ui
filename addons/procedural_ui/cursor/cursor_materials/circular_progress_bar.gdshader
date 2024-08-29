@@ -4,6 +4,7 @@ uniform float value : hint_range(0.0, 1.0) = 1.0;
 uniform int segments = 1;
 uniform float radius = 0.475;
 uniform float hollow_radius = 0.0;
+uniform float inner_radius = 0.0;
 uniform float margin : hint_range(0.0, 1.0) = 0.0;
 uniform float rotation : hint_range(-1.0, 1.0);
 uniform float progress_rotation : hint_range(-1.0, 1.0);
@@ -80,7 +81,7 @@ void fragment() {
 	
 	COLOR = vec4(color, shape);
 	
-	float center = circle_shape(uv, radius * radius_t * 0.2);
+	float center = circle_shape(uv, inner_radius);
 	COLOR += vec4(color, center);
 	
 	//// Called for every pixel the material is visible on.

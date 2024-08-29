@@ -34,7 +34,7 @@ var enable_tts : bool = false:
 		if not enable_tts and is_instance_valid(tts_player):
 			tts_player.stop()
 
-var enable_hover_click : bool = false:
+var enable_hover_click : bool = true:
 	set(value):
 		enable_hover_click = value
 		if not value and is_instance_valid(cursor):
@@ -66,10 +66,10 @@ func _process(delta):
 		if is_instance_valid(cursor):
 			cursor.material.set_shader_parameter("value", 0.0)
 		return
-	
+
 	if new_hovered_item != last_hovered_item and last_hovered_item != -1:
 		_set_time_held(0.0)
-	
+
 	if new_hovered_item == -1  and last_hovered_item != -1:
 		_set_time_held(0.0)
 

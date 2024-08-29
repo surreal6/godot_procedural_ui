@@ -7,6 +7,7 @@ signal click_detected
 func _ready() -> void:
 	# to draw the cursor over popup windows
 	set_layer(1025)
+	cursor.material.set_shader_parameter("value", 0.0)
 
 
 func _process(delta: float) -> void:
