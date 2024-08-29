@@ -34,7 +34,7 @@ var enable_tts : bool = false:
 		if not enable_tts and is_instance_valid(tts_player):
 			tts_player.stop()
 
-var enable_hover_click : bool = true:
+var enable_hover_click : bool = false:
 	set(value):
 		enable_hover_click = value
 		if not value and is_instance_valid(cursor):
