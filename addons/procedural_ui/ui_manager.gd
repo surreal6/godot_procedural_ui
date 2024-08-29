@@ -28,7 +28,7 @@ var tts_player : AudioStreamPlayer :set = set_tts_player
 var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
-var enable_tts : bool = false:
+var enable_tts : bool = true:
 	set(value):
 		enable_tts = value
 		if not enable_tts and is_instance_valid(tts_player):
@@ -111,14 +111,9 @@ func _execute_click():
 	var input_event = InputEventMouseButton.new()
 	input_event.pressed = true
 	input_event.position = get_viewport().get_mouse_position()
-
 	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
-
 	input_event.pressed = false
-	input_event.position = get_viewport().get_mouse_position()
-
-	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
 
 
@@ -181,7 +176,7 @@ func populate_current_section(current_section):
 			current_section_container.add_child(panel)
 			current_section_container.add_child(section_element)
 			section.grab_focus()
-			populate_sections_selector_back()
+			#populate_sections_selector_back()
 			current_section_selected.emit(current_section)
 
 

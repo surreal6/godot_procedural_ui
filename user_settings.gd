@@ -19,10 +19,14 @@ var gaze_selection : bool = true
 var visuals : bool = true
 var color_palette : ColorPalette = ColorPalette.A
 var emitters_volume : float = 50
+var mute_emitters : bool = false
 var fx_volume : float = 50
+var mute_fx : bool = false
 var music_volume : float = 50
+var mute_music : bool = false
 var voice_over_volume : float = 50
 var mute_voice_over : bool = false
+
 
 
 ## Settings file name to persist user settings
