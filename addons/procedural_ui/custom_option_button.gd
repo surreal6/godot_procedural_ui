@@ -19,7 +19,7 @@ func _ready() -> void:
 
 # Setup all measurements on mouse enter, assuming they don't change while the popup is open
 func hover_setup() -> void:
-	print("Mouse entered the popup menu")
+	#print("Mouse entered the popup menu")
 	popup_rect = Rect2(get_popup().position, get_popup().size)
 	# This only takes item sizes into account. Might need tweaking for separators and margins
 	item_height = popup_rect.size.y / get_popup().item_count
@@ -33,11 +33,11 @@ func hover_detect(event : InputEvent) -> void:
 			if hovered_item != index:
 				if index in range(get_popup().item_count):
 					item_hovered.emit(index)
-					print("Hovered item %s" % index)
+					#print("Hovered item %s" % index)
 				hovered_item = index
 
 # Called when mouse leaves the list
 func hover_clear() -> void:
-	print("Mouse left the popup menu")
+	#print("Mouse left the popup menu")
 	hovered_item = -1
 	item_hovered.emit(hovered_item)
