@@ -43,3 +43,4 @@ theme_override_constants/margin_bottom = 100
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="CursorCanvasLayer" parent="." instance=ExtResource("2_w1i8f")]
+visible = false
