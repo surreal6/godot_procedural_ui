@@ -1,12 +1,16 @@
 class_name UIHBoxResource
-extends Resource
+extends UIContainerResource
 
-@export var elements_data : Dictionary
-@export var visibility_poll : String = ""
-@export var object_name : String = ""
 
-var elements_array : Array[Resource] = []
-var ui_element = Control
+# @export var visibility_poll : String = ""
+# @export var object_name : String = ""
+
+
+# @export var elements_data : Dictionary
+# var elements_array : Array[UIResource] = []
+
+
+# var ui_element : Control
 var ui_container : Control
 
 

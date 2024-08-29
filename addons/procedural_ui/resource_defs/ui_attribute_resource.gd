@@ -1,15 +1,18 @@
 class_name UIAttributeResource
-extends Resource
+extends UIResource
 
+@export var attribute_name : String = ""
 @export var label_text : String = ""
 @export var tooltip : String = ""
-@export var object_name : String = ""
-@export var attribute_name : String = ""
 @export var tts_file : String = ""
-@export var visibility_poll : String = ""
+
 @export var stretch_ratio : float = 1
 
-var ui_element : Control
+# @export var object_name : String = ""
+# @export var visibility_poll : String = ""
+
+
+# var ui_element : Control
 var ui_container : Control
 
 func _on_set_attribute_value(new_value) -> void:
@@ -43,12 +46,12 @@ func _unregister_as_last_hovered() -> void:
 	stop_tts()
 
 
-func is_visible() -> bool:
-	if visibility_poll != "":
-		var singleton = UIManager.get_tree().root.get_node(object_name)
-		var poll_result = singleton.call(visibility_poll)
-		return poll_result
-	return true
+# func is_visible() -> bool:
+# 	if visibility_poll != "":
+# 		var singleton = UIManager.get_tree().root.get_node(object_name)
+# 		var poll_result = singleton.call(visibility_poll)
+# 		return poll_result
+# 	return true
 
 func play_tts_attribute() -> void:
 	if UIManager.enable_tts and tts_file and is_instance_valid(UIManager.tts_player):

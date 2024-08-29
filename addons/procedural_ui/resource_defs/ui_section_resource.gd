@@ -1,16 +1,17 @@
 class_name UISectionResource
-extends Resource
+extends UIContainerResource
 
 @export var label_text : String = ""
 @export var section_name : String = ""
-@export var elements_data : Dictionary
+
 @export var tts_file : String = ""
 @export var theme : Theme
 
-var elements_array : Array[Resource] = []
+# @export var elements_data : Dictionary
+# var elements_array : Array[UIResource] = []
 
-var ui_element = Control
-var ui_section_element = Control
+# var ui_element : Control
+var ui_section_element : Control
 
 
 func get_ui_section_element() -> Control:
