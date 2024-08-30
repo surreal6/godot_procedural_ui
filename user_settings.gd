@@ -15,7 +15,18 @@ enum ColorPalette {
 
 var play_area_mode : PlayAreaMode = PlayAreaMode.ROOMSCALE
 var passthrough : bool = false
-var gaze_selection : bool = true
+var hover_click : bool = true:
+	set(value):
+		hover_click = value
+		UIManager.enable_hover_click = value
+var hover_click_hold_time : float = 2.0:
+	set(value):
+		hover_click_hold_time = value
+		UIManager.hover_click_hold_time = hover_click_hold_time
+var text_to_speech : bool = true:
+	set(value):
+		text_to_speech = value
+		UIManager.enable_text_to_speech = value
 var visuals : bool = true
 var color_palette : ColorPalette = ColorPalette.A
 var emitters_volume : float = 50
@@ -52,7 +63,7 @@ func reset_to_defaults() -> void:
 	# Reset to defaults.
 	play_area_mode = PlayAreaMode.ROOMSCALE
 	passthrough = false
-	gaze_selection = true
+	hover_click = true
 	visuals = true
 	color_palette = ColorPalette.A
 	emitters_volume = 50
@@ -69,7 +80,7 @@ func save() -> void:
 		"options" : {
 			"play_area_mode" : play_area_mode,
 			"passthrough" : passthrough,
-			"gaze_selection" : gaze_selection,
+			"hover_click" : hover_click,
 			"visuals" : visuals,
 			"color_palette" : color_palette,
 			"emitters_volume" : emitters_volume,
@@ -128,8 +139,8 @@ func _load() -> void:
 			play_area_mode = options["play_area_mode"]
 		if options.has("passthrough"):
 			passthrough = options["passthrough"]
-		if options.has("gaze_selection"):
-			gaze_selection = options["gaze_selection"]
+		if options.has("hover_click"):
+			hover_click = options["hover_click"]
 		if options.has("visuals"):
 			visuals = options["visuals"]
 		if options.has("color_palette"):
@@ -142,6 +153,10 @@ func _load() -> void:
 			music_volume = options["music_volume"]
 		if options.has("voice_over_volume"):
 			voice_over_volume = options["voice_over_volume"]
+
+
+func hold_time_visibility_poll():
+	return hover_click
 
 
 func passthrough_visibility_poll():
@@ -159,4 +174,4 @@ func operator_2():
 
 
 func operator_2_poll():
-	return gaze_selection
+	return hover_click

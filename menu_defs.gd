@@ -36,21 +36,6 @@ var ui_data = {
 						"res://menu_tts_files/loc_en_standing.mp3"
 					]
 				},
-				"operator_1" : {
-					"object" : "UserSettings",
-					"type" : "operator",
-					"label" : "operator one",
-					"tooltip" : "This is the operator_1 tooltip",
-					"tts_file" : "res://menu_tts_files/loc_en_operator_one_button.mp3",
-				},
-				"operator_2" : {
-					"object" : "UserSettings",
-					"poll" : "operator_2_poll",
-					"type" : "operator",
-					"label" : "operator two",
-					"tooltip" : "Operator 2 only available if gaze_selection is active",
-					"tts_file" : "res://menu_tts_files/loc_en_operator_two_button.mp3",
-				},
 				"back_operator" : {
 					"object" : "UIManager",
 					"type" : "operator",
@@ -65,12 +50,32 @@ var ui_data = {
 			"tts_file" : "res://menu_tts_files/loc_en_accesibility_settings_section.mp3",
 			"theme" : KENNEY_UI_YELLOW,
 			"data" : {
-				"gaze_selection" : {
+				"hover_click" : {
 					"object" : "UserSettings",
 					"type" : "bool",
-					"label" : "gaze selection",
-					"tooltip" : "This is the gaze_selection tooltip",
-					"tts_file" : "res://menu_tts_files/loc_en_gaze_selection_checkbox.mp3",
+					"label" : "Hover click",
+					"tooltip" : "This is the hover_click tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_hover_click_checkbox.mp3",
+				},
+				"hover_click_hold_time" : {
+					"object" : "UserSettings",
+					"type" : "float",
+					"label" : "hold_time",
+					"min" : 1,
+					"max" : 10,
+					"step" : 1,
+					"tick_count": 11,
+					"ticks_on_borders" : true,
+					"tooltip" : "This is the hover click hold time tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_hover_click_hold_time_slider.mp3",
+					"visibility_poll": "hold_time_visibility_poll",
+				},
+				"text_to_speech" : {
+					"object" : "UserSettings",
+					"type" : "bool",
+					"label" : "text to speech",
+					"tooltip" : "This is the text to speech tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_hover_click_checkbox.mp3",
 				},
 				"visuals" : {
 					"object" : "UserSettings",
@@ -128,7 +133,7 @@ var ui_data = {
 								"label" : "mute",
 								"inline_label" : true,
 								"tooltip" : "This is the mute emitters tooltip",
-								"tts_file" : "",
+								"tts_file" : "res://menu_tts_files/loc_en_mute_emitters_checkbox.mp3",
 							},
 						}	
 					},
@@ -154,7 +159,7 @@ var ui_data = {
 								"label" : "mute",
 								"inline_label" : true,
 								"tooltip" : "This is the mute fx tooltip",
-								"tts_file" : "",
+								"tts_file" : "res://menu_tts_files/loc_en_mute_effects_checkbox.mp3",
 							},
 						}	
 					},
@@ -180,7 +185,7 @@ var ui_data = {
 								"label" : "mute",
 								"inline_label" : true,
 								"tooltip" : "This is the mute music tooltip",
-								"tts_file" : "",
+								"tts_file" : "res://menu_tts_files/loc_en_mute_music_checkbox.mp3",
 							},
 						}	
 					},
@@ -220,72 +225,80 @@ var ui_data = {
 			},
 		},
 		"ui_section_items" : {
-			"label" : "Items",
+			"label" : "UI Sample Items",
+			"tts_file" : "res://menu_tts_files/loc_en_ui_sampe_items.mp3",
 			"theme" : KENNEY_UI_BLUE,
 			"data" : {
-					"fx_line" : {
-						"type" : "HBoxContainer",
-						"items" : {
-							"fx_volume" : {
-								"object" : "UserSettings",
-								"type" : "int",
-								"label" : "fx volume",
-								"min" : 0,
-								"max" : 100,
-								"step" : 10,
-								"tick_count": 11,
-								"ticks_on_borders" : true,
-								"tooltip" : "This is the fx_volume tooltip",
-								"tts_file" : "res://menu_tts_files/loc_en_effects_volume_slider.mp3",
-								"stretch_ratio" : 5,
-							},
-							"mute_fx" : {
-								"object" : "UserSettings",
-								"type" : "bool",
-								"label" : "mute",
-								"inline_label" : true,
-								"tooltip" : "This is the mute fx tooltip",
-								"tts_file" : "",
-							},
-						}	
-					},
-					"visuals" : {
-						"object" : "UserSettings",
-						"type" : "bool",
-						"label" : "visuals",
-						"tooltip" : "This is the visuals tooltip",
-						"tts_file" : "res://menu_tts_files/loc_en_visuals_checkbox.mp3",
-					},
-					"color_palette" : {
-						"object" : "UserSettings",
-						"type" : "options",
-						"label" : "color palette",
-						"options" : "ColorPalette",
-						"tooltip" : "This is the color_palette tooltip",
-						"tts_file" : "res://menu_tts_files/loc_en_color_palette_selector.mp3",
-						"options_tts_files" : [
-							"res://menu_tts_files/loc_en_A.mp3",
-							"res://menu_tts_files/loc_en_B.mp3",
-							"res://menu_tts_files/loc_en_C.mp3",
-						]
-					},
-					"operator_1" : {
-						"object" : "UserSettings",
-						"type" : "operator",
-						"label" : "operator one",
-						"tooltip" : "This is the operator_1 tooltip",
-						"tts_file" : "res://menu_tts_files/loc_en_operator_one_button.mp3",
+				"fx_line" : {
+					"type" : "HBoxContainer",
+					"items" : {
+						"fx_volume" : {
+							"object" : "UserSettings",
+							"type" : "int",
+							"label" : "fx volume",
+							"min" : 0,
+							"max" : 100,
+							"step" : 10,
+							"tick_count": 11,
+							"ticks_on_borders" : true,
+							"tooltip" : "This is the fx_volume tooltip",
+							"tts_file" : "res://menu_tts_files/loc_en_effects_volume_slider.mp3",
+							"stretch_ratio" : 5,
 						},
+						"mute_fx" : {
+							"object" : "UserSettings",
+							"type" : "bool",
+							"label" : "mute",
+							"inline_label" : true,
+							"tooltip" : "This is the mute fx tooltip",
+							"tts_file" : "res://menu_tts_files/loc_en_mute_effects_checkbox.mp3",
+						},
+					}	
+				},
+				"visuals" : {
+					"object" : "UserSettings",
+					"type" : "bool",
+					"label" : "visuals",
+					"tooltip" : "This is the visuals tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_visuals_checkbox.mp3",
+				},
+				"color_palette" : {
+					"object" : "UserSettings",
+					"type" : "options",
+					"label" : "color palette",
+					"options" : "ColorPalette",
+					"tooltip" : "This is the color_palette tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_color_palette_selector.mp3",
+					"options_tts_files" : [
+						"res://menu_tts_files/loc_en_A.mp3",
+						"res://menu_tts_files/loc_en_B.mp3",
+						"res://menu_tts_files/loc_en_C.mp3",
+					]
+				},
+				"operator_1" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "operator one",
+					"tooltip" : "This is the operator_1 tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_operator_one_button.mp3",
 					},
-					#########
-					"back_operator" : {
-						"object" : "UIManager",
-						"type" : "operator",
-						"label" : "Back",
-						"tooltip" : "This is the back operator tooltip",
-						"tts_file" : "res://menu_tts_files/loc_en_back.mp3",
-					},
-
+				},
+				"operator_2" : {
+					"object" : "UserSettings",
+					"poll" : "operator_2_poll",
+					"type" : "operator",
+					"label" : "operator two",
+					"tooltip" : "Operator 2 only available if hover_click is active",
+					"tts_file" : "res://menu_tts_files/loc_en_operator_two_button.mp3",
+				},
+				#########
+				"back_operator" : {
+					"object" : "UIManager",
+					"type" : "operator",
+					"label" : "Back",
+					"tooltip" : "This is the back operator tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_back.mp3",
+				},
 		},
 	},
 	#"main_theme" : KENNEY_UI,

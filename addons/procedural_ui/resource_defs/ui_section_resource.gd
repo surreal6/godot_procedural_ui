@@ -95,7 +95,7 @@ func _unregister_as_last_hovered() -> void:
 
 
 func play_tts_attribute() -> void:
-	if UIManager.enable_tts and tts_file and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_text_to_speech and tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(tts_file)
@@ -103,6 +103,6 @@ func play_tts_attribute() -> void:
 
 
 func stop_tts() -> void:
-	if UIManager.enable_tts and tts_file and is_instance_valid(UIManager.tts_player):
+	if UIManager.enable_text_to_speech and tts_file and is_instance_valid(UIManager.tts_player):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()

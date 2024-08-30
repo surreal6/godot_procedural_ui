@@ -6,7 +6,7 @@ var sections_array : Array[UISectionResource] = []
 var back_operator_resource : UIOperatorAttributeResource
 
 var time_held = 0.0
-var hold_time : float = 2.0
+var hover_click_hold_time : float = 2.0
 
 ## This variables stores the focused element
 var new_focused_target : Control = null
@@ -28,13 +28,13 @@ var tts_player : AudioStreamPlayer :set = set_tts_player
 var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
-var enable_tts : bool = true:
+var enable_text_to_speech : bool = false:
 	set(value):
-		enable_tts = value
-		if not enable_tts and is_instance_valid(tts_player):
+		enable_text_to_speech = value
+		if not enable_text_to_speech and is_instance_valid(tts_player):
 			tts_player.stop()
 
-var enable_hover_click : bool = true:
+var enable_hover_click : bool = false:
 	set(value):
 		enable_hover_click = value
 		if not value and is_instance_valid(cursor):
@@ -55,6 +55,9 @@ func _on_click_detected():
 func _ready():
 	if !Engine.is_editor_hint():
 		_set_time_held(0.0)
+	
+	enable_hover_click = UserSettings.hover_click
+	enable_text_to_speech = UserSettings.text_to_speech
 
 
 func _process(delta):
@@ -76,7 +79,7 @@ func _process(delta):
 	if new_hovered_target and not last_hovered_target:
 		#print("new target ------------")
 		_set_time_held(time_held + delta)
-		if time_held > hold_time:
+		if time_held > hover_click_hold_time:
 			_execute_click()
 	# no focused element
 	elif not new_hovered_target and last_hovered_target:
@@ -90,7 +93,7 @@ func _process(delta):
 	elif new_hovered_target == last_hovered_target:
 		#print("same target ------------")
 		_set_time_held(time_held + delta)
-		if time_held > hold_time:
+		if time_held > hover_click_hold_time:
 			_execute_click()
 
 	# Update last values
@@ -101,7 +104,7 @@ func _process(delta):
 func _set_time_held(p_time_held):
 	time_held = p_time_held
 	if is_instance_valid(cursor):
-		cursor.material.set_shader_parameter("value", time_held/hold_time)
+		cursor.material.set_shader_parameter("value", time_held/hover_click_hold_time)
 
 
 
