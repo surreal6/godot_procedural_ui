@@ -47,9 +47,10 @@ func update() -> void:
 	if is_instance_valid(ui_element):
 		var current_value = singleton[attribute_name]
 		ui_element.selected = current_value
-	if poll != "":
-		var poll_result = false
-		if singleton.has_method(poll):
+		if poll != "":
+			var poll_result = false
+			if singleton.has_method(poll):
+				poll_result = singleton.call(poll)
 			if poll_result:
 				ui_element.disabled = false
 				ui_element.set_focus_mode(0)

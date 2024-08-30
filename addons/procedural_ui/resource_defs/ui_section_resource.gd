@@ -22,7 +22,7 @@ func get_ui_container() -> Control:
 		section.add_child(element)
 		elements_array.append(resource)
 	section.visibility_changed.connect(update_section)
-	update_section()
+	#update_section()
 	section.theme = theme
 	ui_container = section
 	return section
