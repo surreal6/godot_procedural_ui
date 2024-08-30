@@ -261,6 +261,7 @@ func generate_boolean_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
+	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
 	resource.inline_label = data.inline_label if "inline_label" in data.keys() else false
 	resource.checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
@@ -289,7 +290,7 @@ func generate_float_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
-
+	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.min = data.min
 	resource.max = data.max
@@ -308,6 +309,7 @@ func generate_int_resource(data):
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
+	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.min = data.min
 	resource.max = data.max
