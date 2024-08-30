@@ -10,10 +10,101 @@ const KENNEY_UI = preload("res://kenney_themes/kenneyUI.tres")
 
 var ui_data = {
 	"sections" : {
+		"level_selection" : {
+			"label" : "Level Selection",
+			"tts_file" : "",
+			"theme" : KENNEY_UI_RED,
+			"data" : {
+				"level_0" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 0",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_0_poll",
+				},
+				"level_1" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 1",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_1_poll",
+				},
+				"level_2" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 2",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_2_poll",
+				},
+				"level_3" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 3",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_3_poll",
+				},
+				"level_4" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 4",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_4_poll",
+				},
+				"level_5" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 5",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_5_poll",
+				},
+				"level_6" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 6",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_6_poll",
+				},
+				"level_7" : {
+					"object" : "UserSettings",
+					"type" : "operator",
+					"label" : "Level 7",
+					"tooltip" : "This is a level tooltip",
+					"tts_file" : "",
+					"poll" : "level_7_poll",
+				},
+			}
+		},
+		"game_options" : {
+			"label" : "Game Options",
+			"tts_file" : "",
+			"theme" : KENNEY_UI_RED,
+			"data" : {
+				"play_area_mode" : {
+					"object" : "UserSettings",
+					"type" : "options",
+					"label" : "play area mode",
+					"options" : "PlayAreaMode",
+					"tooltip" : "This is the play_area_mode tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_play_area_mode_selector.mp3",
+					"options_tts_files" : [
+						"res://menu_tts_files/loc_en_roomscale.mp3",
+						"res://menu_tts_files/loc_en_standing.mp3"
+					]
+				},
+				
+			}
+		},
 		"ui_section_vr" : {
 			"label" : "VR settings",
 			"tts_file" : "res://menu_tts_files/loc_en_virtual_reality_settings_section.mp3",
-			"theme" : KENNEY_UI_RED,
+			"theme" : KENNEY_UI_YELLOW,
 			"data" : {
 				"passthrough" : {
 					"object" : "UserSettings",
@@ -91,6 +182,7 @@ var ui_data = {
 					"options" : "ColorPalette",
 					"tooltip" : "This is the color_palette tooltip",
 					"tts_file" : "res://menu_tts_files/loc_en_color_palette_selector.mp3",
+					"poll" : "color_palette_poll",
 					"options_tts_files" : [
 						"res://menu_tts_files/loc_en_A.mp3",
 						"res://menu_tts_files/loc_en_B.mp3",

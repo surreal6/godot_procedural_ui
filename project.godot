@@ -24,7 +24,6 @@ UIManager="*res://addons/procedural_ui/ui_manager.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/initial_position_type=2
 
 [editor_plugins]
 

@@ -4,11 +4,13 @@ extends UIAttributeResource
 @export var options : Array[String] = []
 @export var value : int = -1
 @export var options_tts_files : Array[String] = []
+@export var poll : String = ""
 
 func get_ui_element():
 	var hbox = HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var cc1 = CenterContainer.new()
 	cc1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hbox.add_child(cc1)
@@ -41,17 +43,28 @@ func get_ui_element():
 
 
 func update() -> void:
+	var singleton = UIManager.get_tree().root.get_node(object_name)
 	if is_instance_valid(ui_element):
-		var singleton = UIManager.get_tree().root.get_node(object_name)
 		var current_value = singleton[attribute_name]
 		ui_element.selected = current_value
+	if poll != "":
+		var poll_result = false
+		if singleton.has_method(poll):
+			if poll_result:
+				ui_element.disabled = false
+				ui_element.set_focus_mode(0)
+			else:
+				ui_element.disabled = true
+				ui_element.set_focus_mode(2)
+
 
 
 func _on_set_attribute_value(new_value) -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	singleton[attribute_name] = new_value
 	value = new_value
-	if UIManager.enable_text_to_speech and options_tts_files and is_instance_valid(UIManager.tts_player):
+	if (UIManager.enable_text_to_speech and options_tts_files
+		and is_instance_valid(UIManager.tts_player)):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(options_tts_files[new_value])
@@ -91,8 +104,8 @@ func _register_as_item_hovered(index) -> void:
 	if index == -1:
 		UIManager.new_hovered_target = null
 	else:
-		UIManager.new_hovered_target = ui_element	
-	
+		UIManager.new_hovered_target = ui_element
+
 	UIManager.new_hovered_item = index
 	#print("register %s" % UIManager.new_focused_target)
 	play_tts_option(index)
@@ -115,7 +128,8 @@ func play_tts_selected():
 
 
 func play_tts_option(index):
-	if UIManager.enable_text_to_speech and options_tts_files and is_instance_valid(UIManager.tts_player):
+	if (UIManager.enable_text_to_speech and options_tts_files
+		and is_instance_valid(UIManager.tts_player)):
 		if UIManager.tts_player.playing:
 			UIManager.tts_player.stop()
 		UIManager.tts_player.stream = load(options_tts_files[index])

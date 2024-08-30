@@ -7,6 +7,7 @@ func get_ui_element() -> Control:
 	var hbox = HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	for attr in elements_data:
 		var data = elements_data[attr]
 		data.attr = attr
@@ -22,6 +23,7 @@ func get_ui_element() -> Control:
 
 
 func grab_focus():
+	#print("ui_hbox grab focus %s" % elements_array[0].ui_element)
 	elements_array[0].ui_element.call_deferred("grab_focus")
 	return elements_array[0].ui_element
 

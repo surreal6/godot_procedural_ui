@@ -7,6 +7,7 @@ extends UIAttributeResource
 func get_ui_element():
 	var cc1 = CenterContainer.new()
 	cc1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	cc1.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var button = Button.new()
 	button.text = label_text
 	button.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -35,7 +36,9 @@ func update():
 	if is_instance_valid(ui_element):
 		if poll != "":
 			var singleton = UIManager.get_tree().root.get_node(object_name)
-			var poll_result = singleton.call(poll)
+			var poll_result = false
+			if singleton.has_method(poll):
+				poll_result = singleton.call(poll)
 			if poll_result:
 				ui_element.disabled = false
 				ui_element.set_focus_mode(0)

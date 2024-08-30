@@ -31,6 +31,7 @@ func get_ui_container() -> Control:
 func grab_focus():
 	for element in elements_array:
 		if element.is_visible():
+			#print("ui_section grab focus %s" % element.ui_element)
 			element.ui_element.call_deferred("grab_focus")
 			return element.ui_element
 
@@ -51,6 +52,7 @@ func update_section():
 
 func get_ui_element():
 	var button = Button.new()
+	button.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	button.text = label_text
 	button.pressed.connect(func():
 		UIManager.populate_current_section(self.section_name)

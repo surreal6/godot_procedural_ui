@@ -9,6 +9,7 @@ func get_ui_element():
 	var hbox = HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	hbox.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	var cc1 = CenterContainer.new()
 	cc1.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	hbox.add_child(cc1)

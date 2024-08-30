@@ -195,6 +195,7 @@ func populate_sections_selector():
 	sections_container.add_child(panel)
 	var vbox = VBoxContainer.new()
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	for section in sections_array:
 		var button = section.get_ui_element()
 		if section.theme:
@@ -324,6 +325,7 @@ func generate_options_resource(data):
 	resource.label_text = data.label
 	resource.tooltip = data.tooltip
 	resource.object_name = data.object
+	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.attribute_name = data.attr
 	resource.value = get_attribute_value(data.object, data.attr)
 	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
