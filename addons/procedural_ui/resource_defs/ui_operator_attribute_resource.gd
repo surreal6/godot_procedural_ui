@@ -1,7 +1,6 @@
 class_name UIOperatorAttributeResource
 extends UIAttributeResource
 
-@export var poll : String = ""
 @export var disabled : bool = false
 
 func get_ui_element():

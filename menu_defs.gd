@@ -166,7 +166,7 @@ var ui_data = {
 					"type" : "bool",
 					"label" : "text to speech",
 					"tooltip" : "This is the text to speech tooltip",
-					"tts_file" : "res://menu_tts_files/loc_en_hover_click_checkbox.mp3",
+					"tts_file" : "res://menu_tts_files/loc_en_text_to_speech_checkbox.mp3",
 				},
 				"visuals" : {
 					"object" : "UserSettings",

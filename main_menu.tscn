@@ -43,15 +43,3 @@ theme_override_constants/margin_bottom = 100
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 
 [node name="CursorCanvasLayer" parent="." instance=ExtResource("2_w1i8f")]
-
-[node name="OptionButton" type="OptionButton" parent="."]
-layout_mode = 0
-offset_right = 32.0
-offset_bottom = 20.0
-disabled = true
-item_count = 3
-popup/item_0/text = "aaa"
-popup/item_1/text = "sss"
-popup/item_1/id = 1
-popup/item_2/text = "dddd"
-popup/item_2/id = 2

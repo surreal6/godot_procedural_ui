@@ -21,35 +21,15 @@ func get_ui_container() -> Control:
 		var element = resource.get_ui_element()
 		section.add_child(element)
 		elements_array.append(resource)
-	section.visibility_changed.connect(update_section)
 	#update_section()
+	section.visibility_changed.connect(update_elements_array)
+	update_elements_array()
 	section.theme = theme
 	ui_container = section
 	return section
 
 
-func grab_focus():
-	for element in elements_array:
-		if element.is_visible():
-			#print("ui_section grab focus %s" % element.ui_element)
-			element.ui_element.call_deferred("grab_focus")
-			return element.ui_element
-
-
-func update_section():
-	for element in elements_array:
-		element.update()
-		if  is_instance_valid(element.ui_container):
-			if element.is_visible():
-				element.ui_container.show()
-				element.ui_container.set_focus_mode(0)
-			else:
-				element.ui_container.hide()
-				element.ui_container.set_focus_mode(2)
-
-
 ## SECTION BUTTON
-
 func get_ui_element():
 	var button = Button.new()
 	button.size_flags_vertical = Control.SIZE_EXPAND_FILL

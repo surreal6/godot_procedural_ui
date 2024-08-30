@@ -4,7 +4,6 @@ extends UIAttributeResource
 @export var options : Array[String] = []
 @export var value : int = -1
 @export var options_tts_files : Array[String] = []
-@export var poll : String = ""
 
 func get_ui_element():
 	var hbox = HBoxContainer.new()
@@ -42,24 +41,6 @@ func get_ui_element():
 	return hbox
 
 
-func update() -> void:
-	var singleton = UIManager.get_tree().root.get_node(object_name)
-	if is_instance_valid(ui_element):
-		var current_value = singleton[attribute_name]
-		ui_element.selected = current_value
-		if poll != "":
-			var poll_result = false
-			if singleton.has_method(poll):
-				poll_result = singleton.call(poll)
-			if poll_result:
-				ui_element.disabled = false
-				ui_element.set_focus_mode(0)
-			else:
-				ui_element.disabled = true
-				ui_element.set_focus_mode(2)
-
-
-
 func _on_set_attribute_value(new_value) -> void:
 	var singleton = UIManager.get_tree().root.get_node(object_name)
 	singleton[attribute_name] = new_value
@@ -92,13 +73,11 @@ func _register_as_last_focused() -> void:
 		UIManager.tts_player.play()
 
 
-
 func _register_as_item_focused(index) -> void:
 	UIManager.new_focused_target = ui_element
 	UIManager.new_hovered_item = index
 	#print("register %s" % UIManager.new_focused_target)
 	play_tts_option(index)
-
 
 
 func _register_as_item_hovered(index) -> void:
@@ -110,7 +89,6 @@ func _register_as_item_hovered(index) -> void:
 	UIManager.new_hovered_item = index
 	#print("register %s" % UIManager.new_focused_target)
 	play_tts_option(index)
-
 
 
 func play_tts_selected_item():

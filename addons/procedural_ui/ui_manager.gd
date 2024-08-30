@@ -54,7 +54,7 @@ func _on_click_detected():
 func _ready():
 	if !Engine.is_editor_hint():
 		_set_time_held(0.0)
-	
+
 	enable_hover_click = UserSettings.hover_click
 	enable_text_to_speech = UserSettings.text_to_speech
 
@@ -181,7 +181,7 @@ func populate_current_section(current_section):
 
 func update_sections():
 	for section in sections_array:
-		section.update_section()
+		section.update_elements_array()
 
 
 func populate_sections_selector():
