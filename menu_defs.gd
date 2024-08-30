@@ -302,13 +302,6 @@ var ui_data = {
 		},
 	},
 	#"main_theme" : KENNEY_UI,
-	#"back_operator" : {
-		#"object" : "UIManager",
-		#"type" : "operator",
-		#"label" : "Back",
-		#"tooltip" : "This is the back operator tooltip",
-		#"tts_file" : "res://menu_tts_files/loc_en_back.mp3",
-	#},
 	"basic_tts_files" : {
 		"enabled" : "res://menu_tts_files/loc_en_enabled.mp3",
 		"disabled" : "res://menu_tts_files/loc_en_disabled.mp3",

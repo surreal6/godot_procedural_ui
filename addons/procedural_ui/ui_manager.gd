@@ -3,7 +3,6 @@ extends Node
 signal current_section_selected(section_name)
 
 var sections_array : Array[UISectionResource] = []
-var back_operator_resource : UIOperatorAttributeResource
 
 var time_held = 0.0
 var hover_click_hold_time : float = 2.0
@@ -142,8 +141,6 @@ func set_ui_data(data):
 	ui_data = data
 	if "main_theme" in data.keys():
 		set_main_theme(ui_data["main_theme"])
-	if "back_operator" in data.keys():
-		generate_back_button_section_resource(ui_data["back_operator"])
 	generate_sections_resources(ui_data["sections"])
 
 
@@ -179,7 +176,6 @@ func populate_current_section(current_section):
 			current_section_container.add_child(panel)
 			current_section_container.add_child(section_element)
 			section.grab_focus()
-			#populate_sections_selector_back()
 			current_section_selected.emit(current_section)
 
 
@@ -206,20 +202,6 @@ func populate_sections_selector():
 		vbox.add_child(button)
 	sections_container.add_child(vbox)
 	sections_selector_grab_focus()
-
-
-func populate_sections_selector_back():
-	for child in sections_container.get_children():
-		sections_container.remove_child(child)
-		child.queue_free()
-	var element = back_operator_resource.get_ui_element()
-	sections_container.add_child(element)
-
-
-func generate_back_button_section_resource(data):
-	data.attr = "back_operator"
-	var resource = generate_operator_resource(data)
-	back_operator_resource = resource
 
 
 func back_operator():
