@@ -21,7 +21,6 @@ func get_ui_container() -> Control:
 		var element = resource.get_ui_element()
 		section.add_child(element)
 		elements_array.append(resource)
-	#update_section()
 	section.visibility_changed.connect(update_elements_array)
 	update_elements_array()
 	section.theme = theme
