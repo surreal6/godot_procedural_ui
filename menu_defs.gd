@@ -281,7 +281,6 @@ var ui_data = {
 					"label" : "operator one",
 					"tooltip" : "This is the operator_1 tooltip",
 					"tts_file" : "res://menu_tts_files/loc_en_operator_one_button.mp3",
-					},
 				},
 				"operator_2" : {
 					"object" : "UserSettings",
@@ -299,6 +298,7 @@ var ui_data = {
 					"tooltip" : "This is the back operator tooltip",
 					"tts_file" : "res://menu_tts_files/loc_en_back.mp3",
 				},
+			},
 		},
 	},
 	#"main_theme" : KENNEY_UI,
