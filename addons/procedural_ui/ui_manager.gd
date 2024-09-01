@@ -47,8 +47,34 @@ var cursor_canvas_layer : CanvasLayer:
 		cursor_canvas_layer.click_detected.connect(_on_click_detected)
 
 
-func _on_click_detected():
-	_set_time_held(0.0)
+## set functions
+
+func set_sections_container(new_value):
+	sections_container = new_value
+
+
+func set_current_section_container(new_value):
+	current_section_container = new_value
+
+
+func set_tts_player(new_value):
+	tts_player = new_value
+	# TODO
+	# add warnings if tts_player is not defined
+
+
+func set_main_theme(new_value):
+	main_theme = new_value
+
+
+func set_ui_data(data):
+	ui_data = data
+	if "main_theme" in data.keys():
+		set_main_theme(ui_data["main_theme"])
+	generate_sections_resources(ui_data["sections"])
+
+
+## set functions END
 
 
 func _ready():
@@ -100,6 +126,12 @@ func _process(delta):
 	last_hovered_item = new_hovered_item
 
 
+## HOVER CLICK
+
+func _on_click_detected():
+	_set_time_held(0.0)
+
+
 func _set_time_held(p_time_held):
 	time_held = p_time_held
 	if is_instance_valid(cursor):
@@ -119,47 +151,15 @@ func _execute_click():
 	get_viewport().push_input(input_event)
 
 
-func set_sections_container(new_value):
-	sections_container = new_value
+## HOVER CLICK END
 
-
-func set_current_section_container(new_value):
-	current_section_container = new_value
-
-
-func set_tts_player(new_value):
-	tts_player = new_value
-	# TODO
-	# add warnings if tts_player is not defined
-
-
-func set_main_theme(new_value):
-	main_theme = new_value
-
-
-func set_ui_data(data):
-	ui_data = data
-	if "main_theme" in data.keys():
-		set_main_theme(ui_data["main_theme"])
-	generate_sections_resources(ui_data["sections"])
 
 
 func generate_sections_resources(sections_data):
 	for section_key in sections_data:
 		sections_data[section_key].section_name = section_key
-		generate_section_resource(sections_data[section_key])
-
-
-func generate_section_resource(data):
-	var resource = UISectionResource.new(data)
-	resource.section_name = data.section_name
-	resource.label_text = data.label
-	resource.elements_data = data.items
-	resource.theme = data.theme
-	if "tts_file" in data.keys():
-		resource.tts_file = data.tts_file
-	sections_array.append(resource)
-	return resource
+		var resource = UISectionResource.new(sections_data[section_key])
+		sections_array.append(resource)
 
 
 func populate_current_section(current_section):

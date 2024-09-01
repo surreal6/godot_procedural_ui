@@ -7,6 +7,16 @@ extends UIContainerResource
 @export var theme : Theme
 
 
+func _init(data) -> void:
+	super(data)
+	section_name = data.section_name
+	label_text = data.label
+	elements_data = data.items
+	theme = data.theme
+	if "tts_file" in data.keys():
+		tts_file = data.tts_file
+
+
 func get_ui_resource_class() -> String:
 	return "UISectionResource"
 
