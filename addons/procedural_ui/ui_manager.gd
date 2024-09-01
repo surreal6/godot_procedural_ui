@@ -58,8 +58,6 @@ func _ready():
 	enable_hover_click = UserSettings.hover_click
 	enable_text_to_speech = UserSettings.text_to_speech
 
-	print("UI_MANAGER ready")
-
 
 func _process(delta):
 	if !enable_hover_click:
@@ -222,17 +220,6 @@ func sections_selector_grab_focus():
 		sections_container.get_children()[1].get_children()[0].call_deferred("grab_focus")
 
 
-
-# func get_attribute_value(object_name, attr):
-# 	var singleton = UIManager.get_tree().root.get_node(object_name)
-# 	return singleton[attr]
-
-
-func get_options(object_name, options_name):
-	var singleton = UIManager.get_tree().root.get_node(object_name)
-	return singleton[options_name]
-
-
 func generate_resource(data):
 	var resource
 	match data.type:
@@ -251,16 +238,10 @@ func generate_resource(data):
 	return resource
 
 
-func generate_hbox_resource(data):
-	var resource = UIHBoxResource.new()
-	resource.elements_data = data.items
-	return resource
-
-
 func generate_boolean_resource(data):
 	var resource = UIBoolAttributeResource.new()
 	resource.label_text = data.label
-	resource.tooltip = data.tooltip
+	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
 	resource.poll = data.poll if "poll" in data.keys() else ""
@@ -276,7 +257,7 @@ func generate_boolean_resource(data):
 func generate_operator_resource(data):
 	var resource = UIOperatorAttributeResource.new()
 	resource.label_text = data.label
-	resource.tooltip = data.tooltip
+	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
 	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
@@ -289,7 +270,7 @@ func generate_operator_resource(data):
 func generate_float_resource(data):
 	var resource = UIFloatAttributeResource.new()
 	resource.label_text = data.label
-	resource.tooltip = data.tooltip
+	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
 	resource.poll = data.poll if "poll" in data.keys() else ""
@@ -308,7 +289,7 @@ func generate_float_resource(data):
 func generate_int_resource(data):
 	var resource = UIIntAttributeResource.new()
 	resource.label_text = data.label
-	resource.tooltip = data.tooltip
+	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
 	resource.poll = data.poll if "poll" in data.keys() else ""
@@ -327,18 +308,26 @@ func generate_int_resource(data):
 func generate_options_resource(data):
 	var resource = UIOptionsAttributeResource.new()
 	resource.label_text = data.label
-	resource.tooltip = data.tooltip
+	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
 	resource.object_name = data.object
+	resource.options_name = data.options
 	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.attribute_name = data.attr
 	resource.value = resource.get_attribute_value()
 	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
-	var options = get_options(data.object, data.options)
-	for option in options:
-		resource.options.append(option)
-	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
-	if "options_tts_files" in data.keys():
-		for item in data.options_tts_files:
-			resource.options_tts_files.append(item)
+	var options = resource.get_options()
+	if options:
+		for option in options:
+			resource.options.append(option)
+		resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
+		if "options_tts_files" in data.keys():
+			for item in data.options_tts_files:
+				resource.options_tts_files.append(item)
 	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
+	return resource
+
+
+func generate_hbox_resource(data):
+	var resource = UIHBoxResource.new()
+	resource.elements_data = data.items
 	return resource

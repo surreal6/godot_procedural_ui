@@ -6,6 +6,10 @@ extends UIResource
 var elements_array : Array[UIResource] = []
 
 
+func get_ui_resource_class() -> String:
+	return "UIContainerResource"
+
+
 func grab_focus():
 	for element in elements_array:
 		if element.is_visible():

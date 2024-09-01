@@ -98,7 +98,31 @@ var ui_data = {
 						"res://menu_tts_files/loc_en_standing.mp3"
 					]
 				},
-				
+				"non_existing_attr" : {
+					"object" : "UserSettings",
+					"type" : "bool",
+					"label" : "non_existing_attr",
+					"checkbutton" : true,
+					"visibility_poll": "passthrough_visibility_poll",
+				},
+				"other_attr" : {
+					"object" : "XRUserSettings",
+					"type" : "bool",
+					"label" : "other_attr",
+					"visibility_poll": "passthrough_visibility_poll",
+				},
+				"other_color_palette" : {
+					"object" : "UserSettings",
+					"type" : "options",
+					"label" : "color palette",
+					"options" : "non_existing_option",
+					"poll" : "color_palette_poll",
+					"options_tts_files" : [
+						"res://menu_tts_files/loc_en_A.mp3",
+						"res://menu_tts_files/loc_en_B.mp3",
+						"res://menu_tts_files/loc_en_C.mp3",
+					]
+				},
 			}
 		},
 		"ui_section_vr" : {

@@ -5,6 +5,11 @@ extends UIAttributeResource
 @export var inline_label : bool = false
 @export var value : bool = false
 
+
+func get_ui_resource_class() -> String:
+	return "UIBoolAttributeResource"
+
+
 func get_ui_element():
 	var hbox = HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -45,6 +50,8 @@ func get_ui_element():
 
 
 func _on_set_attribute_value(new_value) -> void:
+	if mockup:
+		return
 	var singleton = get_singleton()
 	singleton[attribute_name] = new_value
 	value = new_value

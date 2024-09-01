@@ -9,6 +9,10 @@ extends UIContainerResource
 @export var theme : Theme
 
 
+func get_ui_resource_class() -> String:
+	return "UISectionResource"
+
+
 func get_ui_container() -> Control:
 	elements_array = []
 	var section = VBoxContainer.new()

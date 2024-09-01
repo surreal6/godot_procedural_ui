@@ -3,6 +3,11 @@ extends UIAttributeResource
 
 @export var disabled : bool = false
 
+
+func get_ui_resource_class() -> String:
+	return "UIOperatorAttributeResource"
+
+
 func get_ui_element():
 	var cc1 = CenterContainer.new()
 	cc1.size_flags_horizontal = Control.SIZE_EXPAND_FILL

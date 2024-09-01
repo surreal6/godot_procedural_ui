@@ -9,13 +9,32 @@ extends UIResource
 @export var stretch_ratio : float = 1
 
 
+func get_mockup_value():
+	print("get_mockup value %s" % get_ui_resource_class())
+	match get_ui_resource_class():
+		"UIBoolAttributeResource":
+			return false
+		"UIIntAttributeResource", "UIFloatAttributeResource":
+			return 1
+		"UIOptionsAttributeResource":
+			return -1
+	print("need a mockup value for %s" % get_ui_resource_class())
+
+
+
 func get_attribute_value():
 	var singleton = get_singleton()
-	print("%s - %s - %s" % [object_name, attribute_name, singleton[attribute_name]])
+	if attribute_name not in singleton:
+		push_warning("UIManager: attribute '%s' not found" % attribute_name)
+		push_warning("UIManager: Activate mockup for '%s'" % attribute_name)
+		mockup = true
+		return get_mockup_value()
 	return singleton[attribute_name]
 
 
 func _on_set_attribute_value(new_value) -> void:
+	if mockup:
+		return
 	var singleton = get_singleton()
 	singleton[attribute_name] = new_value
 	singleton.save()
@@ -78,6 +97,8 @@ func set_value_no_signal(value) -> void:
 
 
 func update() -> void:
+	if mockup:
+		return
 	if is_instance_valid(ui_element):
 		var singleton = get_singleton()
 		set_value_no_signal(singleton[attribute_name])

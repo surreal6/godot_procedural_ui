@@ -16,6 +16,11 @@ extends UIAttributeResource
 
 var label_value = Label
 
+
+func get_ui_resource_class() -> String:
+	return "UIIntAttributeResource"
+
+
 func get_ui_element():
 	var hbox = HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER

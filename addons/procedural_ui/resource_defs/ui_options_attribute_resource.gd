@@ -1,9 +1,24 @@
 class_name UIOptionsAttributeResource
 extends UIAttributeResource
 
+@export var options_name : String = ""
 @export var options : Array[String] = []
 @export var value : int = -1
 @export var options_tts_files : Array[String] = []
+
+
+func get_ui_resource_class() -> String:
+	return "UIOptionsAttributeResource"
+
+
+func get_options():
+	var singleton = get_singleton()
+	if options_name not in singleton:
+		mockup = true
+		push_warning("UIManager: options '%s' not found" % options_name)
+		push_warning("UIManager: Activate mockup for '%s'" % options_name)
+		return null
+	return singleton[options_name]
 
 func get_ui_element():
 	var hbox = HBoxContainer.new()
@@ -42,6 +57,8 @@ func get_ui_element():
 
 
 func _on_set_attribute_value(new_value) -> void:
+	if mockup:
+		return
 	var singleton = get_singleton()
 	singleton[attribute_name] = new_value
 	value = new_value
