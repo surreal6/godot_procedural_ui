@@ -9,8 +9,14 @@ extends UIResource
 @export var stretch_ratio : float = 1
 
 
+func get_attribute_value():
+	var singleton = get_singleton()
+	print("%s - %s - %s" % [object_name, attribute_name, singleton[attribute_name]])
+	return singleton[attribute_name]
+
+
 func _on_set_attribute_value(new_value) -> void:
-	var singleton = UIManager.get_tree().root.get_node(object_name)
+	var singleton = get_singleton()
 	singleton[attribute_name] = new_value
 	singleton.save()
 	UIManager.update_sections()
@@ -73,7 +79,7 @@ func set_value_no_signal(value) -> void:
 
 func update() -> void:
 	if is_instance_valid(ui_element):
-		var singleton = UIManager.get_tree().root.get_node(object_name)
+		var singleton = get_singleton()
 		set_value_no_signal(singleton[attribute_name])
 		if poll != "":
 			var poll_result = false

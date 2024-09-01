@@ -27,14 +27,14 @@ func get_ui_element():
 
 
 func _on_pressed():
-	var singleton = UIManager.get_tree().root.get_node(object_name)
+	var singleton = get_singleton()
 	singleton.call(attribute_name)
 
 
 func update():
 	if is_instance_valid(ui_element):
 		if poll != "":
-			var singleton = UIManager.get_tree().root.get_node(object_name)
+			var singleton = get_singleton()
 			var poll_result = false
 			if singleton.has_method(poll):
 				poll_result = singleton.call(poll)

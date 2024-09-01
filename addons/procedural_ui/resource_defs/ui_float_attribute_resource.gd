@@ -68,6 +68,6 @@ func get_ui_element():
 func update():
 	super()
 	if is_instance_valid(ui_element):
-		var singleton = UIManager.get_tree().root.get_node(object_name)
+		var singleton = get_singleton()
 		label_value.text = str(singleton[attribute_name]) + unit_label
 	

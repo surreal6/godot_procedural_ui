@@ -58,6 +58,8 @@ func _ready():
 	enable_hover_click = UserSettings.hover_click
 	enable_text_to_speech = UserSettings.text_to_speech
 
+	print("UI_MANAGER ready")
+
 
 func _process(delta):
 	if !enable_hover_click:
@@ -221,13 +223,13 @@ func sections_selector_grab_focus():
 
 
 
-func get_attribute_value(object, attr):
-	var singleton = UIManager.get_tree().root.get_node(object)
-	return singleton[attr]
+# func get_attribute_value(object_name, attr):
+# 	var singleton = UIManager.get_tree().root.get_node(object_name)
+# 	return singleton[attr]
 
 
-func get_options(object, options_name):
-	var singleton = UIManager.get_tree().root.get_node(object)
+func get_options(object_name, options_name):
+	var singleton = UIManager.get_tree().root.get_node(object_name)
 	return singleton[options_name]
 
 
@@ -265,7 +267,7 @@ func generate_boolean_resource(data):
 	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
 	resource.inline_label = data.inline_label if "inline_label" in data.keys() else false
 	resource.checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
-	resource.value = get_attribute_value(data.object, data.attr)
+	resource.value = resource.get_attribute_value()
 	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
 	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
@@ -291,7 +293,7 @@ func generate_float_resource(data):
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
 	resource.poll = data.poll if "poll" in data.keys() else ""
-	resource.value = get_attribute_value(data.object, data.attr)
+	resource.value = resource.get_attribute_value()
 	resource.min = data.min
 	resource.max = data.max
 	resource.step = data.step if "step" in data.keys() else 0.01
@@ -310,7 +312,7 @@ func generate_int_resource(data):
 	resource.object_name = data.object
 	resource.attribute_name = data.attr
 	resource.poll = data.poll if "poll" in data.keys() else ""
-	resource.value = get_attribute_value(data.object, data.attr)
+	resource.value = resource.get_attribute_value()
 	resource.min = data.min
 	resource.max = data.max
 	resource.step = data.step if "step" in data.keys() else 1
@@ -329,7 +331,7 @@ func generate_options_resource(data):
 	resource.object_name = data.object
 	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.attribute_name = data.attr
-	resource.value = get_attribute_value(data.object, data.attr)
+	resource.value = resource.get_attribute_value()
 	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
 	var options = get_options(data.object, data.options)
 	for option in options:

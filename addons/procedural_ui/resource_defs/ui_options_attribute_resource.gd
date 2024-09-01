@@ -42,7 +42,7 @@ func get_ui_element():
 
 
 func _on_set_attribute_value(new_value) -> void:
-	var singleton = UIManager.get_tree().root.get_node(object_name)
+	var singleton = get_singleton()
 	singleton[attribute_name] = new_value
 	value = new_value
 	if (UIManager.enable_text_to_speech and options_tts_files
