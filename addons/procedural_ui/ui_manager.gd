@@ -222,6 +222,7 @@ func sections_selector_grab_focus():
 
 func generate_resource(data):
 	var resource
+	print(data.type)
 	match data.type:
 		"bool":
 			resource = UIManager.generate_boolean_resource(data)
@@ -238,93 +239,80 @@ func generate_resource(data):
 	return resource
 
 
-func generate_boolean_resource(data):
-	var resource = UIBoolAttributeResource.new()
+func set_ui_resource(resource, data):
+	resource.object_name = data.object
+	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
+	resource.visibility_poll_object = data.visibility_poll_object if (
+		"visibility_poll_object") in data.keys() else ""
+
+
+func set_ui_attribute_resource(resource, data):
+	resource.attribute_name = data.attr
 	resource.label_text = data.label
 	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
-	resource.object_name = data.object
-	resource.attribute_name = data.attr
+	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
 	resource.poll = data.poll if "poll" in data.keys() else ""
 	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
-	resource.inline_label = data.inline_label if "inline_label" in data.keys() else false
-	resource.checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
-	resource.value = resource.get_attribute_value()
-	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
-	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
-	return resource
 
 
-func generate_operator_resource(data):
-	var resource = UIOperatorAttributeResource.new()
-	resource.label_text = data.label
-	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
-	resource.object_name = data.object
-	resource.attribute_name = data.attr
-	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
-	resource.poll = data.poll if "poll" in data.keys() else ""
-	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
-	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
-	return resource
-
-
-func generate_float_resource(data):
-	var resource = UIFloatAttributeResource.new()
-	resource.label_text = data.label
-	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
-	resource.object_name = data.object
-	resource.attribute_name = data.attr
-	resource.poll = data.poll if "poll" in data.keys() else ""
-	resource.value = resource.get_attribute_value()
+func set_ui_slider(resource, data):
 	resource.min = data.min
 	resource.max = data.max
 	resource.step = data.step if "step" in data.keys() else 0.01
 	resource.tick_count = data.tick_count if "tick_count" in data.keys() else 0
 	resource.ticks_on_borders = data.ticks_on_borders if "ticks_on_borders" in data.keys() else false
-	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
-	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
-	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
+
+
+func generate_boolean_resource(data):
+	var resource = UIBoolAttributeResource.new()
+	set_ui_resource(resource, data)
+	set_ui_attribute_resource(resource, data)
+	resource.value = resource.get_attribute_value()
+	resource.inline_label = data.inline_label if "inline_label" in data.keys() else false
+	resource.checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
+	return resource
+
+
+func generate_float_resource(data):
+	var resource = UIFloatAttributeResource.new()
+	set_ui_resource(resource, data)
+	set_ui_attribute_resource(resource, data)
+	set_ui_slider(resource, data)
+	resource.value = resource.get_attribute_value()
 	return resource
 
 
 func generate_int_resource(data):
 	var resource = UIIntAttributeResource.new()
-	resource.label_text = data.label
-	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
-	resource.object_name = data.object
-	resource.attribute_name = data.attr
-	resource.poll = data.poll if "poll" in data.keys() else ""
+	set_ui_resource(resource, data)
+	set_ui_attribute_resource(resource, data)
+	set_ui_slider(resource, data)
 	resource.value = resource.get_attribute_value()
-	resource.min = data.min
-	resource.max = data.max
-	resource.step = data.step if "step" in data.keys() else 1
-	resource.tick_count = data.tick_count if "tick_count" in data.keys() else 0
-	resource.ticks_on_borders = data.ticks_on_borders if "ticks_on_borders" in data.keys() else false
-	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
-	resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
-	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
 
 
 func generate_options_resource(data):
 	var resource = UIOptionsAttributeResource.new()
-	resource.label_text = data.label
-	resource.tooltip = data.tooltip if "tooltip" in data.keys() else ""
-	resource.object_name = data.object
-	resource.options_name = data.options
-	resource.poll = data.poll if "poll" in data.keys() else ""
-	resource.attribute_name = data.attr
+	set_ui_resource(resource, data)
+	set_ui_attribute_resource(resource, data)
 	resource.value = resource.get_attribute_value()
-	resource.stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
+	resource.options_name = data.options
 	var options = resource.get_options()
 	if options:
 		for option in options:
 			resource.options.append(option)
-		resource.tts_file = data.tts_file if "tts_file"  in data.keys() else ""
 		if "options_tts_files" in data.keys():
 			for item in data.options_tts_files:
 				resource.options_tts_files.append(item)
-	resource.visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	return resource
+
+
+func generate_operator_resource(data):
+	var resource = UIOperatorAttributeResource.new()
+	set_ui_resource(resource, data)
+	set_ui_attribute_resource(resource, data)
+	return resource
+
 
 
 func generate_hbox_resource(data):

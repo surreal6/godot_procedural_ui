@@ -10,7 +10,6 @@ extends UIResource
 
 
 func get_mockup_value():
-	print("get_mockup value %s" % get_ui_resource_class())
 	match get_ui_resource_class():
 		"UIBoolAttributeResource":
 			return false
@@ -18,8 +17,7 @@ func get_mockup_value():
 			return 1
 		"UIOptionsAttributeResource":
 			return -1
-	print("need a mockup value for %s" % get_ui_resource_class())
-
+	push_warning("need a mockup value for %s" % get_ui_resource_class())
 
 
 func get_attribute_value():

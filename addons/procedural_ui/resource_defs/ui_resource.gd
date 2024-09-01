@@ -3,6 +3,7 @@ extends Resource
 
 @export var object_name : String = ""
 @export var visibility_poll : String = ""
+@export var visibility_poll_object : String = ""
 
 var mockup = false
 
@@ -24,6 +25,8 @@ func get_singleton() -> Object:
 
 
 func is_visible() -> bool:
+	if visibility_poll_object:
+		pass
 	var singleton = get_singleton()
 	if mockup:
 		return true

@@ -74,6 +74,8 @@ func get_ui_element():
 
 func update():
 	super()
+	if mockup:
+		return
 	if is_instance_valid(ui_element):
 		var singleton = get_singleton()
 		label_value.text = str(singleton[attribute_name]) + unit_label
