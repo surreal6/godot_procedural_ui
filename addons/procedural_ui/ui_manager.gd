@@ -144,19 +144,20 @@ func set_ui_data(data):
 	generate_sections_resources(ui_data["sections"])
 
 
-func generate_sections_resources(data):
-	for section in data:
-		generate_section_resource(data[section], section)
+func generate_sections_resources(sections_data):
+	for section_key in sections_data:
+		sections_data[section_key].section_name = section_key
+		generate_section_resource(sections_data[section_key])
 
 
-func generate_section_resource(section, section_name):
-	var resource = UISectionResource.new()
-	resource.section_name = section_name
-	resource.label_text = section.label
-	resource.elements_data = section.data
-	resource.theme = section.theme
-	if "tts_file" in section.keys():
-		resource.tts_file = section.tts_file
+func generate_section_resource(data):
+	var resource = UISectionResource.new(data)
+	resource.section_name = data.section_name
+	resource.label_text = data.label
+	resource.elements_data = data.data
+	resource.theme = data.theme
+	if "tts_file" in data.keys():
+		resource.tts_file = data.tts_file
 	sections_array.append(resource)
 	return resource
 
@@ -264,9 +265,9 @@ func set_ui_slider(resource, data):
 
 
 func generate_boolean_resource(data):
-	var resource = UIBoolAttributeResource.new()
-	set_ui_resource(resource, data)
-	set_ui_attribute_resource(resource, data)
+	var resource = UIBoolAttributeResource.new(data)
+	# set_ui_resource(resource, data)
+	# set_ui_attribute_resource(resource, data)
 	resource.value = resource.get_attribute_value()
 	resource.inline_label = data.inline_label if "inline_label" in data.keys() else false
 	resource.checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
@@ -274,7 +275,7 @@ func generate_boolean_resource(data):
 
 
 func generate_float_resource(data):
-	var resource = UIFloatAttributeResource.new()
+	var resource = UIFloatAttributeResource.new(data)
 	set_ui_resource(resource, data)
 	set_ui_attribute_resource(resource, data)
 	set_ui_slider(resource, data)
@@ -283,7 +284,7 @@ func generate_float_resource(data):
 
 
 func generate_int_resource(data):
-	var resource = UIIntAttributeResource.new()
+	var resource = UIIntAttributeResource.new(data)
 	set_ui_resource(resource, data)
 	set_ui_attribute_resource(resource, data)
 	set_ui_slider(resource, data)
@@ -292,7 +293,7 @@ func generate_int_resource(data):
 
 
 func generate_options_resource(data):
-	var resource = UIOptionsAttributeResource.new()
+	var resource = UIOptionsAttributeResource.new(data)
 	set_ui_resource(resource, data)
 	set_ui_attribute_resource(resource, data)
 	resource.value = resource.get_attribute_value()
@@ -308,7 +309,7 @@ func generate_options_resource(data):
 
 
 func generate_operator_resource(data):
-	var resource = UIOperatorAttributeResource.new()
+	var resource = UIOperatorAttributeResource.new(data)
 	set_ui_resource(resource, data)
 	set_ui_attribute_resource(resource, data)
 	return resource
@@ -316,6 +317,6 @@ func generate_operator_resource(data):
 
 
 func generate_hbox_resource(data):
-	var resource = UIHBoxResource.new()
+	var resource = UIHBoxResource.new(data)
 	resource.elements_data = data.items
 	return resource

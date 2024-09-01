@@ -9,6 +9,16 @@ extends UIResource
 @export var stretch_ratio : float = 1
 
 
+func _init(data) -> void:
+	super(data)
+	attribute_name = data.attr
+	label_text = data.label
+	tooltip = data.tooltip if "tooltip" in data.keys() else ""
+	tts_file = data.tts_file if "tts_file"  in data.keys() else ""
+	poll = data.poll if "poll" in data.keys() else ""
+	stretch_ratio = data.stretch_ratio if "stretch_ratio" in data.keys() else 1
+
+
 func get_mockup_value():
 	match get_ui_resource_class():
 		"UIBoolAttributeResource":

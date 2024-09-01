@@ -11,6 +11,13 @@ var ui_element : Control
 var ui_container : Control
 
 
+func _init(data) -> void:
+	object_name = data.object if "object_name" in data.keys() else ""
+	visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
+	visibility_poll_object = data.visibility_poll_object if (
+		"visibility_poll_object") in data.keys() else ""
+
+
 func get_ui_resource_class() -> String:
 	return "UIResource"
 
@@ -26,6 +33,7 @@ func get_singleton() -> Object:
 
 func is_visible() -> bool:
 	if visibility_poll_object:
+		print(" add visibility poll object feature!!!!!!!!!")
 		pass
 	var singleton = get_singleton()
 	if mockup:
