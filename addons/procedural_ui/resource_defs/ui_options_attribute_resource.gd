@@ -7,6 +7,19 @@ extends UIAttributeResource
 @export var options_tts_files : Array[String] = []
 
 
+func _init(data) -> void:
+	super(data)
+	options_name = data.options
+	var options_data = get_options()
+	if options_data:
+		for option in options_data:
+			options.append(option)
+		if "options_tts_files" in data.keys():
+			for item in data.options_tts_files:
+				options_tts_files.append(item)
+	value = get_attribute_value()
+
+
 func get_ui_resource_class() -> String:
 	return "UIOptionsAttributeResource"
 

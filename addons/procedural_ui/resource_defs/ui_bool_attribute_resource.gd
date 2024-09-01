@@ -6,6 +6,12 @@ extends UIAttributeResource
 @export var value : bool = false
 
 
+func _init(data) -> void:
+	super(data)
+	inline_label = data.inline_label if "inline_label" in data.keys() else false
+	checkbutton = data.checkbutton if "CheckButton" in data.keys() else false
+	value = get_attribute_value()
+
 func get_ui_resource_class() -> String:
 	return "UIBoolAttributeResource"
 

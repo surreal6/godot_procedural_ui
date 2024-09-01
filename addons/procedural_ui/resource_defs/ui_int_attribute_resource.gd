@@ -17,6 +17,16 @@ extends UIAttributeResource
 var label_value = Label
 
 
+func _init(data) -> void:
+	super(data)
+	min = data.min
+	max = data.max
+	step = data.step if "step" in data.keys() else 0.01
+	tick_count = data.tick_count if "tick_count" in data.keys() else 0
+	ticks_on_borders = data.ticks_on_borders if "ticks_on_borders" in data.keys() else false
+	value = get_attribute_value()
+
+
 func get_ui_resource_class() -> String:
 	return "UIIntAttributeResource"
 

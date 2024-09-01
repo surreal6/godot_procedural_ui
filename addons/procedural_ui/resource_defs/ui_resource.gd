@@ -12,7 +12,7 @@ var ui_container : Control
 
 
 func _init(data) -> void:
-	object_name = data.object if "object_name" in data.keys() else ""
+	object_name = data.object if "object" in data.keys() else ""
 	visibility_poll = data.visibility_poll if "visibility_poll" in data.keys() else ""
 	visibility_poll_object = data.visibility_poll_object if (
 		"visibility_poll_object") in data.keys() else ""

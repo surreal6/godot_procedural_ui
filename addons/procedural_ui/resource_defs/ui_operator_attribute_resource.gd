@@ -32,11 +32,15 @@ func get_ui_element():
 
 
 func _on_pressed():
+	if mockup:
+		return
 	var singleton = get_singleton()
 	singleton.call(attribute_name)
 
 
 func update():
+	if mockup:
+		return
 	if is_instance_valid(ui_element):
 		if poll != "":
 			var singleton = get_singleton()
