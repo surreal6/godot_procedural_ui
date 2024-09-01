@@ -64,11 +64,16 @@ func reset_to_defaults() -> void:
 	play_area_mode = PlayAreaMode.ROOMSCALE
 	passthrough = false
 	hover_click = true
+	hover_click_hold_time = 2
+	text_to_speech = true
 	visuals = true
 	color_palette = ColorPalette.A
 	emitters_volume = 50
+	mute_emitters = false
 	fx_volume = 50
+	mute_fx = false
 	music_volume = 50
+	mute_music = false
 	voice_over_volume = 50
 	mute_voice_over = false
 
@@ -81,12 +86,18 @@ func save() -> void:
 			"play_area_mode" : play_area_mode,
 			"passthrough" : passthrough,
 			"hover_click" : hover_click,
+			"hover_click_hold_time" : hover_click_hold_time,
+			"text_to_speech" : text_to_speech,
 			"visuals" : visuals,
 			"color_palette" : color_palette,
 			"emitters_volume" : emitters_volume,
 			"fx_volume" : fx_volume,
 			"music_volume" : music_volume,
 			"voice_over_volume" : voice_over_volume,
+			"mute_emitters" : mute_emitters,
+			"mute_fx" : mute_fx,
+			"mute_music" : mute_music,
+			"mute_voice_over" : mute_voice_over,
 		}
 	}
 
@@ -141,6 +152,10 @@ func _load() -> void:
 			passthrough = options["passthrough"]
 		if options.has("hover_click"):
 			hover_click = options["hover_click"]
+		if options.has("hover_click_hold_time"):
+			hover_click_hold_time = options["hover_click_hold_time"]
+		if options.has("text_to_speech"):
+			text_to_speech = options["text_to_speech"]
 		if options.has("visuals"):
 			visuals = options["visuals"]
 		if options.has("color_palette"):
@@ -153,6 +168,14 @@ func _load() -> void:
 			music_volume = options["music_volume"]
 		if options.has("voice_over_volume"):
 			voice_over_volume = options["voice_over_volume"]
+		if options.has("mute_emitters"):
+			mute_emitters = options["mute_emitters"]
+		if options.has("mute_fx"):
+			mute_fx = options["mute_fx"]
+		if options.has("mute_music"):
+			mute_music = options["mute_music"]
+		if options.has("mute_voice_over"):
+			mute_voice_over = options["mute_voice_over"]
 
 
 func hold_time_visibility_poll():
