@@ -31,10 +31,23 @@ func get_singleton() -> Object:
 	return singleton
 
 
+func get_visibility_singleton() -> Object:
+	var singleton = UIManager.get_tree().root.get_node(visibility_poll_object)
+	if !singleton:
+		push_warning("UIManager: singleton '%s' not found" % visibility_poll_object)
+		push_warning("UIManager: Activate mockup for '%s' attributes" % visibility_poll_object)
+		mockup = true
+	return singleton
+
+
 func is_visible() -> bool:
 	if visibility_poll_object:
-		print(" add visibility poll object feature!!!!!!!!!")
-		pass
+		var singleton = get_visibility_singleton()
+		if !singleton.has_method(visibility_poll):
+			push_warning("UIManager: visibility_poll_object method '%s' not found" % visibility_poll)
+			return false
+		var poll_result = singleton.call(visibility_poll)
+		return poll_result
 	var singleton = get_singleton()
 	if mockup:
 		return true

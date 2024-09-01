@@ -14,7 +14,7 @@ var ui_data = {
 			"label" : "Level Selection",
 			"tts_file" : "",
 			"theme" : KENNEY_UI_RED,
-			"data" : {
+			"items" : {
 				"level_0" : {
 					"object" : "UserSettings",
 					"type" : "operator",
@@ -85,7 +85,7 @@ var ui_data = {
 			"label" : "Game Options",
 			"tts_file" : "",
 			"theme" : KENNEY_UI_RED,
-			"data" : {
+			"items" : {
 				"play_area_mode" : {
 					"object" : "UserSettings",
 					"type" : "options",
@@ -129,16 +129,7 @@ var ui_data = {
 			"label" : "VR settings",
 			"tts_file" : "res://menu_tts_files/loc_en_virtual_reality_settings_section.mp3",
 			"theme" : KENNEY_UI_YELLOW,
-			"data" : {
-				"passthrough" : {
-					"object" : "UserSettings",
-					"type" : "bool",
-					"label" : "passthrough",
-					"checkbutton" : true,
-					"tooltip" : "This is the passthrough tooltip",
-					"tts_file" : "res://menu_tts_files/loc_en_passthrough_checkbox.mp3",
-					"visibility_poll": "passthrough_visibility_poll",
-				},
+			"items" : {
 				"play_area_mode" : {
 					"object" : "UserSettings",
 					"type" : "options",
@@ -150,6 +141,15 @@ var ui_data = {
 						"res://menu_tts_files/loc_en_roomscale.mp3",
 						"res://menu_tts_files/loc_en_standing.mp3"
 					]
+				},
+				"passthrough" : {
+					"object" : "UserSettings",
+					"type" : "bool",
+					"label" : "passthrough",
+					"checkbutton" : true,
+					"tooltip" : "This is the passthrough tooltip",
+					"tts_file" : "res://menu_tts_files/loc_en_passthrough_checkbox.mp3",
+					"visibility_poll": "is_xr_mode_roomscale",
 				},
 				"player_height" : {
 					"object" : "XRToolsUserSettings",
@@ -209,8 +209,6 @@ var ui_data = {
 					"tick_count": 11,
 					"ticks_on_borders" : true,
 					"tts_file" : "",
-					"visibility_poll_object" : "UserSettings",
-					"visibility_poll": "is_xr_mode_standing",
 				},
 				"back_operator" : {
 					"object" : "UIManager",
@@ -225,7 +223,7 @@ var ui_data = {
 			"label" : "Accesibility",
 			"tts_file" : "res://menu_tts_files/loc_en_accesibility_settings_section.mp3",
 			"theme" : KENNEY_UI_YELLOW,
-			"data" : {
+			"items" : {
 				"hover_click" : {
 					"object" : "UserSettings",
 					"type" : "bool",
@@ -287,7 +285,7 @@ var ui_data = {
 			"label" : "Audio",
 			"tts_file" : "res://menu_tts_files/loc_en_audio_settings_section.mp3",
 			"theme" : KENNEY_UI_GREEN,
-			"data" : {
+			"items" : {
 					"emitters_line" : {
 						"type" : "HBoxContainer",
 						"items" : {
@@ -312,7 +310,7 @@ var ui_data = {
 								"tooltip" : "This is the mute emitters tooltip",
 								"tts_file" : "res://menu_tts_files/loc_en_mute_emitters_checkbox.mp3",
 							},
-						}	
+						},
 					},
 					"fx_line" : {
 						"type" : "HBoxContainer",
@@ -338,7 +336,7 @@ var ui_data = {
 								"tooltip" : "This is the mute fx tooltip",
 								"tts_file" : "res://menu_tts_files/loc_en_mute_effects_checkbox.mp3",
 							},
-						}	
+						},
 					},
 					"music_line" : {
 						"type" : "HBoxContainer",
@@ -364,7 +362,7 @@ var ui_data = {
 								"tooltip" : "This is the mute music tooltip",
 								"tts_file" : "res://menu_tts_files/loc_en_mute_music_checkbox.mp3",
 							},
-						}	
+						},
 					},
 					"voice_over_line" : {
 						"type" : "HBoxContainer",
@@ -390,7 +388,7 @@ var ui_data = {
 								"tooltip" : "This is the mute voice over tooltip",
 								"tts_file" : "res://menu_tts_files/loc_en_mute_voice_over_value_checkbox.mp3",
 							},
-						}	
+						},
 					},
 					"back_operator" : {
 						"object" : "UIManager",
@@ -405,7 +403,7 @@ var ui_data = {
 			"label" : "UI Sample Items",
 			"tts_file" : "res://menu_tts_files/loc_en_ui_sampe_items.mp3",
 			"theme" : KENNEY_UI_BLUE,
-			"data" : {
+			"items" : {
 				"fx_line" : {
 					"type" : "HBoxContainer",
 					"items" : {
@@ -430,7 +428,7 @@ var ui_data = {
 							"tooltip" : "This is the mute fx tooltip",
 							"tts_file" : "res://menu_tts_files/loc_en_mute_effects_checkbox.mp3",
 						},
-					}	
+					},
 				},
 				"visuals" : {
 					"object" : "UserSettings",

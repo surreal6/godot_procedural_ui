@@ -6,6 +6,12 @@ extends UIResource
 var elements_array : Array[UIResource] = []
 
 
+func _init(data) -> void:
+	super(data)
+	elements_data = data.items
+
+
+
 func get_ui_resource_class() -> String:
 	return "UIContainerResource"
 

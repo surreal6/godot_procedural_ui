@@ -2,9 +2,7 @@ class_name UISectionResource
 extends UIContainerResource
 
 @export var section_name : String = ""
-
 @export var label_text : String = ""
-
 @export var tts_file : String = ""
 @export var theme : Theme
 

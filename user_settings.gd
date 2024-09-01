@@ -1,6 +1,5 @@
 extends Node
 
-const MENU_DEFS = preload("res://menu_defs.gd")
 
 enum PlayAreaMode {
 	ROOMSCALE,
@@ -12,6 +11,8 @@ enum ColorPalette {
 	B,
 	C,
 }
+
+const MENU_DEFS = preload("res://menu_defs.gd")
 
 var play_area_mode : PlayAreaMode = PlayAreaMode.ROOMSCALE
 var passthrough : bool = false
@@ -198,3 +199,11 @@ func operator_2():
 
 func operator_2_poll():
 	return hover_click
+
+
+func is_xr_mode_standing():
+	return play_area_mode == PlayAreaMode.STANDING
+
+
+func is_xr_mode_roomscale():
+	return play_area_mode == PlayAreaMode.ROOMSCALE
