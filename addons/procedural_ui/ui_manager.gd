@@ -126,33 +126,6 @@ func _process(delta):
 	last_hovered_item = new_hovered_item
 
 
-## HOVER CLICK
-
-func _on_click_detected():
-	_set_time_held(0.0)
-
-
-func _set_time_held(p_time_held):
-	time_held = p_time_held
-	if is_instance_valid(cursor):
-		cursor.material.set_shader_parameter("value", time_held/hover_click_hold_time)
-
-
-
-func _execute_click():
-	#print("execute click")
-	_set_time_held(0.0)
-	var input_event = InputEventMouseButton.new()
-	input_event.pressed = true
-	input_event.position = get_viewport().get_mouse_position()
-	input_event.button_index = MOUSE_BUTTON_LEFT
-	get_viewport().push_input(input_event)
-	input_event.pressed = false
-	get_viewport().push_input(input_event)
-
-
-## HOVER CLICK END
-
 
 
 func generate_sections_resources(sections_data):
@@ -206,11 +179,6 @@ func populate_sections_selector():
 	sections_selector_grab_focus()
 
 
-func back_operator():
-	populate_sections_selector()
-	current_section_selected.emit("")
-
-
 func sections_selector_grab_focus():
 	if last_section_focused:
 		for section in sections_array:
@@ -237,3 +205,41 @@ func generate_resource(data):
 		"HBoxContainer":
 			resource = UIHBoxResource.new(data)
 	return resource
+
+
+
+
+## back operator generic
+
+func back_operator():
+	populate_sections_selector()
+	current_section_selected.emit("")
+
+
+
+
+## HOVER CLICK
+
+func _on_click_detected():
+	_set_time_held(0.0)
+
+
+func _set_time_held(p_time_held):
+	time_held = p_time_held
+	if is_instance_valid(cursor):
+		cursor.material.set_shader_parameter("value", time_held/hover_click_hold_time)
+
+
+func _execute_click():
+	#print("execute click")
+	_set_time_held(0.0)
+	var input_event = InputEventMouseButton.new()
+	input_event.pressed = true
+	input_event.position = get_viewport().get_mouse_position()
+	input_event.button_index = MOUSE_BUTTON_LEFT
+	get_viewport().push_input(input_event)
+	input_event.pressed = false
+	get_viewport().push_input(input_event)
+
+
+## HOVER CLICK END
