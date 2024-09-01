@@ -101,7 +101,7 @@ func set_value_no_signal(value) -> void:
 		"CheckBox", "CheckButton":
 			ui_element.set_pressed_no_signal(value)
 		"OptionButton":
-			ui_element._select_int(value)
+			ui_element.selected = value
 		"HSlider":
 			ui_element.set_value_no_signal(value)
 

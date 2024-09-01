@@ -11,7 +11,6 @@ func _init(data) -> void:
 	elements_data = data.items
 
 
-
 func get_custom_class() -> String:
 	return "UIContainerResource"
 
@@ -19,7 +18,6 @@ func get_custom_class() -> String:
 func grab_focus():
 	for element in elements_array:
 		if element.is_visible():
-			#print("ui_section grab focus %s" % element.ui_element)
 			element.ui_element.call_deferred("grab_focus")
 			return element.ui_element
 
