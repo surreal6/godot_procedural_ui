@@ -20,14 +20,14 @@ func _init(data) -> void:
 
 
 func get_mockup_value():
-	match get_ui_resource_class():
+	match get_custom_class():
 		"UIBoolAttributeResource":
 			return false
 		"UIIntAttributeResource", "UIFloatAttributeResource":
 			return 1
 		"UIOptionsAttributeResource":
 			return -1
-	push_warning("need a mockup value for %s" % get_ui_resource_class())
+	push_warning("need a mockup value for %s" % get_custom_class())
 
 
 func get_attribute_value():
@@ -98,8 +98,10 @@ func disable_ui_element(value) -> void:
 
 func set_value_no_signal(value) -> void:
 	match ui_element.get_class():
-		"CheckBox", "CheckButton", "OptionButton":
+		"CheckBox", "CheckButton":
 			ui_element.set_pressed_no_signal(value)
+		"OptionButton":
+			ui_element._select_int(value)
 		"HSlider":
 			ui_element.set_value_no_signal(value)
 

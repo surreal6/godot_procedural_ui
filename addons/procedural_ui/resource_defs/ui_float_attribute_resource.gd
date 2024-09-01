@@ -26,7 +26,7 @@ func _init(data) -> void:
 	value = get_attribute_value()
 
 
-func get_ui_resource_class() -> String:
+func get_custom_class() -> String:
 	return "UIFloatAttributeResource"
 
 

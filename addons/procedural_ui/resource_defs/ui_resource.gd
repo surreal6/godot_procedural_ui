@@ -18,7 +18,7 @@ func _init(data) -> void:
 		"visibility_poll_object") in data.keys() else ""
 
 
-func get_ui_resource_class() -> String:
+func get_custom_class() -> String:
 	return "UIResource"
 
 

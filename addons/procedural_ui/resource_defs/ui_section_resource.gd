@@ -17,7 +17,7 @@ func _init(data) -> void:
 		tts_file = data.tts_file
 
 
-func get_ui_resource_class() -> String:
+func get_custom_class() -> String:
 	return "UISectionResource"
 
 
@@ -34,7 +34,7 @@ func get_ui_container() -> Control:
 		section.add_child(element)
 		elements_array.append(resource)
 	section.visibility_changed.connect(update_elements_array)
-	update_elements_array()
+	# update_elements_array()
 	section.theme = theme
 	ui_container = section
 	return section
@@ -56,6 +56,11 @@ func get_ui_element():
 	button.focus_exited.connect(_unregister_as_last_focused)
 	ui_element = button
 	return button
+
+
+## 
+
+
 
 
 func _on_event(event: InputEvent):

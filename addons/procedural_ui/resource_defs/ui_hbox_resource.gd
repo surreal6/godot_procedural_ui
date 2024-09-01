@@ -2,7 +2,7 @@ class_name UIHBoxResource
 extends UIContainerResource
 
 
-func get_ui_resource_class() -> String:
+func get_custom_class() -> String:
 	return "UIHBoxResource"
 
 func get_ui_element() -> Control:

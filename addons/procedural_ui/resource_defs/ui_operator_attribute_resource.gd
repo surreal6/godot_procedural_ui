@@ -4,7 +4,7 @@ extends UIAttributeResource
 @export var disabled : bool = false
 
 
-func get_ui_resource_class() -> String:
+func get_custom_class() -> String:
 	return "UIOperatorAttributeResource"
 
 
