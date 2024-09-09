@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Procedural_UI"
-run/main_scene="res://main_menu.tscn"
+run/main_scene="res://main_menu_example/main_menu.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-UserSettings="*res://user_settings.gd"
+UserSettings="*res://main_menu_example/user_settings.gd"
 UIManager="*res://addons/procedural_ui/ui_manager.gd"
 
 [display]
@@ -32,8 +32,8 @@ enabled=PackedStringArray("res://addons/procedural_ui/plugin.cfg")
 [internationalization]
 
 locale/translation_remaps={
-"res://menu_tts_files/loc_en_disabled.mp3": PackedStringArray("res://menu_tts_files_es/loc_es_disabled.mp3:es"),
-"res://menu_tts_files/loc_en_enabled.mp3": PackedStringArray("res://menu_tts_files_es/loc_es_enabled.mp3:es")
+"res://main_menu_example/menu_tts_files/loc_en_disabled.mp3": PackedStringArray("res://main_menu_example/menu_tts_files_es/loc_es_disabled.mp3:es"),
+"res://main_menu_example/menu_tts_files/loc_en_enabled.mp3": PackedStringArray("res://main_menu_example/menu_tts_files_es/loc_es_enabled.mp3:es")
 }
 locale/test="en"
 locale/locale_filter_mode=0
