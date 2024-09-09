@@ -18,6 +18,8 @@ var last_hovered_target : Control = null
 var new_hovered_item : int = -1
 var last_hovered_item : int = -1
 
+var slider_drag : bool = false
+
 ## This variable stores the focused section
 var last_section_focused = null
 
@@ -103,23 +105,33 @@ func _process(delta):
 
 	if new_hovered_target and not last_hovered_target:
 		#print("new target ------------")
+		if slider_drag:
+			slider_drag = false
+			_execute_release_click()
 		_set_time_held(time_held + delta)
 		if time_held > hover_click_hold_time:
 			_execute_click()
 	# no focused element
 	elif not new_hovered_target and last_hovered_target:
 		#print("no focused ------------")
+		if slider_drag:
+			slider_drag = false
+			_execute_release_click()
 		_set_time_held(0.0)
 	# change focused element
 	elif new_hovered_target != last_hovered_target:
 		#print("change focused ------------")
+		if slider_drag:
+			slider_drag = false
+			_execute_release_click()
 		_set_time_held(0.0)
 	# same target
 	elif new_hovered_target == last_hovered_target:
 		#print("same target ------------")
-		_set_time_held(time_held + delta)
-		if time_held > hover_click_hold_time:
-			_execute_click()
+		if !slider_drag:
+			_set_time_held(time_held + delta)
+			if time_held > hover_click_hold_time:
+				_execute_click()
 
 	# Update last values
 	last_hovered_target = new_hovered_target
@@ -238,7 +250,21 @@ func _execute_click():
 	input_event.position = get_viewport().get_mouse_position()
 	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
+	
+	# TODO emit volume sound to indicate value
+	if new_hovered_target.get_class() == "HSlider":
+		slider_drag = true
+		return
+
 	input_event.pressed = false
+	get_viewport().push_input(input_event)
+
+
+func _execute_release_click():
+	var input_event = InputEventMouseButton.new()
+	input_event.pressed = false
+	input_event.position = get_viewport().get_mouse_position()
+	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
 
 
