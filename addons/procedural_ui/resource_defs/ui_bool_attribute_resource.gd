@@ -75,23 +75,13 @@ func _on_set_attribute_value(new_value) -> void:
 
 
 func play_tts_attribute() -> void:
-	if UIManager.enable_text_to_speech and tts_file and is_instance_valid(UIManager.tts_player):
-		if UIManager.tts_player.playing:
-			UIManager.tts_player.stop()
-		UIManager.tts_player.stream = load(tts_file)
-		if UIManager.ui_data.basic_tts_files:
-			for item in UIManager.tts_player.finished.get_connections():
-				UIManager.tts_player.finished.disconnect(item.callable)
-			UIManager.tts_player.finished.connect(play_tts_bool_value)
-		UIManager.tts_player.play()
+	if UIManager.ui_data.basic_tts_files:
+		UIManager.play_tts_on_finished(get_tts_bool_value(value))
+	UIManager.play_tts_file(tts_file)
 
 
-func play_tts_bool_value() -> void:
-	for item in UIManager.tts_player.finished.get_connections():
-		UIManager.tts_player.finished.disconnect(item.callable)
+func get_tts_bool_value(value) -> String:
 	if value:
-		UIManager.tts_player.stream = load(UIManager.ui_data.basic_tts_files.enabled)
-		UIManager.tts_player.play()
+		return UIManager.ui_data.basic_tts_files.enabled
 	else:
-		UIManager.tts_player.stream = load(UIManager.ui_data.basic_tts_files.disabled)
-		UIManager.tts_player.play()
+		return UIManager.ui_data.basic_tts_files.disabled

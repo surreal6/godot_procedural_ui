@@ -63,38 +63,28 @@ func _on_event(event: InputEvent):
 
 
 func _register_as_last_focused() -> void:
-	UIManager.new_focused_target = ui_element
 	#print("register section button %s" % ui_element.name)
-	play_tts_attribute()
+	UIManager.new_focused_target = ui_element
+	if tts_file:
+		UIManager.play_tts_file(tts_file)
 
 
 func _unregister_as_last_focused() -> void:
-	UIManager.new_focused_target = null
 	#print("unregister section button %s" % ui_element.name)
-	stop_tts()
+	UIManager.new_focused_target = null
+	if tts_file:
+		UIManager.stop_tts()
 
 
 func _register_as_last_hovered() -> void:
-	UIManager.new_hovered_target = ui_element
 	#print("register section button %s" % ui_element.name)
-	play_tts_attribute()
+	UIManager.new_hovered_target = ui_element
+	if tts_file:
+		UIManager.play_tts_file(tts_file)
 
 
 func _unregister_as_last_hovered() -> void:
-	UIManager.new_hovered_target = null
 	#print("unregister section button %s" % ui_element.name)
-	stop_tts()
-
-
-func play_tts_attribute() -> void:
-	if UIManager.enable_text_to_speech and tts_file and is_instance_valid(UIManager.tts_player):
-		if UIManager.tts_player.playing:
-			UIManager.tts_player.stop()
-		UIManager.tts_player.stream = load(tts_file)
-		UIManager.tts_player.play()
-
-
-func stop_tts() -> void:
-	if UIManager.enable_text_to_speech and tts_file and is_instance_valid(UIManager.tts_player):
-		if UIManager.tts_player.playing:
-			UIManager.tts_player.stop()
+	UIManager.new_hovered_target = null
+	if tts_file:
+		UIManager.stop_tts()

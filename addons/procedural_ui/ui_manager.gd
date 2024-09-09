@@ -120,6 +120,7 @@ func _process(delta):
 		_set_time_held(0.0)
 	# change focused element
 	elif new_hovered_target != last_hovered_target:
+		disconnect_tts_on_finished()
 		#print("change focused ------------")
 		if slider_drag:
 			slider_drag = false
@@ -219,19 +220,12 @@ func generate_resource(data):
 	return resource
 
 
-
-
 ## back operator generic
-
 func back_operator():
 	populate_sections_selector()
 	current_section_selected.emit("")
 
-
-
-
 ## HOVER CLICK
-
 func _on_click_detected():
 	_set_time_held(0.0)
 
@@ -266,6 +260,35 @@ func _execute_release_click():
 	input_event.position = get_viewport().get_mouse_position()
 	input_event.button_index = MOUSE_BUTTON_LEFT
 	get_viewport().push_input(input_event)
-
-
 ## HOVER CLICK END
+
+## TTS Functions
+
+
+func play_tts_on_finished(tts_file) -> void:
+	if is_instance_valid(tts_player):
+		disconnect_tts_on_finished()
+		tts_player.finished.connect(func():
+			play_tts_file(tts_file)
+			disconnect_tts_on_finished()
+		)
+
+
+func disconnect_tts_on_finished() -> void:
+	if is_instance_valid(tts_player):
+		for item in tts_player.finished.get_connections():
+			tts_player.finished.disconnect(item.callable)
+
+
+func play_tts_file(tts_file) -> void:
+	if enable_text_to_speech and is_instance_valid(tts_player):
+		if tts_player.playing:
+			tts_player.stop()
+		tts_player.stream = load(tts_file)
+		tts_player.play()
+
+
+func stop_tts() -> void:
+	if enable_text_to_speech and is_instance_valid(tts_player):
+		if tts_player.playing:
+			tts_player.stop()

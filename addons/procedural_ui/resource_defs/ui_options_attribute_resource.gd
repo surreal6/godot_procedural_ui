@@ -33,6 +33,7 @@ func get_options():
 		return null
 	return singleton[options_name]
 
+
 func get_ui_element():
 	var hbox = HBoxContainer.new()
 	hbox.alignment = BoxContainer.ALIGNMENT_CENTER
@@ -75,39 +76,25 @@ func _on_set_attribute_value(new_value) -> void:
 	var singleton = get_singleton()
 	singleton[attribute_name] = new_value
 	value = new_value
-	if (UIManager.enable_text_to_speech and options_tts_files
-		and is_instance_valid(UIManager.tts_player)):
-		if UIManager.tts_player.playing:
-			UIManager.tts_player.stop()
-		UIManager.tts_player.stream = load(options_tts_files[new_value])
-		if UIManager.ui_data.basic_tts_files:
-			for item in UIManager.tts_player.finished.get_connections():
-				UIManager.tts_player.finished.disconnect(item.callable)
-			UIManager.tts_player.finished.connect(play_tts_selected)
-		UIManager.tts_player.play()
 	singleton.save()
 	UIManager.update_sections()
+	# tts
+	UIManager.play_tts_on_finished(UIManager.ui_data.basic_tts_files.selected)
+	UIManager.play_tts_file(options_tts_files[new_value])
 
 
 func _register_as_last_focused() -> void:
 	UIManager.new_focused_target = ui_element
 	#print("register %s" % ui_element.name)
-	if UIManager.enable_text_to_speech and tts_file and is_instance_valid(UIManager.tts_player):
-		if UIManager.tts_player.playing:
-			UIManager.tts_player.stop()
-		UIManager.tts_player.stream = load(tts_file)
-		if UIManager.ui_data.basic_tts_files:
-			for item in UIManager.tts_player.finished.get_connections():
-				UIManager.tts_player.finished.disconnect(item.callable)
-			UIManager.tts_player.finished.connect(play_tts_selected_item)
-		UIManager.tts_player.play()
+	UIManager.play_tts_on_finished(get_tts_selected_item())
+	UIManager.play_tts_file(tts_file)
 
 
 func _register_as_item_focused(index) -> void:
 	UIManager.new_focused_target = ui_element
 	UIManager.new_hovered_item = index
 	#print("register %s" % UIManager.new_focused_target)
-	play_tts_option(index)
+	UIManager.play_tts_file(options_tts_files[index])
 
 
 func _register_as_item_hovered(index) -> void:
@@ -118,28 +105,10 @@ func _register_as_item_hovered(index) -> void:
 
 	UIManager.new_hovered_item = index
 	#print("register %s" % UIManager.new_focused_target)
-	play_tts_option(index)
+	UIManager.play_tts_file(options_tts_files[index])
 
 
-func play_tts_selected_item():
-	for item in UIManager.tts_player.finished.get_connections():
-		UIManager.tts_player.finished.disconnect(item.callable)
-	if value > -1:
-		UIManager.tts_player.stream = load(options_tts_files[value])
-		UIManager.tts_player.play()
-
-
-func play_tts_selected():
-	for item in UIManager.tts_player.finished.get_connections():
-		UIManager.tts_player.finished.disconnect(item.callable)
-	UIManager.tts_player.stream = load(UIManager.ui_data.basic_tts_files.selected)
-	UIManager.tts_player.play()
-
-
-func play_tts_option(index):
-	if (UIManager.enable_text_to_speech and options_tts_files
-		and is_instance_valid(UIManager.tts_player)):
-		if UIManager.tts_player.playing:
-			UIManager.tts_player.stop()
-		UIManager.tts_player.stream = load(options_tts_files[index])
-		UIManager.tts_player.play()
+func get_tts_selected_item() -> String:
+	if value == -1:
+		return ""
+	return options_tts_files[value]
