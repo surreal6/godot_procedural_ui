@@ -29,13 +29,13 @@ var tts_player : AudioStreamPlayer :set = set_tts_player
 var main_theme : Theme :set = set_main_theme
 var ui_data : Dictionary :set = set_ui_data
 
-var enable_text_to_speech : bool = false:
+var enable_text_to_speech : bool = true:
 	set(value):
 		enable_text_to_speech = value
 		if not enable_text_to_speech and is_instance_valid(tts_player):
 			tts_player.stop()
 
-var enable_hover_click : bool = false:
+var enable_hover_click : bool = true:
 	set(value):
 		enable_hover_click = value
 		if not value and is_instance_valid(cursor):
@@ -47,6 +47,8 @@ var cursor_canvas_layer : CanvasLayer:
 		cursor_canvas_layer = value
 		cursor = cursor_canvas_layer.cursor
 		cursor_canvas_layer.click_detected.connect(_on_click_detected)
+
+var viewport : Viewport
 
 
 ## set functions
@@ -83,8 +85,7 @@ func _ready():
 	if !Engine.is_editor_hint():
 		_set_time_held(0.0)
 
-	enable_hover_click = UserSettings.hover_click
-	enable_text_to_speech = UserSettings.text_to_speech
+	process_mode = PROCESS_MODE_ALWAYS
 
 
 func _process(delta):
@@ -184,11 +185,12 @@ func populate_sections_selector():
 	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
 	vbox.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	for section in sections_array:
-		var button = section.get_ui_element()
-		if section.theme:
-				button.theme = section.theme
-		vbox.add_child(button)
-	sections_container.add_child(vbox)
+		if section.is_visible():
+			var button = section.get_ui_element()
+			if section.theme:
+					button.theme = section.theme
+			vbox.add_child(button)
+			sections_container.add_child(vbox)
 	sections_selector_grab_focus()
 
 
@@ -236,30 +238,50 @@ func _set_time_held(p_time_held):
 		cursor.material.set_shader_parameter("value", time_held/hover_click_hold_time)
 
 
+func get_current_viewport():
+	if is_instance_valid(viewport):
+		return viewport
+	return get_viewport()
+
+
 func _execute_click():
 	#print("execute click")
+	var current_viewport = get_current_viewport()
 	_set_time_held(0.0)
 	var input_event = InputEventMouseButton.new()
 	input_event.pressed = true
-	input_event.position = get_viewport().get_mouse_position()
+	input_event.position = current_viewport.get_mouse_position()
 	input_event.button_index = MOUSE_BUTTON_LEFT
-	get_viewport().push_input(input_event)
+	current_viewport.push_input(input_event)
 	
 	# TODO emit volume sound to indicate value
-	if new_hovered_target.get_class() == "HSlider":
-		slider_drag = true
-		return
+	if is_instance_valid(new_hovered_target):
+		if new_hovered_target.get_class() == "HSlider":
+			slider_drag = true
+			return
 
 	input_event.pressed = false
-	get_viewport().push_input(input_event)
+	current_viewport.push_input(input_event)
 
 
 func _execute_release_click():
+	var current_viewport = get_current_viewport()
 	var input_event = InputEventMouseButton.new()
 	input_event.pressed = false
-	input_event.position = get_viewport().get_mouse_position()
+	input_event.position = current_viewport.get_mouse_position()
 	input_event.button_index = MOUSE_BUTTON_LEFT
-	get_viewport().push_input(input_event)
+	current_viewport.push_input(input_event)
+
+
+func reset_targets_and_items() -> void:
+	last_hovered_target = null
+	new_hovered_target = null
+	last_hovered_item = -1
+	new_hovered_item = -1
+	new_focused_target = null
+	last_focused_target = null
+	new_focused_item  = -1
+
 ## HOVER CLICK END
 
 ## TTS Functions
